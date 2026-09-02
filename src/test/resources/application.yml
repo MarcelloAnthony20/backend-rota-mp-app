@@ -1,0 +1,16 @@
+# Configuracao usada apenas nos testes (sobrepoe o application.yml principal
+# no classpath de teste). Fornece valores dummy para os placeholders exigidos
+# pelo autoconfigure do OAuth2 Resource Server, evitando dependencia de env/rede.
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://localhost/realms/test
+          jwk-set-uri: https://localhost/realms/test/protocol/openid-connect/certs
+
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false

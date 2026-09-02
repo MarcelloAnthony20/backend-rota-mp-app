@@ -1,0 +1,48 @@
+# ==== Build (Maven) ====
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# ==== Variaveis de ambiente / segredos ====
+# .env local nunca deve ser commitado; mantenha apenas o .env.example
+.env
+.env.*
+!.env.example
+*.pem
+
+# ==== IDEs ====
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+# Eclipse
+.settings/
+.project
+.classpath
+.factorypath
+bin/
+# VS Code
+.vscode/
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# ==== Logs ====
+*.log
+
+# ==== SO ====
+.DS_Store
+Thumbs.db
+
+# ==== Spring Boot (arquivo gerado pelo Spring Initializr) ====
+HELP.md
+
+# NOTA: sao versionados de proposito (NAO ignorar):
+#   .mvn/settings.xml  -> configuracao dos repositorios Artifactory
+#   FAC.crt            -> CA do WAF institucional usado no build Docker
+#   .ia-cli/           -> skills do assistente
