@@ -129,9 +129,6 @@ mvn spring-boot:run \
 # deve responder {"status":"UP"}
 curl http://localhost:8080/api/exemplo-servico/actuator/health
 
-# endpoint de negocio sem token deve retornar 401
-curl -i http://localhost:8080/api/exemplo-servico/api/v1/pessoas
-
 # Swagger UI e contrato OpenAPI
 open http://localhost:8080/api/exemplo-servico/swagger-ui/index.html
 curl http://localhost:8080/api/exemplo-servico/v3/api-docs
@@ -392,14 +389,6 @@ br.mp.mpms.exemploservico/
 ```
 
 ---
-
-## Endpoints Disponiveis
-
-| Metodo | Path | Descricao |
-|--------|------|-----------|
-| POST | /api/v1/pessoas | Criar pessoa |
-| GET | /api/v1/pessoas/{id} | Buscar por ID |
-| GET | /api/v1/pessoas?nome=X | Listar/buscar por nome |
 
 Todos os endpoints de negocio exigem token JWT (Keycloak). Liberados sem auth:
 `/actuator/health`, `/actuator/info`, `/swagger-ui/**`, `/v3/api-docs/**`.
