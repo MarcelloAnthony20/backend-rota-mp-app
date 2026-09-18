@@ -42,6 +42,10 @@ Thumbs.db
 # ==== Spring Boot (arquivo gerado pelo Spring Initializr) ====
 HELP.md
 
+# ==== Postman ====
+.postman/
+postman/
+
 # NOTA: sao versionados de proposito (NAO ignorar):
 #   .mvn/settings.xml  -> configuracao dos repositorios Artifactory
 #   FAC.crt            -> CA do WAF institucional usado no build Docker
