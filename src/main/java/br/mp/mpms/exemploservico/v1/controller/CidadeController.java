@@ -86,7 +86,12 @@ public class CidadeController {
     })
     public ResponseEntity<CidadeResponse> cadastrar(@Valid @RequestBody CriarCidadeRequest request) {
         CidadeResponse response = cidadeService.cadastrar(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        java.net.URI location = org.springframework.web.servlet.support.ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(response.id())
+                .toUri();
+        return ResponseEntity.created(location).body(response);
     }
 
     @GetMapping("/{id}")
