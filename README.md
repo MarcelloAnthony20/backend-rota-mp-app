@@ -85,7 +85,7 @@ export ARTIFACTORY_PASSWORD=seu-token
 docker run -d --name postgres-local \
   -e POSTGRES_USER=postgres \
   -e POSTGRES_PASSWORD=postgres \
-  -e POSTGRES_DB=exemplo_db \
+  -e POSTGRES_DB=rotamp \
   -p 5432:5432 \
   postgres:16-alpine
 
@@ -96,7 +96,7 @@ docker exec postgres-local pg_isready -U postgres
 **2. Definir as variaveis de ambiente da aplicacao**
 
 ```bash
-export DB_URL=jdbc:postgresql://localhost:5432/exemplo_db
+export DB_URL=jdbc:postgresql://localhost:5432/rotamp
 export DB_USERNAME=postgres
 export DB_PASSWORD=postgres
 export DB_SCHEMA=public
@@ -160,7 +160,7 @@ Postgres do host. `DB_USERNAME`/`DB_PASSWORD` devem bater com o banco alvo.
 
 ```bash
 docker run -d --name exemplo-servico -p 8080:8080 \
-  -e DB_URL="jdbc:postgresql://host.docker.internal:5432/exemplo_db" \
+  -e DB_URL="jdbc:postgresql://host.docker.internal:5432/rotamp" \
   -e DB_USERNAME=postgres \
   -e DB_PASSWORD=postgres \
   -e DB_SCHEMA=public \
@@ -196,7 +196,7 @@ docker rm -f postgres-local   # se quiser remover o banco tambem
 Crie um arquivo `.env` na raiz (ou configure no VS Code Run/Debug):
 
 ```bash
-DB_URL=jdbc:postgresql://localhost:5432/exemplo_db
+DB_URL=jdbc:postgresql://localhost:5432/rotamp
 DB_USERNAME=postgres
 DB_PASSWORD=postgres
 DB_SCHEMA=public
@@ -230,7 +230,7 @@ docker run -d \
   --name postgres-local \
   -e POSTGRES_USER=postgres \
   -e POSTGRES_PASSWORD=postgres \
-  -e POSTGRES_DB=exemplo_db \
+  -e POSTGRES_DB=rotamp \
   -p 5432:5432 \
   postgres:16-alpine
 ```
@@ -331,7 +331,7 @@ do host; no Linux puro adicione `--add-host=host.docker.internal:host-gateway`):
 
 ```bash
 docker run -p 8080:8080 --env-file .env \
-  -e DB_URL="jdbc:postgresql://host.docker.internal:5432/exemplo_db" \
+  -e DB_URL="jdbc:postgresql://host.docker.internal:5432/rotamp" \
   -e DB_USERNAME=postgres \
   -e DB_PASSWORD=<a-senha-real-do-seu-postgres> \
   -e SPRING_JPA_HIBERNATE_DDL_AUTO=update \
@@ -341,9 +341,9 @@ docker run -p 8080:8080 --env-file .env \
 > **Banco de dados (atencao):** `DB_URL`, `DB_USERNAME` e `DB_PASSWORD` precisam
 > corresponder EXATAMENTE ao Postgres alvo (nome do database, usuario e senha).
 > Erros comuns ao rodar:
-> - `FATAL: database "exemplo_db" does not exist` → o database nao existe. Crie:
+> - `FATAL: database "rotamp" does not exist` → o database nao existe. Crie:
 >   ```bash
->   docker exec -it <container-postgres> psql -U postgres -c "CREATE DATABASE exemplo_db;"
+>   docker exec -it <container-postgres> psql -U postgres -c "CREATE DATABASE rotamp;"
 >   ```
 > - `FATAL: password authentication failed for user "postgres"` → a senha nao
 >   confere. Descubra a senha configurada no seu Postgres:
@@ -522,7 +522,7 @@ padroes genericos da web.
 |---------|----------------|------|
 | `Process terminated with exit code: 1` no `spring-boot:run` | Porta 8080 ja em uso por outra instancia | Encerre a instancia anterior ou defina `SERVER_PORT` |
 | `Schema-validation` / tabela nao encontrada no startup | `ddl-auto=validate` com banco vazio | Rode com `-Dspring.jpa.hibernate.ddl-auto=update` (dev) ou aplique o schema |
-| `FATAL: database "..." does not exist` | Database inexistente no Postgres alvo | Crie: `psql -U postgres -c "CREATE DATABASE exemplo_db;"` |
+| `FATAL: database "..." does not exist` | Database inexistente no Postgres alvo | Crie: `psql -U postgres -c "CREATE DATABASE rotamp;"` |
 | `FATAL: password authentication failed` | `DB_PASSWORD` diferente da senha real do Postgres | Ajuste `DB_PASSWORD` (veja `echo $POSTGRES_PASSWORD` no container do banco) |
 | `Unable to determine Dialect without JDBC metadata` | Consequencia de falha de conexao com o banco (nome/usuario/senha/host) | Corrija a conexao; no Docker use `host.docker.internal` |
 | `no match for platform in manifest` no Docker | Imagem base sem a arquitetura do host | Ja resolvido: imagens multi-arch no `Dockerfile` |
