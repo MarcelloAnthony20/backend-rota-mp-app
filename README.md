@@ -127,11 +127,11 @@ mvn spring-boot:run \
 
 ```bash
 # deve responder {"status":"UP"}
-curl http://localhost:8080/api/exemplo-servico/actuator/health
+curl http://localhost:8080/actuator/health
 
 # Swagger UI e contrato OpenAPI
-open http://localhost:8080/api/exemplo-servico/swagger-ui/index.html
-curl http://localhost:8080/api/exemplo-servico/v3/api-docs
+open http://localhost:8080/swagger-ui/index.html
+curl http://localhost:8080/v3/api-docs
 ```
 
 **6. Parar**
@@ -150,7 +150,7 @@ curl http://localhost:8080/api/exemplo-servico/v3/api-docs
 docker build \
   --build-arg ARTIFACTORY_USER=$ARTIFACTORY_USER \
   --build-arg ARTIFACTORY_PASSWORD=$ARTIFACTORY_PASSWORD \
-  -t exemplo-servico:1.0.0 .
+  -t rota-mp-app:1.0.0 .
 ```
 
 **3. Executar o container**
@@ -159,7 +159,7 @@ No Docker Desktop (Mac/Windows) use `host.docker.internal` para alcancar o
 Postgres do host. `DB_USERNAME`/`DB_PASSWORD` devem bater com o banco alvo.
 
 ```bash
-docker run -d --name exemplo-servico -p 8080:8080 \
+docker run -d --name rota-mp-app -p 8080:8080 \
   -e DB_URL="jdbc:postgresql://host.docker.internal:5432/rotamp" \
   -e DB_USERNAME=postgres \
   -e DB_PASSWORD=postgres \
@@ -167,20 +167,20 @@ docker run -d --name exemplo-servico -p 8080:8080 \
   -e KEYCLOAK_ISSUER_URI=https://keycloak-dev.mpms.mp.br/realms/mpms \
   -e KEYCLOAK_JWKS_URI=https://keycloak-dev.mpms.mp.br/realms/mpms/protocol/openid-connect/certs \
   -e SPRING_JPA_HIBERNATE_DDL_AUTO=update \
-  exemplo-servico:1.0.0
+  rota-mp-app:1.0.0
 ```
 
 **4. Validar**
 
 ```bash
-docker logs -f exemplo-servico   # aguardar "Started ExemploServicoApplication"
-curl http://localhost:8080/api/exemplo-servico/actuator/health
+docker logs -f rota-mp-app   # aguardar "Started RotaMpApp"
+curl http://localhost:8080/actuator/health
 ```
 
 **5. Parar**
 
 ```bash
-docker rm -f exemplo-servico
+docker rm -f rota-mp-app
 docker rm -f postgres-local   # se quiser remover o banco tambem
 ```
 
@@ -247,9 +247,9 @@ mvn clean install
 mvn spring-boot:run
 
 # Acessar
-http://localhost:8080/api/exemplo-servico/actuator/health
-http://localhost:8080/api/exemplo-servico/swagger-ui/index.html
-http://localhost:8080/api/exemplo-servico/v3/api-docs
+http://localhost:8080/actuator/health
+http://localhost:8080/swagger-ui/index.html
+http://localhost:8080/v3/api-docs
 ```
 
 > **Schema do banco:** o projeto usa `spring.jpa.hibernate.ddl-auto=validate`,
@@ -323,7 +323,7 @@ WAF. As credenciais do Artifactory sao passadas como build-args.
 docker build \
   --build-arg ARTIFACTORY_USER=seu.usuario \
   --build-arg ARTIFACTORY_PASSWORD=seu-token \
-  -t exemplo-servico:1.0.0 .
+  -t rota-mp-app:1.0.0 .
 ```
 
 Executar (no Docker Desktop use `host.docker.internal` para alcancar o Postgres
@@ -335,7 +335,7 @@ docker run -p 8080:8080 --env-file .env \
   -e DB_USERNAME=postgres \
   -e DB_PASSWORD=<a-senha-real-do-seu-postgres> \
   -e SPRING_JPA_HIBERNATE_DDL_AUTO=update \
-  exemplo-servico:1.0.0
+  rota-mp-app:1.0.0
 ```
 
 > **Banco de dados (atencao):** `DB_URL`, `DB_USERNAME` e `DB_PASSWORD` precisam
