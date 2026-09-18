@@ -39,13 +39,14 @@ import java.util.UUID;
 @RequestMapping("/api/v1/cidades")
 @RequiredArgsConstructor
 @Tag(name = "Cidades", description = "Endpoints para gerenciamento do catálogo de cidades da frota do MPMS")
-@SecurityRequirement(name = "bearer-jwt")
+// @SecurityRequirement(name = "bearer-jwt")
 public class CidadeController {
 
     private final CidadeService cidadeService;
 
     @PostMapping
-    @PreAuthorize("hasRole('GESTOR')")
+    // TODO: Reativar @PreAuthorize("hasRole('GESTOR')") quando o Keycloak estiver integrado
+    // @PreAuthorize("hasRole('GESTOR')")
     @Operation(
             summary = "Cadastrar nova cidade",
             description = "Cadastra uma nova cidade no catálogo de cidades da frota do MPMS. "
@@ -151,7 +152,8 @@ public class CidadeController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('GESTOR')")
+    // TODO: Reativar @PreAuthorize("hasRole('GESTOR')") quando o Keycloak estiver integrado
+    // @PreAuthorize("hasRole('GESTOR')")
     @Operation(
             summary = "Alterar dados de uma cidade",
             description = "Atualiza os dados cadastrais (nome, código e status de ativação) de uma cidade existente identificada pelo UUID. "
@@ -203,7 +205,8 @@ public class CidadeController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('GESTOR')")
+    // TODO: Reativar @PreAuthorize("hasRole('GESTOR')") quando o Keycloak estiver integrado
+    // @PreAuthorize("hasRole('GESTOR')")
     @Operation(
             summary = "Inativar cidade (exclusão lógica)",
             description = "Executa a inativação lógica de uma cidade no catálogo da frota a partir do seu UUID. "
@@ -240,7 +243,8 @@ public class CidadeController {
     }
 
     @PatchMapping("/{id}/ativar")
-    @PreAuthorize("hasRole('GESTOR')")
+    // TODO: Reativar @PreAuthorize("hasRole('GESTOR')") quando o Keycloak estiver integrado
+    // @PreAuthorize("hasRole('GESTOR')")
     @Operation(
             summary = "Ativar cidade",
             description = "Reativa uma cidade inativa no catálogo operacional da frota a partir de seu UUID. "

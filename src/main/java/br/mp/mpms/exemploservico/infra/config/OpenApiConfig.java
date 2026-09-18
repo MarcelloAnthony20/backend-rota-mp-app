@@ -6,6 +6,9 @@ import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.tags.Tag;
+import io.swagger.v3.oas.models.media.StringSchema;
+import io.swagger.v3.oas.models.parameters.HeaderParameter;
+import org.springdoc.core.customizers.OperationCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -72,11 +75,26 @@ public class OpenApiConfig {
                         new Tag()
                                 .name("Health & Métricas")
                                 .description("Observabilidade e métricas de integridade via Spring Boot Actuator.")
-                ))
-                .addSecurityItem(new SecurityRequirement().addList("bearer-jwt"))
-                .schemaRequirement("bearer-jwt", new SecurityScheme()
-                        .type(SecurityScheme.Type.HTTP)
-                        .scheme("bearer")
-                        .bearerFormat("JWT"));
+                ));
+                // TODO: Reativar validacao Keycloak antes de homologacao/producao
+                // .addSecurityItem(new SecurityRequirement().addList("bearer-jwt"))
+                // .schemaRequirement("bearer-jwt", new SecurityScheme()
+                //         .type(SecurityScheme.Type.HTTP)
+                //         .scheme("bearer")
+                //         .bearerFormat("JWT"));
+    }
+
+    @Bean
+    public OperationCustomizer customizeHeaders() {
+        return (operation, handlerMethod) -> {
+            operation.addParametersItem(
+                    new HeaderParameter()
+                            .name("Authorization")
+                            .description("Token Bearer (opcional nesta fase - validação temporariamente desativada)")
+                            .required(false)
+                            .schema(new StringSchema())
+            );
+            return operation;
+        };
     }
 }
