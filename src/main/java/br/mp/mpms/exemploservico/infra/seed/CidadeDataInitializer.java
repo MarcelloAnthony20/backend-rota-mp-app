@@ -1,10 +1,9 @@
 package br.mp.mpms.exemploservico.infra.seed;
 
-import br.mp.mpms.exemploservico.v1.model.entity.Cidade;
-import br.mp.mpms.exemploservico.v1.repository.CidadeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,7 +14,13 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CidadeDataInitializer implements CommandLineRunner {
 
-    private final CidadeRepository cidadeRepository;
+    private static final String INSERT_CIDADE_SQL = """
+            INSERT INTO cidade (id, nome, codigo, ativo)
+            VALUES (?, ?, ?, ?)
+            ON CONFLICT (id) DO NOTHING
+            """;
+
+    private final JdbcTemplate jdbcTemplate;
 
     @Override
     public void run(String... args) {
@@ -36,21 +41,21 @@ public class CidadeDataInitializer implements CommandLineRunner {
     }
 
     private void carregarSeNaoExistir(CidadeSeed seed) {
-        if (cidadeRepository.findById(seed.id()).isPresent() || cidadeRepository.existsByCodigo(seed.codigo())) {
-            log.debug("Seed de cidade ja existente (id={}, codigo={}). Ignorando insercao.", seed.id(), seed.codigo());
-            return;
+        int linhasAfetadas = jdbcTemplate.update(
+                INSERT_CIDADE_SQL,
+                seed.id(),
+                seed.nome(),
+                seed.codigo(),
+                seed.ativo()
+        );
+
+        if (linhasAfetadas > 0) {
+            log.info("Seed de cidade cadastrada com sucesso: id={}, nome='{}', codigo='{}', ativo={}",
+                    seed.id(), seed.nome(), seed.codigo(), seed.ativo());
+        } else {
+            log.debug("Seed de cidade ja existente (id={}, codigo={}). Ignorando insercao.",
+                    seed.id(), seed.codigo());
         }
-
-        Cidade cidade = Cidade.builder()
-                .id(seed.id())
-                .nome(seed.nome())
-                .codigo(seed.codigo())
-                .ativo(seed.ativo())
-                .build();
-
-        cidadeRepository.save(cidade);
-        log.info("Seed de cidade cadastrada com sucesso: id={}, nome='{}', codigo='{}', ativo={}",
-                seed.id(), seed.nome(), seed.codigo(), seed.ativo());
     }
 
     private record CidadeSeed(UUID id, String nome, String codigo, boolean ativo) {}
