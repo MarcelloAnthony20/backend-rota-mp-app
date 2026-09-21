@@ -1,5 +1,6 @@
 package br.mp.mpms.exemploservico.v1.model.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -9,7 +10,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +22,12 @@ import lombok.Setter;
 import java.util.UUID;
 
 @Entity
-@Table(name = "localidade")
+@Table(
+    name = "localidade",
+    uniqueConstraints = {
+        @UniqueConstraint(name = "uk_localidade_cidade_tipo_nome", columnNames = {"fk_cidade", "fk_tipo_localidade", "nome"})
+    }
+)
 @Getter
 @Setter
 @Builder
@@ -57,4 +65,15 @@ public class Localidade {
     @Builder.Default
     @Column(nullable = false)
     private boolean ativo = true;
+
+    @OneToOne(mappedBy = "fkLocalidade", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private EnderecoLocalidade endereco;
+
+    public void atribuirEndereco(EnderecoLocalidade endereco) {
+        this.endereco = endereco;
+        if (endereco != null) {
+            endereco.setFkLocalidade(this);
+            endereco.setFkCidade(this.fkCidade);
+        }
+    }
 }

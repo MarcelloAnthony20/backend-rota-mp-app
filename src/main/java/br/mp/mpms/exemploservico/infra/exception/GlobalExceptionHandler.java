@@ -3,8 +3,9 @@ package br.mp.mpms.exemploservico.infra.exception;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
-import org.springframework.validation.FieldError;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -54,11 +55,24 @@ public class GlobalExceptionHandler {
         return problem;
     }
 
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ProblemDetail handleMessageNotReadable(HttpMessageNotReadableException ex) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(
+                HttpStatus.BAD_REQUEST, "Corpo da requisicao invalido ou tipo de dado incompativel");
+        problem.setTitle("Requisicao invalida");
+        problem.setType(URI.create("about:blank"));
+        problem.setProperty("timestamp", Instant.now());
+        return problem;
+    }
+
     @ExceptionHandler(BusinessException.class)
     public ProblemDetail handleBusiness(BusinessException ex) {
+        HttpStatus status = ex.getStatus() != null ? ex.getStatus() : HttpStatus.BAD_REQUEST;
         ProblemDetail problem = ProblemDetail.forStatusAndDetail(
-                HttpStatus.BAD_REQUEST, ex.getMessage());
-        problem.setTitle("Erro de negocio");
+                status, ex.getMessage());
+        problem.setTitle(status == HttpStatus.CONFLICT ? "Conflito de dados"
+                : status == HttpStatus.UNPROCESSABLE_ENTITY ? "Entidade improcessavel"
+                : "Erro de negocio");
         problem.setType(URI.create("about:blank"));
         problem.setProperty("timestamp", Instant.now());
         return problem;
