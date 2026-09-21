@@ -107,7 +107,7 @@ public class LocalidadeController {
             )
     })
     public ResponseEntity<LocalidadeResponse> buscarPorId(
-            @Parameter(description = "Identificador único (UUID) da localidade", example = "l0c00001-0000-0000-0000-000000000001", required = true)
+            @Parameter(description = "Identificador único (UUID) da localidade", example = "d1000001-0000-0000-0000-000000000001", required = true)
             @PathVariable UUID id) {
         return ResponseEntity.ok(localidadeService.buscarPorId(id));
     }
@@ -163,7 +163,7 @@ public class LocalidadeController {
             )
     })
     public ResponseEntity<LocalidadeResponse> alterar(
-            @Parameter(description = "Identificador único (UUID) da localidade", example = "l0c00001-0000-0000-0000-000000000001", required = true)
+            @Parameter(description = "Identificador único (UUID) da localidade", example = "d1000001-0000-0000-0000-000000000001", required = true)
             @PathVariable UUID id,
             @Valid @RequestBody AtualizarLocalidadeRequest request) {
         return ResponseEntity.ok(localidadeService.alterar(id, request));
@@ -189,7 +189,7 @@ public class LocalidadeController {
             )
     })
     public ResponseEntity<Void> inativar(
-            @Parameter(description = "Identificador único (UUID) da localidade", example = "l0c00001-0000-0000-0000-000000000001", required = true)
+            @Parameter(description = "Identificador único (UUID) da localidade", example = "d1000001-0000-0000-0000-000000000001", required = true)
             @PathVariable UUID id) {
         localidadeService.inativar(id);
         return ResponseEntity.noContent().build();
@@ -220,7 +220,7 @@ public class LocalidadeController {
             )
     })
     public ResponseEntity<LocalidadeResponse> ativar(
-            @Parameter(description = "Identificador único (UUID) da localidade", example = "l0c00001-0000-0000-0000-000000000001", required = true)
+            @Parameter(description = "Identificador único (UUID) da localidade", example = "d1000001-0000-0000-0000-000000000001", required = true)
             @PathVariable UUID id) {
         return ResponseEntity.ok(localidadeService.ativar(id));
     }
@@ -250,7 +250,7 @@ public class LocalidadeController {
             )
     })
     public ResponseEntity<LocalidadeResponse> classificar(
-            @Parameter(description = "Identificador único (UUID) da localidade", example = "l0c00001-0000-0000-0000-000000000001", required = true)
+            @Parameter(description = "Identificador único (UUID) da localidade", example = "d1000001-0000-0000-0000-000000000001", required = true)
             @PathVariable UUID id,
             @Valid @RequestBody ClassificarLocalidadeRequest request) {
         return ResponseEntity.ok(localidadeService.classificar(id, request));
@@ -286,7 +286,7 @@ public class LocalidadeController {
             )
     })
     public ResponseEntity<LocalidadeResponse> configurarSigilo(
-            @Parameter(description = "Identificador único (UUID) da localidade", example = "l0c00001-0000-0000-0000-000000000001", required = true)
+            @Parameter(description = "Identificador único (UUID) da localidade", example = "d1000001-0000-0000-0000-000000000001", required = true)
             @PathVariable UUID id,
             @Valid @RequestBody ConfigurarSigiloRequest request) {
         return ResponseEntity.ok(localidadeService.configurarSigilo(id, request));

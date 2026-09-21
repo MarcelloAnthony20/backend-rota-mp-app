@@ -6,10 +6,10 @@ import java.util.UUID;
 
 @Schema(description = "Dados cadastrais e de endereço da localidade")
 public record LocalidadeResponse(
-        @Schema(description = "Identificador único (UUID) da localidade", example = "l0c00001-0000-0000-0000-000000000001")
+        @Schema(description = "Identificador único (UUID) da localidade", example = "d1000001-0000-0000-0000-000000000001")
         UUID id,
 
-        @Schema(description = "Identificador único (UUID) do tipo de localidade", example = "t1p00001-0000-0000-0000-000000000001")
+        @Schema(description = "Identificador único (UUID) do tipo de localidade", example = "b1000001-0000-0000-0000-000000000001")
         UUID tipoLocalidadeId,
 
         @Schema(description = "Descrição/Nome do tipo de localidade", example = "Promotoria de Justiça")

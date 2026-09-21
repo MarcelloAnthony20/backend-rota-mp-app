@@ -29,9 +29,9 @@ public class TipoLocalidadeDataInitializer implements CommandLineRunner {
         log.info("Iniciando carga de dados iniciais (seeds) de tipos de localidade...");
 
         List<TipoLocalidadeSeed> seeds = List.of(
-                new TipoLocalidadeSeed(UUID.fromString("t1p00001-0000-0000-0000-000000000001"), "PROJUS", "Promotoria de Justiça", true),
-                new TipoLocalidadeSeed(UUID.fromString("t1p00002-0000-0000-0000-000000000002"), "SEDEADM", "Sede Administrativa", true),
-                new TipoLocalidadeSeed(UUID.fromString("t1p00009-0000-0000-0000-000000000009"), "POSTO_DES", "Posto Avançado Desativado", false)
+                new TipoLocalidadeSeed(UUID.fromString("b1000001-0000-0000-0000-000000000001"), "PROJUS", "Promotoria de Justiça", true),
+                new TipoLocalidadeSeed(UUID.fromString("b1000002-0000-0000-0000-000000000002"), "SEDEADM", "Sede Administrativa", true),
+                new TipoLocalidadeSeed(UUID.fromString("b1000009-0000-0000-0000-000000000009"), "POSTO_DES", "Posto Avançado Desativado", false)
         );
 
         for (TipoLocalidadeSeed seed : seeds) {

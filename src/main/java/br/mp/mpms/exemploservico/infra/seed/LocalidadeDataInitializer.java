@@ -35,11 +35,11 @@ public class LocalidadeDataInitializer implements CommandLineRunner {
         log.info("Iniciando carga de dados iniciais (seeds) de localidades e enderecos...");
 
         UUID cidadeA = UUID.fromString("c1d00001-0000-0000-0000-000000000001");
-        UUID tipoA = UUID.fromString("t1p00001-0000-0000-0000-000000000001");
+        UUID tipoA = UUID.fromString("b1000001-0000-0000-0000-000000000001");
 
         // Localidade A (Padrao / Nao sigilosa)
         LocalidadeSeed locA = new LocalidadeSeed(
-                UUID.fromString("l0c00001-0000-0000-0000-000000000001"),
+                UUID.fromString("d1000001-0000-0000-0000-000000000001"),
                 cidadeA,
                 tipoA,
                 "Promotoria de Justiça da Cidadania",
@@ -59,7 +59,7 @@ public class LocalidadeDataInitializer implements CommandLineRunner {
 
         // Localidade Sigilosa
         LocalidadeSeed locSigilosa = new LocalidadeSeed(
-                UUID.fromString("l0c00048-0000-0000-0000-000000000048"),
+                UUID.fromString("d1000048-0000-0000-0000-000000000048"),
                 cidadeA,
                 tipoA,
                 "Núcleo Especial Reservado",

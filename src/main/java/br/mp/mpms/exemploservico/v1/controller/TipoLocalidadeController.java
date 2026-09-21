@@ -98,7 +98,7 @@ public class TipoLocalidadeController {
             )
     })
     public ResponseEntity<TipoLocalidadeResponse> buscarPorId(
-            @Parameter(description = "Identificador único (UUID) do tipo de localidade", example = "t1p00001-0000-0000-0000-000000000001", required = true)
+            @Parameter(description = "Identificador único (UUID) do tipo de localidade", example = "b1000001-0000-0000-0000-000000000001", required = true)
             @PathVariable UUID id) {
         return ResponseEntity.ok(tipoLocalidadeService.buscarPorId(id));
     }
@@ -149,7 +149,7 @@ public class TipoLocalidadeController {
             )
     })
     public ResponseEntity<TipoLocalidadeResponse> alterar(
-            @Parameter(description = "Identificador único (UUID) do tipo de localidade", example = "t1p00001-0000-0000-0000-000000000001", required = true)
+            @Parameter(description = "Identificador único (UUID) do tipo de localidade", example = "b1000001-0000-0000-0000-000000000001", required = true)
             @PathVariable UUID id,
             @Valid @RequestBody AtualizarTipoLocalidadeRequest request) {
         return ResponseEntity.ok(tipoLocalidadeService.alterar(id, request));
@@ -175,7 +175,7 @@ public class TipoLocalidadeController {
             )
     })
     public ResponseEntity<Void> inativar(
-            @Parameter(description = "Identificador único (UUID) do tipo de localidade", example = "t1p00001-0000-0000-0000-000000000001", required = true)
+            @Parameter(description = "Identificador único (UUID) do tipo de localidade", example = "b1000001-0000-0000-0000-000000000001", required = true)
             @PathVariable UUID id) {
         tipoLocalidadeService.inativar(id);
         return ResponseEntity.noContent().build();
@@ -201,7 +201,7 @@ public class TipoLocalidadeController {
             )
     })
     public ResponseEntity<TipoLocalidadeResponse> ativar(
-            @Parameter(description = "Identificador único (UUID) do tipo de localidade", example = "t1p00001-0000-0000-0000-000000000001", required = true)
+            @Parameter(description = "Identificador único (UUID) do tipo de localidade", example = "b1000001-0000-0000-0000-000000000001", required = true)
             @PathVariable UUID id) {
         return ResponseEntity.ok(tipoLocalidadeService.ativar(id));
     }

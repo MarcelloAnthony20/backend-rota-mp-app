@@ -30,7 +30,7 @@ public record AtualizarLocalidadeRequest(
 
         @Schema(
                 description = "Identificador (UUID) do tipo de localidade",
-                example = "t1p00001-0000-0000-0000-000000000001",
+                example = "b1000001-0000-0000-0000-000000000001",
                 requiredMode = Schema.RequiredMode.REQUIRED
         )
         @NotNull(message = "O ID do tipo de localidade e obrigatorio")
