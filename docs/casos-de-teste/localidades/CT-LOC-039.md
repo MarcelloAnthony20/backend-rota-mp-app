@@ -26,7 +26,7 @@
 
 | Passo | Ação |
 |---------|---------|
-| 1 | Enviar requisição `PUT` para a URL de coleção `/api/v1/localidades` contendo payload com dados de criação de localidade. |
+| 1 | Enviar requisição `PUT` para a URL de coleção `/api/v1/localidades` contendo payload (`CriarLocalidadeRequest` com 10 campos: `nome`, `cidadeId`, `tipoLocalidadeId`, `cep`, `logradouro`, `numero`, `bairro`, `complemento`, `localSigiloso`, `ativo`) com dados de criação de localidade. |
 | 2 | Consultar o código de status HTTP retornado na resposta. |
 | 3 | Inspecionar os cabeçalhos de resposta HTTP e verificar a presença do cabeçalho `Allow`. |
 | 4 | Consultar o banco de dados e garantir que nenhum registro foi criado. |
@@ -35,10 +35,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | `""` (Não gerado) |
+| ID da Localidade | Gerado automaticamente pelo sistema (não enviado no payload de criação) |
 | Nome da Localidade | `Promotoria de Justiça da Cidadania` |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001 - Campo Grande Alterada` |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001 - Promotoria de Justiça` |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001 - Promotoria de Justiça` |
 | CEP | `79002-000` |
 | Logradouro | `Rua da Paz` |
 | Número | `140` |

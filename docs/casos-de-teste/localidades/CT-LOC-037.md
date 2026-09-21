@@ -19,14 +19,14 @@
 | Nº | Condição |
 |---------|---------|
 | 1 | Token JWT com payload adulterado ou com assinatura criptográfica não reconhecida pela chave pública/segredo da aplicação. |
-| 2 | Localidade A existente cadastrada com ID `l0c00001-0000-0000-0000-000000000001`. |
+| 2 | Localidade A existente cadastrada com ID `d1000001-0000-0000-0000-000000000001`. |
 | 3 | Filtro de segurança de autenticação JWT ativo. |
 
 ## Passos de Execução
 
 | Passo | Ação |
 |---------|---------|
-| 1 | Enviar requisição `PUT /api/v1/localidades/l0c00001-0000-0000-0000-000000000001` contendo alterações cadastrais e cabeçalho `Authorization: Bearer <token_invalido>`. |
+| 1 | Enviar requisição `PUT /api/v1/localidades/d1000001-0000-0000-0000-000000000001` contendo alterações cadastrais e cabeçalho `Authorization: Bearer <token_invalido>`. |
 | 2 | Consultar o código de status HTTP retornado na resposta da requisição. |
 | 3 | Validar que a operação foi sumariamente rejeitada pelo gateway/filtro de autenticação. |
 | 4 | Consultar a base de dados e certificar que os dados originais da localidade permaneceram inalterados. |
@@ -35,10 +35,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | `l0c00001-0000-0000-0000-000000000001` |
+| ID da Localidade | `d1000001-0000-0000-0000-000000000001` |
 | Nome da Localidade | `Promotoria de Justiça da Cidadania Modificada` |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001 - Campo Grande Alterada` |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001 - Promotoria de Justiça` |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001 - Promotoria de Justiça` |
 | CEP | `79002-000` |
 | Logradouro | `Rua da Paz` |
 | Número | `140` |

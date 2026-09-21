@@ -19,7 +19,7 @@
 | Nº | Condição |
 |---------|---------|
 | 1 | Usuário autenticado com perfil de Gestor ou superior. |
-| 2 | Localidade A cadastrada (`l0c00001-0000-0000-0000-000000000001`) vinculada inicialmente à Cidade A (`c1d00001-0000-0000-0000-000000000001` - Campo Grande Alterada). |
+| 2 | Localidade A cadastrada (`d1000001-0000-0000-0000-000000000001`) vinculada inicialmente à Cidade A (`c1d00001-0000-0000-0000-000000000001` - Campo Grande Alterada). |
 | 3 | Nova Cidade ativa cadastrada e disponível (`c1d00003-0000-0000-0000-000000000003` - Três Lagoas). |
 | 4 | Serviço de alteração de localidade operacional. |
 
@@ -27,8 +27,8 @@
 
 | Passo | Ação |
 |---------|---------|
-| 1 | Acessar o endpoint de alteração de localidade (`PUT /api/v1/localidades/l0c00001-0000-0000-0000-000000000001`). |
-| 2 | Informar o payload completo atualizando o campo Cidade (FK) para o ID da nova cidade ativa (`c1d00003-0000-0000-0000-000000000003`) e mantendo os outros 10 campos inalterados. |
+| 1 | Acessar o endpoint de alteração de localidade (`PUT /api/v1/localidades/d1000001-0000-0000-0000-000000000001`). |
+| 2 | Informar o payload completo atualizando o campo Cidade (FK) para o ID da nova cidade ativa (`c1d00003-0000-0000-0000-000000000003`) e mantendo os demais campos inalterados. |
 | 3 | Enviar a requisição para a API. |
 | 4 | Consultar o código de status HTTP retornado e a resposta estruturada. |
 | 5 | Verificar na base de dados a persistência da nova chave estrangeira de cidade na localidade. |
@@ -37,10 +37,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | `l0c00001-0000-0000-0000-000000000001` |
+| ID da Localidade | `d1000001-0000-0000-0000-000000000001` |
 | Nome da Localidade | `Promotoria de Justiça da Cidadania` (mantido) |
 | Cidade (FK) | `c1d00003-0000-0000-0000-000000000003` (Três Lagoas - Atualizado) |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001` (Promotoria de Justiça - mantido) |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001` (Promotoria de Justiça - mantido) |
 | CEP | `79002-000` (mantido) |
 | Logradouro | `Rua da Paz` (mantido) |
 | Número | `140` (mantido) |
@@ -49,7 +49,7 @@
 | Local Sigiloso | `false` (mantido) |
 | Status / Ativo | `true` (mantido) |
 | Cabeçalho Authorization | `Bearer <token_gestor>` |
-| Método HTTP | `PUT /api/v1/localidades/l0c00001-0000-0000-0000-000000000001` |
+| Método HTTP | `PUT /api/v1/localidades/d1000001-0000-0000-0000-000000000001` |
 
 ## Resultado Esperado
 
@@ -57,7 +57,7 @@
 |---------|---------|
 | 1 | Operação aceita com sucesso retornando status HTTP `200 OK`. |
 | 2 | O atributo Cidade (FK) passa a referenciar o novo ID de cidade ativo (`c1d00003-0000-0000-0000-000000000003`). |
-| 3 | Todos os demais 10 atributos da entidade e de seu endereço permanecem íntegros e inalterados. |
+| 3 | Todos os demais atributos da entidade e de seu endereço permanecem íntegros e inalterados. |
 | 4 | A resposta JSON reflete com fidelidade o novo vínculo de cidade associado. |
 
 ## Resultado Obtido

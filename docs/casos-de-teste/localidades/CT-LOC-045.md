@@ -20,7 +20,7 @@
 |---------|---------|
 | 1 | Usuário autenticado no sistema com perfil de Gestor. |
 | 2 | Cidade B previamente inativada/deletada logicamente (ID: `c1d00002-0000-0000-0000-000000000002`, Nome: `Dourados`, `ativo = false`). |
-| 3 | Tipo de localidade existente e ativo cadastrado (ID: `t1p00001-0000-0000-0000-000000000001`, Nome: `Promotoria de Justiça`, `ativo = true`). |
+| 3 | Tipo de localidade existente e ativo cadastrado (ID: `b1000001-0000-0000-0000-000000000001`, Nome: `Promotoria de Justiça`, `ativo = true`). |
 | 4 | Mecanismo de integridade referencial e validação de entidades ativas operacional na API. |
 
 ## Passos de Execução
@@ -28,7 +28,7 @@
 | Passo | Ação |
 |---------|---------|
 | 1 | Preparar a requisição `POST /api/v1/localidades` com cabeçalho `Authorization: Bearer <token_gestor>`. |
-| 2 | Informar o payload associando a localidade à Cidade B inativa (`c1d00002-0000-0000-0000-000000000002`) e preencher todos os demais atributos cadastrais. |
+| 2 | Informar o payload (`CriarLocalidadeRequest` composto por 10 campos: `nome`, `cidadeId`, `tipoLocalidadeId`, `cep`, `logradouro`, `numero`, `bairro`, `complemento`, `localSigiloso`, `ativo`) associando a localidade à Cidade B inativa (`c1d00002-0000-0000-0000-000000000002`) e preenchendo todos os demais atributos cadastrais. |
 | 3 | Enviar a requisição para a API. |
 | 4 | Consultar o código de status HTTP retornado e o corpo da resposta em formato RFC 7807 (ProblemDetail). |
 | 5 | Consultar a base de dados para certificar que nenhum registro foi persistido na tabela de localidades. |
@@ -37,10 +37,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | `null` (Gerado automaticamente pelo backend) |
+| ID da Localidade | Gerado automaticamente pelo sistema (não enviado no payload de criação) |
 | Nome da Localidade | `Promotoria de Justiça de Dourados` |
 | Cidade (FK) | `c1d00002-0000-0000-0000-000000000002` (Dourados - Inativa / Deletada) |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001` (Promotoria de Justiça - Ativo) |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001` (Promotoria de Justiça - Ativo) |
 | CEP | `79800-000` |
 | Logradouro | `Rua Presidente Vargas` |
 | Número | `450` |

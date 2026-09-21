@@ -19,15 +19,16 @@
 | Nº | Condição |
 |---------|---------|
 | 1 | Usuário autenticado com perfil de Gestor (`ROLE_GESTOR`). |
-| 2 | Localidade A existente com status inativo (`ativo = false`) e ID `l0c00001-0000-0000-0000-000000000001` cadastrada na base de dados. |
+| 2 | Localidade A existente com status inativo (`ativo = false`) e ID `d1000001-0000-0000-0000-000000000001` cadastrada na base de dados. |
 | 3 | Cidade vinculada (`c1d00001-0000-0000-0000-000000000001 - Campo Grande Alterada`) ativa no sistema. |
-| 4 | Tipo de localidade vinculado (`t1p00001-0000-0000-0000-000000000001`) ativo no sistema. |
+| 4 | Tipo de localidade vinculado (`b1000001-0000-0000-0000-000000000001`) ativo no sistema. |
+| 5 | Serviço de gerenciamento de localidades operacional. |
 
 ## Passos de Execução
 
 | Passo | Ação |
 |---------|---------|
-| 1 | Enviar requisição `PATCH /api/v1/localidades/l0c00001-0000-0000-0000-000000000001/ativar` com cabeçalho de autorização do gestor. |
+| 1 | Enviar requisição `PATCH /api/v1/localidades/d1000001-0000-0000-0000-000000000001/ativar` com cabeçalho de autorização do gestor. |
 | 2 | Consultar o código de status HTTP retornado na resposta. |
 | 3 | Inspecionar o corpo da resposta e verificar se o atributo `ativo` retornou como `true`. |
 | 4 | Verificar na base de dados se a flag `ativo` foi persistida como `true`. |
@@ -37,10 +38,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | `l0c00001-0000-0000-0000-000000000001` |
+| ID da Localidade | `d1000001-0000-0000-0000-000000000001` |
 | Nome da Localidade | `Promotoria de Justiça da Cidadania` |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001 - Campo Grande Alterada` |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001 - Promotoria de Justiça` |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001 - Promotoria de Justiça` |
 | CEP | `79002-000` |
 | Logradouro | `Rua da Paz` |
 | Número | `140` |

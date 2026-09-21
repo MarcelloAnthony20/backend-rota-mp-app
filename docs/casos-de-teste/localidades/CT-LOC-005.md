@@ -19,15 +19,15 @@
 | Nº | Condição |
 |---------|---------|
 | 1 | Usuário autenticado com perfil de Gestor ou Administrador (token JWT válido). |
-| 2 | Tipo de localidade ativo previamente cadastrado no sistema (ID `t1p00001-0000-0000-0000-000000000001` - Promotoria de Justiça). |
+| 2 | Tipo de localidade ativo previamente cadastrado no sistema (ID `b1000001-0000-0000-0000-000000000001` - Promotoria de Justiça). |
 | 3 | Serviço de cadastro de localidades operacional. |
 
 ## Passos de Execução
 
 | Passo | Ação |
 |---------|---------|
-| 1 | Acessar o endpoint de cadastro de localidade (`POST /api/v1/localidades`). |
-| 2 | Informar o payload com todos os atributos preenchidos com valores válidos, exceto o campo Cidade (FK) definido como `"" (Vazio)`. |
+| 1 | Acessar o endpoint de cadastro de localidade (`POST /api/v1/localidades`) via API REST ou interface gráfica. |
+| 2 | Informar o payload da requisição (`CriarLocalidadeRequest`) com os seus 10 campos (`nome`, `cidadeId`, `tipoLocalidadeId`, `cep`, `logradouro`, `numero`, `bairro`, `complemento`, `localSigiloso` e `ativo`), definindo o campo `cidadeId` como `"" (Vazio)` ou omitido, mantendo os demais com valores válidos. |
 | 3 | Enviar a requisição com o cabeçalho `Authorization: Bearer <token_gestor>`. |
 | 4 | Consultar o código de status HTTP retornado e a estrutura do corpo de erro. |
 | 5 | Verificar na base de dados se algum registro foi persistido indevidamente. |
@@ -36,10 +36,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | Não gerado (persistência rejeitada) |
+| ID da Localidade | Gerado automaticamente pelo sistema (não enviado no payload de criação) |
 | Nome da Localidade | `Promotoria de Justiça da Cidadania` |
 | Cidade (FK) | `"" (Vazio)` |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001` (Promotoria de Justiça) |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001` (Promotoria de Justiça) |
 | CEP | `79002-000` |
 | Logradouro | `Rua da Paz` |
 | Número | `140` |
@@ -55,9 +55,9 @@
 | Nº | Resultado |
 |---------|---------|
 | 1 | Operação rejeitada pelo sistema retornando status HTTP `400 Bad Request` ou `422 Unprocessable Entity`. |
-| 2 | Mensagem de erro informativa indicando que a vinculação da cidade é obrigatória (RFC 7807 Problem Details). |
+| 2 | Mensagem de erro informativa indicando que a vinculação da cidade é obrigatória (`cidadeId`) no padrão RFC 7807 Problem Details. |
 | 3 | Nenhum registro de localidade ou endereço é persistido na base de dados (atomicidade garantida). |
-| 4 | Nenhuma exceção de banco de dados ou stack trace exposta ao cliente. |
+| 4 | Nenhuma exceção não tratada de banco de dados ou stack trace exposta ao cliente. |
 
 ## Resultado Obtido
 

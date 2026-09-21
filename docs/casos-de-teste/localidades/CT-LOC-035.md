@@ -19,14 +19,14 @@
 | Nº | Condição |
 |---------|---------|
 | 1 | Serviço da API de Localidades em execução e protegido por filtro de autenticação Bearer JWT. |
-| 2 | Localidade A existente com ID `l0c00001-0000-0000-0000-000000000001` cadastrada na base de dados. |
+| 2 | Localidade A existente com ID `d1000001-0000-0000-0000-000000000001` cadastrada na base de dados. |
 | 3 | Requisição enviada sem nenhum cabeçalho `Authorization`. |
 
 ## Passos de Execução
 
 | Passo | Ação |
 |---------|---------|
-| 1 | Enviar requisição `GET /api/v1/localidades/l0c00001-0000-0000-0000-000000000001` sem fornecer o cabeçalho `Authorization`. |
+| 1 | Enviar requisição `GET /api/v1/localidades/d1000001-0000-0000-0000-000000000001` sem fornecer o cabeçalho `Authorization`. |
 | 2 | Consultar o código de status HTTP retornado na resposta da requisição. |
 | 3 | Validar que o acesso foi bloqueado e nenhum dado cadastral da localidade foi exposto. |
 
@@ -34,10 +34,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | `l0c00001-0000-0000-0000-000000000001` |
+| ID da Localidade | `d1000001-0000-0000-0000-000000000001` |
 | Nome da Localidade | `Promotoria de Justiça da Cidadania` |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001 - Campo Grande Alterada` |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001 - Promotoria de Justiça` |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001 - Promotoria de Justiça` |
 | CEP | `79002-000` |
 | Logradouro | `Rua da Paz` |
 | Número | `140` |

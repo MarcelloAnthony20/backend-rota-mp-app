@@ -19,14 +19,14 @@
 | Nº | Condição |
 |---------|---------|
 | 1 | Usuário autenticado com perfil de Gestor de Segurança (possuidor do privilégio `LOCALIDADE_SIGILO_READ`). |
-| 2 | Localidade sigilosa previamente cadastrada no sistema (ID: `l0c00048-0000-0000-0000-000000000048`, `localSigiloso = true`). |
+| 2 | Localidade sigilosa previamente cadastrada no sistema (ID: `d1000048-0000-0000-0000-000000000048`, `localSigiloso = true`). |
 | 3 | Configuração de controle de sigilo ativa no endpoint de consulta de localidade por ID. |
 
 ## Passos de Execução
 
 | Passo | Ação |
 |---------|---------|
-| 1 | Preparar a requisição `GET /api/v1/localidades/l0c00048-0000-0000-0000-000000000048` com cabeçalho `Authorization: Bearer <token_gestor_seguranca>`. |
+| 1 | Preparar a requisição `GET /api/v1/localidades/d1000048-0000-0000-0000-000000000048` com cabeçalho `Authorization: Bearer <token_gestor_seguranca>`. |
 | 2 | Enviar a requisição para a API. |
 | 3 | Consultar o código de status HTTP retornado. |
 | 4 | Validar o payload retornado: certificar que os campos de endereço (CEP, logradouro, número, bairro e complemento) são exibidos integralmente sem qualquer máscara ou supressão. |
@@ -35,10 +35,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | `l0c00048-0000-0000-0000-000000000048` |
+| ID da Localidade | `d1000048-0000-0000-0000-000000000048` |
 | Nome da Localidade | `GAECO - Base Operacional Sigilosa` |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001` (Campo Grande Alterada - Ativa) |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001` (Promotoria de Justiça - Ativo) |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001` (Promotoria de Justiça - Ativo) |
 | CEP | `79002-000` |
 | Logradouro | `Rua da Paz` |
 | Número | `500` |
@@ -48,7 +48,7 @@
 | Status / Ativo | `true` |
 | Cabeçalho Authorization | `Bearer <token_gestor_seguranca>` |
 | Perfil do Usuário | Gestor de Segurança (com permissão `LOCALIDADE_SIGILO_READ`) |
-| Método HTTP | `GET /api/v1/localidades/l0c00048-0000-0000-0000-000000000048` |
+| Método HTTP | `GET /api/v1/localidades/d1000048-0000-0000-0000-000000000048` |
 
 ## Resultado Esperado
 

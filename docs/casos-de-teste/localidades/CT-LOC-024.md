@@ -12,23 +12,23 @@
 
 | Campo | Descrição |
 |---------|---------|
-| **Objetivo** | Validar a alteração do tipo da localidade para outro tipo ativo e cadastrado no sistema, mantendo os demais 10 atributos inalterados. |
+| **Objetivo** | Validar a alteração do tipo da localidade para outro tipo ativo e cadastrado no sistema, mantendo os demais atributos inalterados. |
 
 ## Condições Pré-Teste
 
 | Nº | Condição |
 |---------|---------|
 | 1 | Usuário autenticado com perfil de Gestor ou superior. |
-| 2 | Localidade A cadastrada (`l0c00001-0000-0000-0000-000000000001`) vinculada ao Tipo `t1p00001-0000-0000-0000-000000000001` (Promotoria de Justiça). |
-| 3 | Novo Tipo de localidade ativo cadastrado (`t1p00002-0000-0000-0000-000000000002` - Sede Administrativa). |
+| 2 | Localidade A cadastrada (`d1000001-0000-0000-0000-000000000001`) vinculada ao Tipo `b1000001-0000-0000-0000-000000000001` (Promotoria de Justiça). |
+| 3 | Novo Tipo de localidade ativo cadastrado (`b1000002-0000-0000-0000-000000000002` - Sede Administrativa). |
 | 4 | Serviço de alteração de localidade operacional. |
 
 ## Passos de Execução
 
 | Passo | Ação |
 |---------|---------|
-| 1 | Acessar o endpoint de alteração de localidade (`PUT /api/v1/localidades/l0c00001-0000-0000-0000-000000000001`). |
-| 2 | Informar o payload completo atualizando o campo Tipo de Localidade (FK) para o novo tipo ativo (`t1p00002-0000-0000-0000-000000000002`) e mantendo os outros 10 campos intactos. |
+| 1 | Acessar o endpoint de alteração de localidade (`PUT /api/v1/localidades/d1000001-0000-0000-0000-000000000001`). |
+| 2 | Informar o payload completo atualizando o campo Tipo de Localidade (FK) para o novo tipo ativo (`b1000002-0000-0000-0000-000000000002`) e mantendo os demais campos intactos. |
 | 3 | Enviar a requisição para processamento. |
 | 4 | Consultar o código de status HTTP retornado e a resposta estruturada. |
 | 5 | Conferir na base de dados se o novo vínculo de tipo foi atualizado. |
@@ -37,10 +37,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | `l0c00001-0000-0000-0000-000000000001` |
+| ID da Localidade | `d1000001-0000-0000-0000-000000000001` |
 | Nome da Localidade | `Promotoria de Justiça da Cidadania` (mantido) |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001` (Campo Grande Alterada - mantido) |
-| Tipo de Localidade (FK) | `t1p00002-0000-0000-0000-000000000002` (Sede Administrativa - Atualizado) |
+| Tipo de Localidade (FK) | `b1000002-0000-0000-0000-000000000002` (Sede Administrativa - Atualizado) |
 | CEP | `79002-000` (mantido) |
 | Logradouro | `Rua da Paz` (mantido) |
 | Número | `140` (mantido) |
@@ -49,15 +49,15 @@
 | Local Sigiloso | `false` (mantido) |
 | Status / Ativo | `true` (mantido) |
 | Cabeçalho Authorization | `Bearer <token_gestor>` |
-| Método HTTP | `PUT /api/v1/localidades/l0c00001-0000-0000-0000-000000000001` |
+| Método HTTP | `PUT /api/v1/localidades/d1000001-0000-0000-0000-000000000001` |
 
 ## Resultado Esperado
 
 | Nº | Resultado |
 |---------|---------|
 | 1 | Operação aceita com sucesso retornando status HTTP `200 OK`. |
-| 2 | O campo Tipo de Localidade (FK) passa a referenciar `t1p00002-0000-0000-0000-000000000002`. |
-| 3 | Todos os outros 10 atributos permanecem inalterados e consistentes na base de dados. |
+| 2 | O campo Tipo de Localidade (FK) passa a referenciar `b1000002-0000-0000-0000-000000000002`. |
+| 3 | Todos os demais atributos permanecem inalterados e consistentes na base de dados. |
 | 4 | A resposta reflete com fidelidade a nova classificação da entidade. |
 
 ## Resultado Obtido

@@ -20,27 +20,27 @@
 |---------|---------|
 | 1 | Usuário autenticado com perfil de Gestor ou Administrador (token JWT válido). |
 | 2 | Cidade ativa previamente cadastrada no sistema (ID `c1d00001-0000-0000-0000-000000000001` - Campo Grande Alterada). |
-| 3 | Tipo de localidade ativo previamente cadastrado no sistema (ID `t1p00001-0000-0000-0000-000000000001` - Promotoria de Justiça). |
+| 3 | Tipo de localidade ativo previamente cadastrado no sistema (ID `b1000001-0000-0000-0000-000000000001` - Promotoria de Justiça). |
 | 4 | Serviço de integração e consulta de CEP operacional. |
 
 ## Passos de Execução
 
 | Passo | Ação |
 |---------|---------|
-| 1 | Acessar o endpoint `POST /api/v1/localidades`. |
-| 2 | Informar o payload com todos os atributos preenchidos, atribuindo ao campo CEP o valor malformado `'123'`. |
+| 1 | Acessar o endpoint de cadastro de localidade (`POST /api/v1/localidades`) via API REST ou interface gráfica. |
+| 2 | Informar o payload da requisição (`CriarLocalidadeRequest`) com os seus 10 campos (`nome`, `cidadeId`, `tipoLocalidadeId`, `cep`, `logradouro`, `numero`, `bairro`, `complemento`, `localSigiloso` e `ativo`), atribuindo ao campo `cep` o valor malformado `'123'` (menos de 8 dígitos). |
 | 3 | Enviar a requisição com o cabeçalho `Authorization: Bearer <token_gestor>`. |
-| 4 | Consultar o código de status HTTP retornado e a mensagem descritiva de erro. |
+| 4 | Consultar o código de status HTTP retornado e a estrutura do corpo de erro. |
 | 5 | Verificar na base de dados que a transação foi abortada e nenhum dado foi persistido. |
 
 ## Dados de Entrada
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | Não gerado (persistência rejeitada) |
+| ID da Localidade | Gerado automaticamente pelo sistema (não enviado no payload de criação) |
 | Nome da Localidade | `Promotoria de Justiça da Cidadania` |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001` (Campo Grande Alterada) |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001` (Promotoria de Justiça) |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001` (Promotoria de Justiça) |
 | CEP | `123` |
 | Logradouro | `Rua da Paz` |
 | Número | `140` |
@@ -56,9 +56,9 @@
 | Nº | Resultado |
 |---------|---------|
 | 1 | Operação rejeitada pelo sistema retornando status HTTP `400 Bad Request` ou `422 Unprocessable Entity`. |
-| 2 | Resposta RFC 7807 indicando explicitamente que o CEP informado possui formato inválido (exigido padrão de 8 dígitos numéricos). |
-| 3 | Nenhuma consulta indevida aos serviços de CEP gera estado inconsistente e nenhum dado é salvo. |
-| 4 | Validação estrutural de entrada executada antes do acionamento das regras de negócio. |
+| 2 | Resposta no padrão RFC 7807 (Problem Details) indicando explicitamente que o CEP informado possui formato inválido (exigido padrão de 8 dígitos numéricos conforme RN-8). |
+| 3 | Nenhuma consulta indevida aos serviços externos gera persistência e nenhum dado de localidade ou endereço é salvo (atomicidade garantida). |
+| 4 | Validação estrutural de entrada executada antes do acionamento das regras de negócio sem exposição de exceções internas. |
 
 ## Resultado Obtido
 

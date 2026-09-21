@@ -20,15 +20,15 @@
 |---------|---------|
 | 1 | Usuário autenticado com perfil de Gestor ou Administrador (token JWT válido). |
 | 2 | Cidade ativa previamente cadastrada no sistema (ID `c1d00001-0000-0000-0000-000000000001` - Campo Grande Alterada). |
-| 3 | Tipo de localidade ativo previamente cadastrado no sistema (ID `t1p00001-0000-0000-0000-000000000001` - Promotoria de Justiça). |
+| 3 | Tipo de localidade ativo previamente cadastrado no sistema (ID `b1000001-0000-0000-0000-000000000001` - Promotoria de Justiça). |
 | 4 | Serviço de busca de CEP operacional. |
 
 ## Passos de Execução
 
 | Passo | Ação |
 |---------|---------|
-| 1 | Acessar o endpoint `POST /api/v1/localidades`. |
-| 2 | Informar o payload com todos os atributos preenchidos, atribuindo ao campo número o valor negativo `'-140'`. |
+| 1 | Acessar o endpoint de cadastro de localidade (`POST /api/v1/localidades`) via API REST ou interface gráfica. |
+| 2 | Informar o payload da requisição (`CriarLocalidadeRequest`) com os seus 10 campos (`nome`, `cidadeId`, `tipoLocalidadeId`, `cep`, `logradouro`, `numero`, `bairro`, `complemento`, `localSigiloso` e `ativo`), atribuindo ao campo `numero` o valor negativo `'-140'`. |
 | 3 | Enviar a requisição com o cabeçalho `Authorization: Bearer <token_gestor>`. |
 | 4 | Analisar a resposta retornada pela API e o código de status HTTP. |
 | 5 | Verificar na base de dados a inexistência de registros persistidos. |
@@ -37,10 +37,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | Não gerado (persistência rejeitada) |
+| ID da Localidade | Gerado automaticamente pelo sistema (não enviado no payload de criação) |
 | Nome da Localidade | `Promotoria de Justiça da Cidadania` |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001` (Campo Grande Alterada) |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001` (Promotoria de Justiça) |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001` (Promotoria de Justiça) |
 | CEP | `79002-000` |
 | Logradouro | `Rua da Paz` |
 | Número | `-140` |
@@ -56,9 +56,9 @@
 | Nº | Resultado |
 |---------|---------|
 | 1 | Operação rejeitada pelo sistema retornando status HTTP `400 Bad Request` ou `422 Unprocessable Entity`. |
-| 2 | Mensagem de erro informativa RFC 7807 indicando que valores negativos não são aceitos para número predial. |
-| 3 | Nenhum registro salvo no banco de dados. |
-| 4 | Regra de negócio de numeração predial positiva estritamente respeitada. |
+| 2 | Mensagem de erro informativa no padrão RFC 7807 (Problem Details) indicando que valores negativos não são aceitos para número predial. |
+| 3 | Nenhum registro salvo no banco de dados (atomicidade garantida). |
+| 4 | Regra de negócio de numeração predial estritamente positiva respeitada sem vazamento de exceções de infraestrutura. |
 
 ## Resultado Obtido
 

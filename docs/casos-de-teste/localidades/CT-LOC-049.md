@@ -20,14 +20,14 @@
 |---------|---------|
 | 1 | Usuário autenticado com perfil Operador / Comum (sem permissão de escrita em localidades). |
 | 2 | Cidade A ativa existente no sistema (ID: `c1d00001-0000-0000-0000-000000000001` - Campo Grande Alterada). |
-| 3 | Tipo de localidade ativo cadastrado (ID: `t1p00001-0000-0000-0000-000000000001` - Promotoria de Justiça). |
+| 3 | Tipo de localidade ativo cadastrado (ID: `b1000001-0000-0000-0000-000000000001` - Promotoria de Justiça). |
 | 4 | Módulo de segurança Spring Security / RBAC ativo na API. |
 
 ## Passos de Execução
 
 | Passo | Ação |
 |---------|---------|
-| 1 | Preparar a requisição `POST /api/v1/localidades` contendo os dados válidos da entidade. |
+| 1 | Preparar a requisição `POST /api/v1/localidades` contendo o payload `CriarLocalidadeRequest` composto por 10 campos (`nome`, `cidadeId`, `tipoLocalidadeId`, `cep`, `logradouro`, `numero`, `bairro`, `complemento`, `localSigiloso`, `ativo`), com dados válidos da entidade associando Cidade A (`c1d00001-0000-0000-0000-000000000001`) e Tipo (`b1000001-0000-0000-0000-000000000001`). |
 | 2 | Configurar o cabeçalho `Authorization: Bearer <token_operador>`. |
 | 3 | Enviar a requisição para a API. |
 | 4 | Consultar o código de status HTTP retornado e a mensagem de erro. |
@@ -37,10 +37,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | `null` (Gerado automaticamente pelo backend) |
+| ID da Localidade | Gerado automaticamente pelo sistema (não enviado no payload de criação) |
 | Nome da Localidade | `Posto Administrativo Não Autorizado` |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001` (Campo Grande Alterada - Ativa) |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001` (Promotoria de Justiça - Ativo) |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001` (Promotoria de Justiça - Ativo) |
 | CEP | `79002-000` |
 | Logradouro | `Rua da Paz` |
 | Número | `140` |

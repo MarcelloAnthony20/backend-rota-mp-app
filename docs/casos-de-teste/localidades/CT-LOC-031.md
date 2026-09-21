@@ -19,14 +19,14 @@
 | Nº | Condição |
 |---------|---------|
 | 1 | Usuário autenticado com perfil de Gestor (`ROLE_GESTOR`). |
-| 2 | Localidade A existente com status ativo (`ativo = true`) e ID `l0c00001-0000-0000-0000-000000000001` cadastrada na base de dados. |
+| 2 | Localidade A existente com status ativo (`ativo = true`) e ID `d1000001-0000-0000-0000-000000000001` cadastrada na base de dados. |
 | 3 | Serviço de gerenciamento de localidades operacional. |
 
 ## Passos de Execução
 
 | Passo | Ação |
 |---------|---------|
-| 1 | Enviar requisição `DELETE /api/v1/localidades/l0c00001-0000-0000-0000-000000000001` contendo o token de autorização do gestor no cabeçalho. |
+| 1 | Enviar requisição `DELETE /api/v1/localidades/d1000001-0000-0000-0000-000000000001` contendo o token de autorização do gestor no cabeçalho. |
 | 2 | Consultar o código de status HTTP retornado na resposta da requisição. |
 | 3 | Validar que o corpo da resposta HTTP está vazio (sem conteúdo). |
 | 4 | Consultar o registro na base de dados e verificar se a flag `ativo` foi alterada para `false` por meio de exclusão lógica (soft delete). |
@@ -35,10 +35,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | `l0c00001-0000-0000-0000-000000000001` |
+| ID da Localidade | `d1000001-0000-0000-0000-000000000001` |
 | Nome da Localidade | `Promotoria de Justiça da Cidadania` |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001 - Campo Grande Alterada` |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001 - Promotoria de Justiça` |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001 - Promotoria de Justiça` |
 | CEP | `79002-000` |
 | Logradouro | `Rua da Paz` |
 | Número | `140` |

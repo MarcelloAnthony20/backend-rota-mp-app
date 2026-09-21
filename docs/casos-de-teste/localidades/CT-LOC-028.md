@@ -19,7 +19,7 @@
 | Nº | Condição |
 |---------|---------|
 | 1 | Usuário autenticado com perfil de Gestor ou superior. |
-| 2 | Localidade A cadastrada (`l0c00001-0000-0000-0000-000000000001`) vinculada à Cidade A (`c1d00001-0000-0000-0000-000000000001` - Campo Grande Alterada). |
+| 2 | Localidade A cadastrada (`d1000001-0000-0000-0000-000000000001`) vinculada à Cidade A (`c1d00001-0000-0000-0000-000000000001` - Campo Grande Alterada). |
 | 3 | Identificador de cidade `c1d99999-9999-9999-9999-999999999999` inexistente na base de dados. |
 | 4 | Serviço de alteração de localidade operacional. |
 
@@ -27,8 +27,8 @@
 
 | Passo | Ação |
 |---------|---------|
-| 1 | Acessar o endpoint de alteração de localidade (`PUT /api/v1/localidades/l0c00001-0000-0000-0000-000000000001`). |
-| 2 | Informar o payload completo atribuindo o ID inexistente `c1d99999-9999-9999-9999-999999999999` ao campo Cidade (FK) e mantendo os outros 10 campos. |
+| 1 | Acessar o endpoint de alteração de localidade (`PUT /api/v1/localidades/d1000001-0000-0000-0000-000000000001`). |
+| 2 | Informar o payload completo atribuindo o ID inexistente `c1d99999-9999-9999-9999-999999999999` ao campo Cidade (FK) e mantendo os demais campos com seus valores originais. |
 | 3 | Enviar a requisição para a API. |
 | 4 | Consultar o código de status HTTP retornado e o detalhe do erro. |
 | 5 | Conferir no banco de dados se a Cidade original (`c1d00001-0000-0000-0000-000000000001`) foi preservada na localidade. |
@@ -37,10 +37,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | `l0c00001-0000-0000-0000-000000000001` |
+| ID da Localidade | `d1000001-0000-0000-0000-000000000001` |
 | Nome da Localidade | `Promotoria de Justiça da Cidadania` (mantido) |
 | Cidade (FK) | `c1d99999-9999-9999-9999-999999999999` (ID de cidade inexistente) |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001` (Promotoria de Justiça - mantido) |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001` (Promotoria de Justiça - mantido) |
 | CEP | `79002-000` (mantido) |
 | Logradouro | `Rua da Paz` (mantido) |
 | Número | `140` (mantido) |
@@ -49,7 +49,7 @@
 | Local Sigiloso | `false` (mantido) |
 | Status / Ativo | `true` (mantido) |
 | Cabeçalho Authorization | `Bearer <token_gestor>` |
-| Método HTTP | `PUT /api/v1/localidades/l0c00001-0000-0000-0000-000000000001` |
+| Método HTTP | `PUT /api/v1/localidades/d1000001-0000-0000-0000-000000000001` |
 
 ## Resultado Esperado
 

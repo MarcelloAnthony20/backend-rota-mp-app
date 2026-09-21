@@ -21,7 +21,7 @@
 | 1 | Usuário autenticado com perfil de Gestor ou superior. |
 | 2 | Cidade A cadastrada e ativa (`c1d00001-0000-0000-0000-000000000001` - Campo Grande Alterada). |
 | 3 | Cidade B inativada/deletada com HTTP 204 (`c1d00002-0000-0000-0000-000000000002` - Dourados, `ativo = false`). |
-| 4 | Tipo de localidade cadastrado e ativo (`t1p00001-0000-0000-0000-000000000001` - Promotoria de Justiça). |
+| 4 | Tipo de localidade cadastrado e ativo (`b1000001-0000-0000-0000-000000000001` - Promotoria de Justiça). |
 
 ## Passos de Execução
 
@@ -40,7 +40,7 @@
 | ID da Localidade | Não aplicável (consulta de opções para formulário de cadastro) |
 | Nome da Localidade | `Promotoria de Justiça da Cidadania` (contexto de preenchimento) |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001` (Campo Grande Alterada - opção ativa) |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001` (Promotoria de Justiça - opção ativa) |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001` (Promotoria de Justiça - opção ativa) |
 | CEP | `79002-000` |
 | Logradouro | `Rua da Paz` |
 | Número | `140` |
@@ -58,7 +58,7 @@
 |---------|---------|
 | 1 | Endpoints respondem com status HTTP `200 OK` contendo listas estruturadas em formato JSON. |
 | 2 | A listagem de cidades inclui a Cidade A (`c1d00001-0000-0000-0000-000000000001`) e não inclui a Cidade B inativada (`c1d00002-0000-0000-0000-000000000002`). |
-| 3 | A listagem de tipos de localidade inclui apenas registros ativos (`ativo = true`). |
+| 3 | A listagem de tipos de localidade inclui apenas registros ativos (`ativo = true`), como o Tipo 1 (`b1000001-0000-0000-0000-000000000001`). |
 | 4 | O usuário não tem acesso a registros inativos para criar novas associações no sistema. |
 
 ## Resultado Obtido

@@ -19,14 +19,14 @@
 | Nº | Condição |
 |---------|---------|
 | 1 | Usuário autenticado com perfil de Gestor. |
-| 2 | Localidade A existente previamente cadastrada no sistema (ID: `l0c00001-0000-0000-0000-000000000001`). |
+| 2 | Localidade A existente previamente cadastrada no sistema (ID: `d1000001-0000-0000-0000-000000000001`). |
 | 3 | Validador de schema e deserializador JSON ativo na API. |
 
 ## Passos de Execução
 
 | Passo | Ação |
 |---------|---------|
-| 1 | Preparar requisição `PATCH /api/v1/localidades/l0c00001-0000-0000-0000-000000000001/sigilo` com cabeçalho `Authorization: Bearer <token_gestor>`. |
+| 1 | Preparar requisição `PATCH /api/v1/localidades/d1000001-0000-0000-0000-000000000001/sigilo` com cabeçalho `Authorization: Bearer <token_gestor>`. |
 | 2 | Informar payload contendo valor em formato string não booleana: `{"localSigiloso": "sim"}`. |
 | 3 | Enviar a requisição para a API. |
 | 4 | Consultar o código de status HTTP retornado e o objeto ProblemDetail (RFC 7807). |
@@ -36,10 +36,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | `l0c00001-0000-0000-0000-000000000001` |
+| ID da Localidade | `d1000001-0000-0000-0000-000000000001` |
 | Nome da Localidade | `Promotoria de Justiça da Cidadania` |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001` (Campo Grande Alterada - Ativa) |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001` (Promotoria de Justiça - Ativo) |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001` (Promotoria de Justiça - Ativo) |
 | CEP | `79004-311` |
 | Logradouro | `Rua Ceará` |
 | Número | `800` |
@@ -49,7 +49,7 @@
 | Status / Ativo | `true` |
 | Cabeçalho Authorization | `Bearer <token_gestor>` |
 | Perfil do Usuário | Gestor |
-| Método HTTP | `PATCH /api/v1/localidades/l0c00001-0000-0000-0000-000000000001/sigilo` |
+| Método HTTP | `PATCH /api/v1/localidades/d1000001-0000-0000-0000-000000000001/sigilo` |
 
 ## Resultado Esperado
 

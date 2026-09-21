@@ -19,14 +19,14 @@
 | Nº | Condição |
 |---------|---------|
 | 1 | Usuário autenticado com perfil não autorizado para gestão (perfil Operador: `ROLE_OPERADOR`). |
-| 2 | Localidade A existente e cadastrada com status ativo e ID `l0c00001-0000-0000-0000-000000000001`. |
+| 2 | Localidade A existente e cadastrada com status ativo e ID `d1000001-0000-0000-0000-000000000001`. |
 | 3 | Serviço de controle de acesso RBAC ativo e operacional. |
 
 ## Passos de Execução
 
 | Passo | Ação |
 |---------|---------|
-| 1 | Enviar requisição `PUT /api/v1/localidades/l0c00001-0000-0000-0000-000000000001` contendo payload com alterações cadastrais e cabeçalho de autenticação do perfil Operador. |
+| 1 | Enviar requisição `PUT /api/v1/localidades/d1000001-0000-0000-0000-000000000001` contendo payload com alterações cadastrais e cabeçalho de autenticação do perfil Operador. |
 | 2 | Consultar o código de status HTTP retornado na resposta da requisição. |
 | 3 | Validar a mensagem de erro retornada no corpo da resposta no formato RFC 7807 (ProblemDetail). |
 | 4 | Consultar a base de dados para garantir que nenhum atributo da localidade foi alterado. |
@@ -35,10 +35,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | `l0c00001-0000-0000-0000-000000000001` |
+| ID da Localidade | `d1000001-0000-0000-0000-000000000001` |
 | Nome da Localidade | `Promotoria de Justiça da Cidadania Modificada` |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001 - Campo Grande Alterada` |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001 - Promotoria de Justiça` |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001 - Promotoria de Justiça` |
 | CEP | `79002-000` |
 | Logradouro | `Rua da Paz` |
 | Número | `140` |

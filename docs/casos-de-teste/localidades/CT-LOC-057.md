@@ -19,14 +19,14 @@
 | Nº | Condição |
 |---------|---------|
 | 1 | Usuário autenticado com perfil de Gestor com permissão de gestão de sigilo. |
-| 2 | Localidade A existente no sistema previamente cadastrada com `localSigiloso = false` (ID: `l0c00001-0000-0000-0000-000000000001`). |
+| 2 | Localidade A existente no sistema previamente cadastrada com `localSigiloso = false` (ID: `d1000001-0000-0000-0000-000000000001`). |
 | 3 | Endpoint de configuração de sigilo (`/api/v1/localidades/{id}/sigilo`) ativo. |
 
 ## Passos de Execução
 
 | Passo | Ação |
 |---------|---------|
-| 1 | Preparar requisição `PATCH /api/v1/localidades/l0c00001-0000-0000-0000-000000000001/sigilo` com cabeçalho `Authorization: Bearer <token_gestor>`. |
+| 1 | Preparar requisição `PATCH /api/v1/localidades/d1000001-0000-0000-0000-000000000001/sigilo` com cabeçalho `Authorization: Bearer <token_gestor>`. |
 | 2 | Informar payload no formato JSON contendo `{"localSigiloso": true}`. |
 | 3 | Enviar a requisição para a API. |
 | 4 | Consultar o código de status HTTP retornado e a resposta estruturada. |
@@ -36,10 +36,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | `l0c00001-0000-0000-0000-000000000001` |
+| ID da Localidade | `d1000001-0000-0000-0000-000000000001` |
 | Nome da Localidade | `Promotoria de Justiça da Cidadania` |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001` (Campo Grande Alterada - Ativa) |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001` (Promotoria de Justiça - Ativo) |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001` (Promotoria de Justiça - Ativo) |
 | CEP | `79004-311` |
 | Logradouro | `Rua Ceará` |
 | Número | `800` |
@@ -49,16 +49,16 @@
 | Status / Ativo | `true` |
 | Cabeçalho Authorization | `Bearer <token_gestor>` |
 | Perfil do Usuário | Gestor |
-| Método HTTP | `PATCH /api/v1/localidades/l0c00001-0000-0000-0000-000000000001/sigilo` |
+| Método HTTP | `PATCH /api/v1/localidades/d1000001-0000-0000-0000-000000000001/sigilo` |
 
 ## Resultado Esperado
 
 | Nº | Resultado |
 |---------|---------|
-| 1 | Operação aceita com sucesso retornando código de status HTTP `200 OK` (ou `204 No Content`). |
+| 1 | Operação aceita com sucesso retornando código de status HTTP `200 OK` com o DTO `LocalidadeResponse`. |
 | 2 | Atributo `localSigiloso` atualizado para `true` na base de dados. |
 | 3 | Nenhum outro atributo da localidade (cidade, tipo, nome, endereço, ativo) sofre alteração. |
-| 4 | Resposta estruturada reflete o novo status de sigilo com integridade. |
+| 4 | Resposta estruturada (`LocalidadeResponse`) reflete o novo status de sigilo com integridade. |
 
 ## Resultado Obtido
 

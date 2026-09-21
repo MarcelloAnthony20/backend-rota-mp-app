@@ -20,7 +20,7 @@
 |---------|---------|
 | 1 | Usuário autenticado com perfil de Gestor. |
 | 2 | Cidade A ativa cadastrada no sistema (ID: `c1d00001-0000-0000-0000-000000000001` - Campo Grande Alterada). |
-| 3 | Tipo de localidade ativo cadastrado no sistema (ID: `t1p00001-0000-0000-0000-000000000001` - Promotoria de Justiça). |
+| 3 | Tipo de localidade ativo cadastrado no sistema (ID: `b1000001-0000-0000-0000-000000000001` - Promotoria de Justiça). |
 | 4 | Mecanismo de controle de acesso a dados sigilosos ativo no sistema. |
 
 ## Passos de Execução
@@ -28,7 +28,7 @@
 | Passo | Ação |
 |---------|---------|
 | 1 | Preparar a requisição `POST /api/v1/localidades` com cabeçalho `Authorization: Bearer <token_gestor>`. |
-| 2 | Preencher o payload com todos os atributos da entidade marcando o campo `localSigiloso = true`. |
+| 2 | Preencher o payload `CriarLocalidadeRequest` composto por 10 campos (`nome`, `cidadeId`, `tipoLocalidadeId`, `cep`, `logradouro`, `numero`, `bairro`, `complemento`, `localSigiloso`, `ativo`), associando a Cidade A (`c1d00001-0000-0000-0000-000000000001`) e Tipo (`b1000001-0000-0000-0000-000000000001`), marcando o campo `localSigiloso = true`. |
 | 3 | Enviar a requisição para o endpoint de cadastro de localidades. |
 | 4 | Consultar o código de status HTTP retornado e o cabeçalho `Location`. |
 | 5 | Consultar a base de dados para certificar que a localidade foi inserida com `local_sigiloso = true` e `ativo = true`. |
@@ -37,10 +37,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | `l0c00048-0000-0000-0000-000000000048` (Gerado na persistência) |
+| ID da Localidade | Gerado automaticamente pelo sistema (não enviado no payload de criação) |
 | Nome da Localidade | `GAECO - Base Operacional Sigilosa` |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001` (Campo Grande Alterada - Ativa) |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001` (Promotoria de Justiça - Ativo) |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001` (Promotoria de Justiça - Ativo) |
 | CEP | `79002-000` |
 | Logradouro | `Rua da Paz` |
 | Número | `500` |
@@ -57,9 +57,10 @@
 | Nº | Resultado |
 |---------|---------|
 | 1 | Cadastro aceito com sucesso retornando código de status HTTP `201 Created`. |
-| 2 | Cabeçalho `Location` fornecido com a URI da nova localidade criada. |
-| 3 | Resposta estruturada confirmando a persistência com `localSigiloso = true` e `ativo = true`. |
-| 4 | Tratamento de confidencialidade ativado na entidade, restringindo a visualização pública de endereço para usuários sem permissão de sigilo (RN-2). |
+| 2 | Cabeçalho `Location: /api/v1/localidades/{id}` (ex.: `/api/v1/localidades/d1000048-0000-0000-0000-000000000048`) fornecido com a URI da nova localidade criada, e o ID gerado (`d1000048-0000-0000-0000-000000000048`) retornado no corpo da resposta (`LocalidadeResponse`). |
+| 3 | Sanitização de CEP (RN-8): mesmo se enviado com máscara (`79002-000`), o CEP é sanitizado pelo backend e persistido/retornado com 8 dígitos numéricos (`79002000`). |
+| 4 | Resposta estruturada confirmando a persistência com `localSigiloso = true` e `ativo = true`. |
+| 5 | Tratamento de confidencialidade ativado na entidade, restringindo a visualização pública de endereço para usuários sem permissão de sigilo (RN-2). |
 
 ## Resultado Obtido
 

@@ -19,7 +19,7 @@
 | Nº | Condição |
 |---------|---------|
 | 1 | Usuário autenticado com perfil de Gestor ou superior. |
-| 2 | Localidade A (`l0c00001-0000-0000-0000-000000000001` - Promotoria de Justiça da Cidadania) já cadastrada e vinculada à Cidade A (`c1d00001-0000-0000-0000-000000000001` - Campo Grande Alterada) e Tipo (`t1p00001-0000-0000-0000-000000000001` - Promotoria de Justiça). |
+| 2 | Localidade A (`d1000001-0000-0000-0000-000000000001` - Promotoria de Justiça da Cidadania) já cadastrada e vinculada à Cidade A (`c1d00001-0000-0000-0000-000000000001` - Campo Grande Alterada) e Tipo (`b1000001-0000-0000-0000-000000000001` - Promotoria de Justiça). |
 | 3 | Serviço de cadastro de localidades operacional. |
 
 ## Passos de Execução
@@ -27,7 +27,7 @@
 | Passo | Ação |
 |---------|---------|
 | 1 | Acessar o endpoint de cadastro de localidade (`POST /api/v1/localidades`). |
-| 2 | Informar payload duplicado com os mesmos dados da Localidade A já existente. |
+| 2 | Informar o payload da requisição (`CriarLocalidadeRequest` composto por 10 campos: `nome`, `cidadeId`, `tipoLocalidadeId`, `cep`, `logradouro`, `numero`, `bairro`, `complemento`, `localSigiloso` e `ativo`) duplicado com os mesmos dados da Localidade A já existente. |
 | 3 | Enviar a requisição para a API. |
 | 4 | Consultar o código de status HTTP retornado e a mensagem de erro. |
 | 5 | Verificar na base de dados que nenhum registro duplicado foi gravado. |
@@ -36,10 +36,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | Gerado automaticamente pelo sistema (nulo no envio) |
+| ID da Localidade | Gerado automaticamente pelo sistema (não enviado no payload de criação) |
 | Nome da Localidade | `Promotoria de Justiça da Cidadania` |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001` (Campo Grande Alterada) |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001` (Promotoria de Justiça) |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001` (Promotoria de Justiça) |
 | CEP | `79002-000` |
 | Logradouro | `Rua da Paz` |
 | Número | `140` |

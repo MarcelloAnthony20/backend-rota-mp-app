@@ -21,14 +21,14 @@
 | 1 | Usuário autenticado com perfil de Gestor ou superior. |
 | 2 | Serviço postal de consulta de CEP operacional (CEP `79002-000` correspondente a `Rua da Paz`). |
 | 3 | Cidade A cadastrada e ativa (`c1d00001-0000-0000-0000-000000000001` - Campo Grande Alterada). |
-| 4 | Tipo de localidade cadastrado e ativo (`t1p00001-0000-0000-0000-000000000001` - Promotoria de Justiça). |
+| 4 | Tipo de localidade cadastrado e ativo (`b1000001-0000-0000-0000-000000000001` - Promotoria de Justiça). |
 
 ## Passos de Execução
 
 | Passo | Ação |
 |---------|---------|
 | 1 | Acessar o endpoint de cadastro de localidade (`POST /api/v1/localidades`). |
-| 2 | Informar payload com CEP `79002-000` e enviar manualmente um valor de Logradouro arbitrário e divergente (`Rua Inventada Incompatível`). |
+| 2 | Informar o payload da requisição (`CriarLocalidadeRequest` composto por 10 campos: `nome`, `cidadeId`, `tipoLocalidadeId`, `cep`, `logradouro`, `numero`, `bairro`, `complemento`, `localSigiloso` e `ativo`), com o CEP `79002-000` e enviando manualmente um valor de Logradouro arbitrário e divergente (`Rua Inventada Incompatível`). |
 | 3 | Enviar a requisição para processamento. |
 | 4 | Consultar o código de status HTTP retornado e a estrutura da resposta. |
 | 5 | Conferir na base de dados se a tentativa de gravação de logradouro inconsistente foi bloqueada ou corrigida pelo valor oficial. |
@@ -37,10 +37,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | Gerado automaticamente pelo sistema (nulo no envio) |
+| ID da Localidade | Gerado automaticamente pelo sistema (não enviado no payload de criação) |
 | Nome da Localidade | `Promotoria de Justiça da Cidadania` |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001` (Campo Grande Alterada) |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001` (Promotoria de Justiça) |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001` (Promotoria de Justiça) |
 | CEP | `79002-000` |
 | Logradouro | `Rua Inventada Incompatível` (valor divergente do oficial da base postal) |
 | Número | `140` |

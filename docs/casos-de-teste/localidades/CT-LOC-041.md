@@ -25,7 +25,7 @@
 
 | Passo | Ação |
 |---------|---------|
-| 1 | Enviar requisição `POST /api/v1/localidades` contendo payload com JSON sintaticamente corrompido (ex.: `{"nome": "Promotoria de Justiça", "cep": }`). |
+| 1 | Enviar requisição `POST /api/v1/localidades` contendo payload com tentativa de envio do `CriarLocalidadeRequest` (composto por 10 campos: `nome`, `cidadeId`, `tipoLocalidadeId`, `cep`, `logradouro`, `numero`, `bairro`, `complemento`, `localSigiloso`, `ativo`), porém com sintaxe JSON corrompida/malformada (ex.: `{"nome": "Promotoria de Justiça", "cep": }`). |
 | 2 | Consultar o código de status HTTP retornado na resposta da requisição. |
 | 3 | Validar o corpo do erro no formato ProblemDetail (RFC 7807) e conferir ausência de vazamento de stack trace ou dados internos da JVM/framework. |
 | 4 | Consultar o banco de dados para certificar que nenhum registro ou fragmento de dados foi persistido. |
@@ -34,10 +34,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | `""` (Não gerado) |
+| ID da Localidade | Gerado automaticamente pelo sistema (não enviado no payload de criação) |
 | Nome da Localidade | `Promotoria de Justiça da Cidadania` |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001 - Campo Grande Alterada` |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001 - Promotoria de Justiça` |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001 - Promotoria de Justiça` |
 | CEP | `79002-000` |
 | Logradouro | `Rua da Paz` |
 | Número | `140` |

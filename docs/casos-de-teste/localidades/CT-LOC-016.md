@@ -20,7 +20,7 @@
 |---------|---------|
 | 1 | Usuário autenticado com perfil de Gestor ou superior. |
 | 2 | Cidade A cadastrada e ativa (`c1d00001-0000-0000-0000-000000000001` - Campo Grande Alterada). |
-| 3 | Tipo de localidade cadastrado e ativo (`t1p00001-0000-0000-0000-000000000001` - Promotoria de Justiça). |
+| 3 | Tipo de localidade cadastrado e ativo (`b1000001-0000-0000-0000-000000000001` - Promotoria de Justiça). |
 | 4 | Serviço de cadastro de localidades operacional. |
 
 ## Passos de Execução
@@ -28,7 +28,7 @@
 | Passo | Ação |
 |---------|---------|
 | 1 | Acessar o endpoint de cadastro de localidade (`POST /api/v1/localidades`). |
-| 2 | Informar payload com o campo Nome vazio (`""`) e todos os demais atributos preenchidos com valores válidos. |
+| 2 | Informar o payload da requisição (`CriarLocalidadeRequest` composto por 10 campos: `nome`, `cidadeId`, `tipoLocalidadeId`, `cep`, `logradouro`, `numero`, `bairro`, `complemento`, `localSigiloso` e `ativo`) com o campo Nome vazio (`""`) e todos os demais atributos preenchidos com valores válidos. |
 | 3 | Enviar a requisição para processamento. |
 | 4 | Consultar o código de status HTTP retornado e o corpo da resposta. |
 | 5 | Verificar na base de dados se algum registro foi persistido. |
@@ -37,10 +37,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | Gerado automaticamente pelo sistema (nulo no envio) |
+| ID da Localidade | Gerado automaticamente pelo sistema (não enviado no payload de criação) |
 | Nome da Localidade | `""` (Vazio) |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001` (Campo Grande Alterada) |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001` (Promotoria de Justiça) |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001` (Promotoria de Justiça) |
 | CEP | `79002-000` |
 | Logradouro | `Rua da Paz` |
 | Número | `140` |

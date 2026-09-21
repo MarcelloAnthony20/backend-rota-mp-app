@@ -12,21 +12,21 @@
 
 | Campo | Descrição |
 |---------|---------|
-| **Objetivo** | Validar que a consulta de localidade informando um identificador UUID sintaticamente válido mas inexistente na base de dados (l0c99999-9999-9999-9999-999999999999) retorna status HTTP 404 Not Found no formato RFC 7807 (ProblemDetail). |
+| **Objetivo** | Validar que a consulta de localidade informando um identificador UUID sintaticamente válido mas inexistente na base de dados (d1099999-9999-9999-9999-999999999999) retorna status HTTP 404 Not Found no formato RFC 7807 (ProblemDetail). |
 
 ## Condições Pré-Teste
 
 | Nº | Condição |
 |---------|---------|
 | 1 | Usuário autenticado com perfil autorizado (Gestor ou Operador). |
-| 2 | Identificador UUID `l0c99999-9999-9999-9999-999999999999` não cadastrado na base de dados de localidades. |
+| 2 | Identificador UUID `d1099999-9999-9999-9999-999999999999` não cadastrado na base de dados de localidades. |
 | 3 | Serviço de consulta de localidades operacional. |
 
 ## Passos de Execução
 
 | Passo | Ação |
 |---------|---------|
-| 1 | Enviar requisição `GET /api/v1/localidades/l0c99999-9999-9999-9999-999999999999` com token de autorização válido. |
+| 1 | Enviar requisição `GET /api/v1/localidades/d1099999-9999-9999-9999-999999999999` com token de autorização válido. |
 | 2 | Consultar o código de status HTTP retornado na resposta da requisição. |
 | 3 | Validar o corpo da resposta em conformidade estrita com o formato ProblemDetail (RFC 7807). |
 | 4 | Confirmar que nenhuma exceção de infraestrutura ou stack trace foi exposto. |
@@ -35,10 +35,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | `l0c99999-9999-9999-9999-999999999999` (Inexistente) |
+| ID da Localidade | `d1099999-9999-9999-9999-999999999999` (Inexistente) |
 | Nome da Localidade | `Localidade Inexistente` |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001 - Campo Grande Alterada` |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001 - Promotoria de Justiça` |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001 - Promotoria de Justiça` |
 | CEP | `79002-000` |
 | Logradouro | `Rua da Paz` |
 | Número | `140` |

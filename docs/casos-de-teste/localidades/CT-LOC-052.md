@@ -19,7 +19,7 @@
 | Nº | Condição |
 |---------|---------|
 | 1 | Usuário autenticado com credenciais válidas, porém sem privilégio de leitura no módulo de localidades (`LOCALIDADE_READ` ausente). |
-| 2 | Localidades cadastradas no sistema, incluindo a Localidade A (`l0c00001-0000-0000-0000-000000000001`). |
+| 2 | Localidades cadastradas no sistema, incluindo a Localidade A (`d1000001-0000-0000-0000-000000000001`). |
 | 3 | Módulo de autorização RBAC ativo no gateway e controllers da API. |
 
 ## Passos de Execução
@@ -29,17 +29,17 @@
 | 1 | Preparar a requisição `GET /api/v1/localidades` com cabeçalho `Authorization: Bearer <token_sem_leitura>`. |
 | 2 | Enviar a requisição para a API. |
 | 3 | Consultar o código de status HTTP retornado e o corpo da resposta. |
-| 4 | Tentar consultar individualmente a localidade `GET /api/v1/localidades/l0c00001-0000-0000-0000-000000000001` com o mesmo token. |
+| 4 | Tentar consultar individualmente a localidade `GET /api/v1/localidades/d1000001-0000-0000-0000-000000000001` com o mesmo token. |
 | 5 | Confirmar que ambas as tentativas são rejeitadas. |
 
 ## Dados de Entrada
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | `l0c00001-0000-0000-0000-000000000001` (Alvo de consulta individual) |
+| ID da Localidade | `d1000001-0000-0000-0000-000000000001` (Alvo de consulta individual) |
 | Nome da Localidade | `Promotoria de Justiça da Cidadania` |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001` (Campo Grande Alterada - Ativa) |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001` (Promotoria de Justiça - Ativo) |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001` (Promotoria de Justiça - Ativo) |
 | CEP | `79002-000` |
 | Logradouro | `Rua da Paz` |
 | Número | `140` |

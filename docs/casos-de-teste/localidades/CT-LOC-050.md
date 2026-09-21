@@ -19,7 +19,7 @@
 | Nº | Condição |
 |---------|---------|
 | 1 | Usuário autenticado e possuidor de permissão de leitura de localidades. |
-| 2 | Localidades previamente cadastradas no sistema, incluindo a Localidade A (`l0c00001-0000-0000-0000-000000000001`). |
+| 2 | Localidades previamente cadastradas no sistema, incluindo a Localidade A (`d1000001-0000-0000-0000-000000000001`). |
 | 3 | Paginação configurada e ativa na API de localidades. |
 
 ## Passos de Execução
@@ -35,10 +35,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | `l0c00001-0000-0000-0000-000000000001` (Registro presente na base) |
+| ID da Localidade | `d1000001-0000-0000-0000-000000000001` (Registro presente na base) |
 | Nome da Localidade | `Promotoria de Justiça da Cidadania` |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001` (Campo Grande Alterada - Ativa) |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001` (Promotoria de Justiça - Ativo) |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001` (Promotoria de Justiça - Ativo) |
 | CEP | `79002-000` |
 | Logradouro | `Rua da Paz` |
 | Número | `140` |

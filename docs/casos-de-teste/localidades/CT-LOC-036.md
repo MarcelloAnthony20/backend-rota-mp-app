@@ -19,14 +19,14 @@
 | Nº | Condição |
 |---------|---------|
 | 1 | Token JWT gerado para usuário com perfil de Gestor com claim `exp` anterior ao momento atual da requisição. |
-| 2 | Cidade A (`c1d00001-0000-0000-0000-000000000001 - Campo Grande Alterada`) e Tipo (`t1p00001-0000-0000-0000-000000000001`) previamente cadastrados e ativos. |
+| 2 | Cidade A (`c1d00001-0000-0000-0000-000000000001 - Campo Grande Alterada`) e Tipo (`b1000001-0000-0000-0000-000000000001`) previamente cadastrados e ativos. |
 | 3 | Serviço de autenticação e API de localidades operacionais. |
 
 ## Passos de Execução
 
 | Passo | Ação |
 |---------|---------|
-| 1 | Enviar requisição `POST /api/v1/localidades` contendo payload com dados válidos de localidade e cabeçalho `Authorization: Bearer <token_jwt_expirado>`. |
+| 1 | Enviar requisição `POST /api/v1/localidades` contendo payload (`CriarLocalidadeRequest` com 10 campos: `nome`, `cidadeId`, `tipoLocalidadeId`, `cep`, `logradouro`, `numero`, `bairro`, `complemento`, `localSigiloso`, `ativo`) com dados válidos de localidade e cabeçalho `Authorization: Bearer <token_jwt_expirado>`. |
 | 2 | Consultar o código de status HTTP retornado na resposta da requisição. |
 | 3 | Validar a mensagem de erro retornada indicando que a credencial/sessão expirou. |
 | 4 | Consultar o banco de dados e certificar que nenhum novo registro de localidade foi inserido. |
@@ -35,10 +35,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | `l0c00001-0000-0000-0000-000000000001` |
+| ID da Localidade | Gerado automaticamente pelo sistema (não enviado no payload de criação) |
 | Nome da Localidade | `Promotoria de Justiça da Cidadania` |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001 - Campo Grande Alterada` |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001 - Promotoria de Justiça` |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001 - Promotoria de Justiça` |
 | CEP | `79002-000` |
 | Logradouro | `Rua da Paz` |
 | Número | `140` |

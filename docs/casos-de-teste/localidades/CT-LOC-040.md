@@ -25,7 +25,7 @@
 
 | Passo | Ação |
 |---------|---------|
-| 1 | Enviar requisição `POST /api/v1/localidades` com corpo vazio (`Content-Length: 0` ou sem corpo) acompanhada do token do gestor. |
+| 1 | Enviar requisição `POST /api/v1/localidades` com corpo vazio (`Content-Length: 0` ou sem corpo, omitindo o payload `CriarLocalidadeRequest` composto por 10 campos: `nome`, `cidadeId`, `tipoLocalidadeId`, `cep`, `logradouro`, `numero`, `bairro`, `complemento`, `localSigiloso`, `ativo`) acompanhada do token do gestor. |
 | 2 | Consultar o código de status HTTP retornado na resposta. |
 | 3 | Validar a mensagem de erro retornada no formato RFC 7807 (ProblemDetail). |
 | 4 | Consultar o banco de dados e verificar que nenhum registro foi persistido. |
@@ -34,7 +34,7 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | `""` (Vazio) |
+| ID da Localidade | Gerado automaticamente pelo sistema (não enviado no payload de criação) |
 | Nome da Localidade | `""` (Vazio) |
 | Cidade (FK) | `""` (Vazio) |
 | Tipo de Localidade (FK) | `""` (Vazio) |

@@ -19,14 +19,14 @@
 | Nº | Condição |
 |---------|---------|
 | 1 | Usuário autenticado com perfil Operador (`ROLE_OPERADOR`), sem permissão de visualização de endereços sigilosos. |
-| 2 | Localidade A existente cadastrada com flag `localSigiloso = true`, status ativo e ID `l0c00001-0000-0000-0000-000000000001`. |
+| 2 | Localidade A existente cadastrada com flag `localSigiloso = true`, status ativo e ID `d1000001-0000-0000-0000-000000000001`. |
 | 3 | Regra de negócio de proteção de dados sensíveis (RN-2) implementada no serviço de consulta. |
 
 ## Passos de Execução
 
 | Passo | Ação |
 |---------|---------|
-| 1 | Enviar requisição `GET /api/v1/localidades/l0c00001-0000-0000-0000-000000000001` utilizando as credenciais de autenticação do perfil Operador. |
+| 1 | Enviar requisição `GET /api/v1/localidades/d1000001-0000-0000-0000-000000000001` utilizando as credenciais de autenticação do perfil Operador. |
 | 2 | Consultar o código de status HTTP retornado na resposta da requisição. |
 | 3 | Inspecionar a estrutura do payload JSON retornado na resposta. |
 | 4 | Validar se os campos sensíveis de endereço (logradouro, número, bairro, complemento, CEP) foram omitidos ou mascarados com marcador seguro (ex.: `***` ou `[DADO SIGILOSO]`). |
@@ -35,10 +35,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | `l0c00001-0000-0000-0000-000000000001` |
+| ID da Localidade | `d1000001-0000-0000-0000-000000000001` |
 | Nome da Localidade | `Promotoria de Justiça da Cidadania` |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001 - Campo Grande Alterada` |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001 - Promotoria de Justiça` |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001 - Promotoria de Justiça` |
 | CEP | `79002-000` (Dado Sensível) |
 | Logradouro | `Rua da Paz` (Dado Sensível) |
 | Número | `140` (Dado Sensível) |

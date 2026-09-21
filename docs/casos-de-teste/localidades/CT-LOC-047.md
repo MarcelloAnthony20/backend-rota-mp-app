@@ -20,7 +20,7 @@
 |---------|---------|
 | 1 | Usuário autenticado com perfil de Gestor. |
 | 2 | Cidade A ativa cadastrada no sistema (ID: `c1d00001-0000-0000-0000-000000000001` - Campo Grande Alterada). |
-| 3 | Tipo de localidade ativo cadastrado no sistema (ID: `t1p00001-0000-0000-0000-000000000001` - Promotoria de Justiça). |
+| 3 | Tipo de localidade ativo cadastrado no sistema (ID: `b1000001-0000-0000-0000-000000000001` - Promotoria de Justiça). |
 | 4 | Regra de Negócio RN-7 ativa no validador da camada de domínio. |
 
 ## Passos de Execução
@@ -28,7 +28,7 @@
 | Passo | Ação |
 |---------|---------|
 | 1 | Preparar a requisição `POST /api/v1/localidades` com cabeçalho `Authorization: Bearer <token_gestor>`. |
-| 2 | Informar o payload com `localSigiloso = false`, cidade e tipo válidos, mas com os campos de endereço preenchidos vazios (`""`). |
+| 2 | Informar o payload `CriarLocalidadeRequest` composto por 10 campos (`nome`, `cidadeId`, `tipoLocalidadeId`, `cep`, `logradouro`, `numero`, `bairro`, `complemento`, `localSigiloso`, `ativo`), com `localSigiloso = false`, cidade e tipo válidos (`b1000001-0000-0000-0000-000000000001`), mas com os campos de endereço preenchidos vazios (`""`). |
 | 3 | Enviar a requisição para a API. |
 | 4 | Consultar o código de status HTTP retornado e o objeto de erro RFC 7807 (ProblemDetail). |
 | 5 | Verificar na base de dados se a persistência foi impedida. |
@@ -37,10 +37,10 @@
 
 | Campo | Valor |
 |---------|---------|
-| ID da Localidade | `null` (Gerado automaticamente pelo backend) |
+| ID da Localidade | Gerado automaticamente pelo sistema (não enviado no payload de criação) |
 | Nome da Localidade | `Núcleo de Atendimento Comunitário` |
 | Cidade (FK) | `c1d00001-0000-0000-0000-000000000001` (Campo Grande Alterada - Ativa) |
-| Tipo de Localidade (FK) | `t1p00001-0000-0000-0000-000000000001` (Promotoria de Justiça - Ativo) |
+| Tipo de Localidade (FK) | `b1000001-0000-0000-0000-000000000001` (Promotoria de Justiça - Ativo) |
 | CEP | `""` (Vazio) |
 | Logradouro | `""` (Vazio) |
 | Número | `""` (Vazio) |
