@@ -373,8 +373,8 @@ docker run -p 8080:8080 --env-file .env \
 ## Estrutura de Pacotes
 
 ```
-br.mp.mpms.exemploservico/
-├── ExemploServicoApplication.java
+br.mp.mpms.rotamp/
+├── RotaMpApp.java
 ├── v1/
 │   ├── controller/    ← Endpoints REST
 │   ├── service/       ← Regras de negocio
