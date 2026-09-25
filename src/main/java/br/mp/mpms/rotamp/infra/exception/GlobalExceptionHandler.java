@@ -1,4 +1,4 @@
-package br.mp.mpms.exemploservico.infra.exception;
+package br.mp.mpms.rotamp.infra.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

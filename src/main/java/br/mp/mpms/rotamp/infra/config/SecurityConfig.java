@@ -1,4 +1,4 @@
-package br.mp.mpms.exemploservico.infra.config;
+package br.mp.mpms.rotamp.infra.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

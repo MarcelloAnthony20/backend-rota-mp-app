@@ -1,4 +1,4 @@
-package br.mp.mpms.exemploservico.infra.config;
+package br.mp.mpms.rotamp.infra.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;

@@ -1,4 +1,4 @@
-package br.mp.mpms.exemploservico;
+package br.mp.mpms.rotamp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

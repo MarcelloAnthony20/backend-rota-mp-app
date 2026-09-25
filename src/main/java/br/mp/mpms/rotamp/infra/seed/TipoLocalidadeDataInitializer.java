@@ -1,4 +1,4 @@
-package br.mp.mpms.exemploservico.infra.seed;
+package br.mp.mpms.rotamp.infra.seed;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
