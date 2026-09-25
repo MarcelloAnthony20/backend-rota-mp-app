@@ -1,11 +1,11 @@
-package br.mp.mpms.exemploservico.v1.controller;
+package br.mp.mpms.rotamp.v1.controller;
 
-import br.mp.mpms.exemploservico.v1.model.dto.AtualizarLocalidadeRequest;
-import br.mp.mpms.exemploservico.v1.model.dto.ClassificarLocalidadeRequest;
-import br.mp.mpms.exemploservico.v1.model.dto.ConfigurarSigiloRequest;
-import br.mp.mpms.exemploservico.v1.model.dto.CriarLocalidadeRequest;
-import br.mp.mpms.exemploservico.v1.model.dto.LocalidadeResponse;
-import br.mp.mpms.exemploservico.v1.service.LocalidadeService;
+import br.mp.mpms.rotamp.v1.model.dto.AtualizarLocalidadeRequest;
+import br.mp.mpms.rotamp.v1.model.dto.ClassificarLocalidadeRequest;
+import br.mp.mpms.rotamp.v1.model.dto.ConfigurarSigiloRequest;
+import br.mp.mpms.rotamp.v1.model.dto.CriarLocalidadeRequest;
+import br.mp.mpms.rotamp.v1.model.dto.LocalidadeResponse;
+import br.mp.mpms.rotamp.v1.service.LocalidadeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
