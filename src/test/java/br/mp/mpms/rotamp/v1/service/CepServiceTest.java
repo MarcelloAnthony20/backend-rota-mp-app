@@ -1,6 +1,6 @@
-package br.mp.mpms.exemploservico.v1.service;
+package br.mp.mpms.rotamp.v1.service;
 
-import br.mp.mpms.exemploservico.infra.exception.BusinessException;
+import br.mp.mpms.rotamp.infra.exception.BusinessException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;

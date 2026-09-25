@@ -1,7 +1,7 @@
-package br.mp.mpms.exemploservico.v1.service;
+package br.mp.mpms.rotamp.v1.service;
 
-import br.mp.mpms.exemploservico.infra.exception.ResourceNotFoundException;
-import br.mp.mpms.exemploservico.v1.repository.SolicitacaoAtendimentoRepository;
+import br.mp.mpms.rotamp.infra.exception.ResourceNotFoundException;
+import br.mp.mpms.rotamp.v1.repository.PerfilTelaRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,20 +15,20 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class SolicitacaoAtendimentoServiceTest {
+class PerfilTelaServiceTest {
 
     @Mock
-    private SolicitacaoAtendimentoRepository solicitacaoAtendimentoRepository;
+    private PerfilTelaRepository perfilTelaRepository;
 
     @InjectMocks
-    private SolicitacaoAtendimentoService solicitacaoAtendimentoService;
+    private PerfilTelaService perfilTelaService;
 
     @Test
     void deveLancarNotFoundQuandoIdNaoExiste() {
         UUID id = UUID.randomUUID();
-        when(solicitacaoAtendimentoRepository.findById(id)).thenReturn(Optional.empty());
+        when(perfilTelaRepository.findById(id)).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> solicitacaoAtendimentoService.buscarPorId(id))
+        assertThatThrownBy(() -> perfilTelaService.buscarPorId(id))
             .isInstanceOf(ResourceNotFoundException.class);
     }
 }

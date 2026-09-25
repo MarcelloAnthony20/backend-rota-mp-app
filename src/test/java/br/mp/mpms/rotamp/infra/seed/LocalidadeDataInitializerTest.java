@@ -1,4 +1,4 @@
-package br.mp.mpms.exemploservico.infra.seed;
+package br.mp.mpms.rotamp.infra.seed;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

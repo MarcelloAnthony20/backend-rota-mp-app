@@ -1,13 +1,13 @@
-package br.mp.mpms.exemploservico.v1.controller;
+package br.mp.mpms.rotamp.v1.controller;
 
-import br.mp.mpms.exemploservico.infra.config.SecurityConfig;
-import br.mp.mpms.exemploservico.infra.exception.ConflictException;
-import br.mp.mpms.exemploservico.infra.exception.GlobalExceptionHandler;
-import br.mp.mpms.exemploservico.infra.exception.ResourceNotFoundException;
-import br.mp.mpms.exemploservico.v1.model.dto.AtualizarTipoLocalidadeRequest;
-import br.mp.mpms.exemploservico.v1.model.dto.CriarTipoLocalidadeRequest;
-import br.mp.mpms.exemploservico.v1.model.dto.TipoLocalidadeResponse;
-import br.mp.mpms.exemploservico.v1.service.TipoLocalidadeService;
+import br.mp.mpms.rotamp.infra.config.SecurityConfig;
+import br.mp.mpms.rotamp.infra.exception.ConflictException;
+import br.mp.mpms.rotamp.infra.exception.GlobalExceptionHandler;
+import br.mp.mpms.rotamp.infra.exception.ResourceNotFoundException;
+import br.mp.mpms.rotamp.v1.model.dto.AtualizarTipoLocalidadeRequest;
+import br.mp.mpms.rotamp.v1.model.dto.CriarTipoLocalidadeRequest;
+import br.mp.mpms.rotamp.v1.model.dto.TipoLocalidadeResponse;
+import br.mp.mpms.rotamp.v1.service.TipoLocalidadeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

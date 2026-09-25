@@ -1,7 +1,7 @@
-package br.mp.mpms.exemploservico.v1.service;
+package br.mp.mpms.rotamp.v1.service;
 
-import br.mp.mpms.exemploservico.infra.exception.ResourceNotFoundException;
-import br.mp.mpms.exemploservico.v1.repository.TemaRepository;
+import br.mp.mpms.rotamp.infra.exception.ResourceNotFoundException;
+import br.mp.mpms.rotamp.v1.repository.EnderecoLocalidadeRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,20 +15,20 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class TemaServiceTest {
+class EnderecoLocalidadeServiceTest {
 
     @Mock
-    private TemaRepository temaRepository;
+    private EnderecoLocalidadeRepository enderecoLocalidadeRepository;
 
     @InjectMocks
-    private TemaService temaService;
+    private EnderecoLocalidadeService enderecoLocalidadeService;
 
     @Test
     void deveLancarNotFoundQuandoIdNaoExiste() {
         UUID id = UUID.randomUUID();
-        when(temaRepository.findById(id)).thenReturn(Optional.empty());
+        when(enderecoLocalidadeRepository.findById(id)).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> temaService.buscarPorId(id))
+        assertThatThrownBy(() -> enderecoLocalidadeService.buscarPorId(id))
             .isInstanceOf(ResourceNotFoundException.class);
     }
 }

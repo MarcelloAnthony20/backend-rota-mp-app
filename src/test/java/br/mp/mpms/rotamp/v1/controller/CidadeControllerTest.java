@@ -1,13 +1,13 @@
-package br.mp.mpms.exemploservico.v1.controller;
+package br.mp.mpms.rotamp.v1.controller;
 
-import br.mp.mpms.exemploservico.infra.config.SecurityConfig;
-import br.mp.mpms.exemploservico.infra.exception.ConflictException;
-import br.mp.mpms.exemploservico.infra.exception.GlobalExceptionHandler;
-import br.mp.mpms.exemploservico.infra.exception.ResourceNotFoundException;
-import br.mp.mpms.exemploservico.v1.model.dto.AtualizarCidadeRequest;
-import br.mp.mpms.exemploservico.v1.model.dto.CidadeResponse;
-import br.mp.mpms.exemploservico.v1.model.dto.CriarCidadeRequest;
-import br.mp.mpms.exemploservico.v1.service.CidadeService;
+import br.mp.mpms.rotamp.infra.config.SecurityConfig;
+import br.mp.mpms.rotamp.infra.exception.ConflictException;
+import br.mp.mpms.rotamp.infra.exception.GlobalExceptionHandler;
+import br.mp.mpms.rotamp.infra.exception.ResourceNotFoundException;
+import br.mp.mpms.rotamp.v1.model.dto.AtualizarCidadeRequest;
+import br.mp.mpms.rotamp.v1.model.dto.CidadeResponse;
+import br.mp.mpms.rotamp.v1.model.dto.CriarCidadeRequest;
+import br.mp.mpms.rotamp.v1.service.CidadeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
