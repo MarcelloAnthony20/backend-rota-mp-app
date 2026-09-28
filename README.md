@@ -1,7 +1,6 @@
-# Template Backend Spring Boot — MPMS/DID
+# Backend — Rota MP (MPMS)
 
-Repositorio template para novos microsservicos Java Spring Boot da Divisao de
-Desenvolvimento (DID/DESIN) do MPMS.
+Microsserviço de Gestão de Frotas e Despacho Logístico do Ministério Público do Estado de Mato Grosso do Sul (MPMS).
 
 ## Stack
 
@@ -25,21 +24,12 @@ Desenvolvimento (DID/DESIN) do MPMS.
 
 ---
 
-## Checklist de Inicializacao do Projeto
+## Identificação do Projeto
 
-Use este template como ponto de partida. Siga os passos na ordem:
-
-1. **Clonar** este repositorio
-2. **Renomear** pacotes: `br.mp.mpms.exemploservico` → `br.mp.mpms.[seu-servico]`
-3. **Renomear** a classe principal `ExemploServicoApplication`
-4. **Ajustar** `pom.xml` (`artifactId`, `name`, `description`)
-5. **Ajustar** `application.yml` (`context-path`, `datasource`, `keycloak`)
-6. **Renomear** a pasta `.harness/` para o nome da ferramenta de codificacao
-   agentica utilizada pelo time (ex: `.opencode` para OpenCode, `.claude` para
-   Claude Code, `.codex` para OpenAI Codex, `.kiro` para Kiro, etc.)
-7. **Configurar** o arquivo `.env` com as variaveis de ambiente (ver secao
-   Configuracao)
-8. **Build e validacao**: `mvn clean package && mvn test`
+- **Pacote Base:** `br.mp.mpms.rotamp`
+- **Classe Principal:** `RotaMpApp`
+- **ArtifactId:** `rota-mp-app`
+- **Context Path:** `/api/v1`
 
 ---
 
