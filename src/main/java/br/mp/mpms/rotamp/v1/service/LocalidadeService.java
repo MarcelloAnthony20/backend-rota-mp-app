@@ -251,8 +251,20 @@ public class LocalidadeService {
 
     private boolean temPermissaoSigilo() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null || !auth.isAuthenticated()) {
-            return false;
+        // =========================================================================
+        // O QUE OCULTA: Em ambiente pré-Keycloak (sem token / anônimo), retornava false,
+        // acionando a substituição dos dados reais por [SIGILOSO] e *** em toResponse().
+        // TODO: Reativar restrição pós-Keycloak (retornar false para usuário não autenticado):
+        // if (auth == null || !auth.isAuthenticated()) {
+        //     return false;
+        // }
+        // =========================================================================
+        // Pré-Keycloak: Exibe todas as informações reais de endereço, mostrando apenas a tag de sigiloso
+        if (auth == null || !auth.isAuthenticated()
+                || auth instanceof org.springframework.security.authentication.AnonymousAuthenticationToken
+                || "anonymousUser".equalsIgnoreCase(auth.getName())
+                || auth.getAuthorities().stream().anyMatch(a -> "ROLE_ANONYMOUS".equals(a.getAuthority()))) {
+            return true;
         }
         return auth.getAuthorities().stream()
                 .anyMatch(a -> "LOCALIDADE_SIGILO_READ".equals(a.getAuthority())
