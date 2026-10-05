@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-@Schema(description = "Requisição para atualização de um tipo de localidade")
+@Schema(description = "Requisição para atualização dos dados cadastrais de um tipo de localidade (código e descrição). O status de ativação é gerido exclusivamente via DELETE /{id} (inativação) e PATCH /{id}/ativar (reativação).")
 public record AtualizarTipoLocalidadeRequest(
         @Schema(
                 description = "Código identificador do tipo de localidade",
