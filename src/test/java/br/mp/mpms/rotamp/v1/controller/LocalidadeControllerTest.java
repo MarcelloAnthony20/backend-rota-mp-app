@@ -260,7 +260,7 @@ class LocalidadeControllerTest {
     void deve_retornar200OK_quandoAlterar() throws Exception {
         AtualizarLocalidadeRequest request = new AtualizarLocalidadeRequest(
                 "Promotoria Alterada", ID_CIDADE, ID_TIPO,
-                "79004-311", "Rua Ceará", "800", "Santa Fé", "Bloco B", false, true
+                "79004-311", "Rua Ceará", "800", "Santa Fé", "Bloco B", false
         );
         LocalidadeResponse response = new LocalidadeResponse(
                 ID_LOC, ID_TIPO, "Promotoria de Justiça", ID_CIDADE, "Campo Grande",

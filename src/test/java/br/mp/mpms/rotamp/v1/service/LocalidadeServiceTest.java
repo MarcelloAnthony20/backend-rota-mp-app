@@ -421,8 +421,7 @@ class LocalidadeServiceTest {
                 "800",
                 "Santa Fé",
                 "Bloco B",
-                false,
-                true
+                false
         );
 
         when(localidadeRepository.findByIdComDetalhes(locId)).thenReturn(Optional.of(existente));
@@ -449,7 +448,7 @@ class LocalidadeServiceTest {
         cidadeAtiva.setAtivo(false);
 
         AtualizarLocalidadeRequest request = new AtualizarLocalidadeRequest(
-                "Nome Novo", cidadeId, tipoId, "79002-000", "Rua da Paz", "140", "Centro", null, false, true);
+                "Nome Novo", cidadeId, tipoId, "79002-000", "Rua da Paz", "140", "Centro", null, false);
 
         when(localidadeRepository.findByIdComDetalhes(locId)).thenReturn(Optional.of(existente));
         when(cidadeRepository.findById(cidadeId)).thenReturn(Optional.of(cidadeAtiva));
@@ -467,7 +466,7 @@ class LocalidadeServiceTest {
         tipoAtivo.setAtivo(false);
 
         AtualizarLocalidadeRequest request = new AtualizarLocalidadeRequest(
-                "Nome Novo", cidadeId, tipoId, "79002-000", "Rua da Paz", "140", "Centro", null, false, true);
+                "Nome Novo", cidadeId, tipoId, "79002-000", "Rua da Paz", "140", "Centro", null, false);
 
         when(localidadeRepository.findByIdComDetalhes(locId)).thenReturn(Optional.of(existente));
         when(cidadeRepository.findById(cidadeId)).thenReturn(Optional.of(cidadeAtiva));
@@ -485,7 +484,7 @@ class LocalidadeServiceTest {
         Localidade existente = Localidade.builder().id(locId).build();
 
         AtualizarLocalidadeRequest request = new AtualizarLocalidadeRequest(
-                "Nome Duplicado", cidadeId, tipoId, "79002-000", "Rua da Paz", "140", "Centro", null, false, true);
+                "Nome Duplicado", cidadeId, tipoId, "79002-000", "Rua da Paz", "140", "Centro", null, false);
 
         when(localidadeRepository.findByIdComDetalhes(locId)).thenReturn(Optional.of(existente));
         when(cidadeRepository.findById(cidadeId)).thenReturn(Optional.of(cidadeAtiva));

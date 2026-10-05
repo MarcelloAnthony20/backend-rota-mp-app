@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Size;
 
 import java.util.UUID;
 
-@Schema(description = "Requisição para alteração de dados de uma localidade")
+@Schema(description = "Requisição para alteração dos dados de uma localidade")
 public record AtualizarLocalidadeRequest(
         @Schema(
                 description = "Nome da localidade",
@@ -82,13 +82,6 @@ public record AtualizarLocalidadeRequest(
                 requiredMode = Schema.RequiredMode.REQUIRED
         )
         @NotNull(message = "A indicacao de local sigiloso e obrigatoria")
-        Boolean localSigiloso,
-
-        @Schema(
-                description = "Indica se a localidade está ativa",
-                example = "true",
-                defaultValue = "true"
-        )
-        Boolean ativo
+        Boolean localSigiloso
 ) {
 }

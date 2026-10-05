@@ -165,10 +165,6 @@ public class LocalidadeService {
         localidade.setFkCidade(cidade);
         localidade.setFkTipoLocalidade(tipo);
         localidade.setLocalSigiloso(sigiloso);
-        if (request.ativo() != null) {
-            localidade.setAtivo(request.ativo());
-        }
-
         Localidade salva = localidadeRepository.save(localidade);
         return toResponse(salva);
     }
