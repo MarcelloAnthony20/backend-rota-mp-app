@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-@Schema(description = "Requisição para atualização dos dados cadastrais de uma cidade existente")
+@Schema(description = "Requisição para atualização dos dados cadastrais de uma cidade existente (nome e código IBGE). O status de ativação é gerido exclusivamente via DELETE /{id} (inativação) e PATCH /{id}/ativar (reativação).")
 public record AtualizarCidadeRequest(
         @Schema(
                 description = "Nome oficial atualizado do município",

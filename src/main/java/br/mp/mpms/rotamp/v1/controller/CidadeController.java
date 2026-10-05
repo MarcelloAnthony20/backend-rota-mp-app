@@ -160,8 +160,9 @@ public class CidadeController {
     // TODO: Reativar @PreAuthorize("hasRole('GESTOR')") quando o Keycloak estiver integrado
     // @PreAuthorize("hasRole('GESTOR')")
     @Operation(
-            summary = "Alterar dados de uma cidade",
-            description = "Atualiza os dados cadastrais (nome, código e status de ativação) de uma cidade existente identificada pelo UUID. "
+            summary = "Alterar dados cadastrais de uma cidade",
+            description = "Atualiza os dados cadastrais (nome e código IBGE) de uma cidade existente identificada pelo UUID. "
+                    + "Para inativação lógica, utilize DELETE /{id}; para reativação, utilize PATCH /{id}/ativar. "
                     + "Exige perfil com permissão GESTOR (`ROLE_GESTOR`). "
                     + "O código IBGE informado não pode conflitar com outra cidade cadastrada."
     )
