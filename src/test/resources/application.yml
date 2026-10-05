@@ -2,6 +2,8 @@
 # no classpath de teste). Fornece valores dummy para os placeholders exigidos
 # pelo autoconfigure do OAuth2 Resource Server, evitando dependencia de env/rede.
 spring:
+  flyway:
+    enabled: false
   security:
     oauth2:
       resourceserver:
