@@ -174,7 +174,7 @@ class TipoLocalidadeServiceTest {
                 .ativo(true)
                 .build();
 
-        AtualizarTipoLocalidadeRequest request = new AtualizarTipoLocalidadeRequest("PROJUS_ALT", "Promotoria Integrada", true);
+        AtualizarTipoLocalidadeRequest request = new AtualizarTipoLocalidadeRequest("PROJUS_ALT", "Promotoria Integrada");
 
         when(tipoLocalidadeRepository.findById(id)).thenReturn(Optional.of(tipoExistente));
         when(tipoLocalidadeRepository.existsByCodigoAndIdNot("PROJUS_ALT", id)).thenReturn(false);
@@ -198,7 +198,7 @@ class TipoLocalidadeServiceTest {
                 .ativo(true)
                 .build();
 
-        AtualizarTipoLocalidadeRequest request = new AtualizarTipoLocalidadeRequest("SEDEADM", "Promotoria de Justiça", true);
+        AtualizarTipoLocalidadeRequest request = new AtualizarTipoLocalidadeRequest("SEDEADM", "Promotoria de Justiça");
 
         when(tipoLocalidadeRepository.findById(id)).thenReturn(Optional.of(tipo));
         when(tipoLocalidadeRepository.existsByCodigoAndIdNot("SEDEADM", id)).thenReturn(true);
@@ -214,7 +214,7 @@ class TipoLocalidadeServiceTest {
     @DisplayName("deve lancar ResourceNotFoundException quando alterar tipo de localidade inexistente")
     void deve_lancarResourceNotFoundException_quando_alterarTipoLocalidadeInexistente() {
         UUID id = UUID.fromString("b1099999-9999-9999-9999-999999999999");
-        AtualizarTipoLocalidadeRequest request = new AtualizarTipoLocalidadeRequest("FANTASMA", "Tipo Fantasma", true);
+        AtualizarTipoLocalidadeRequest request = new AtualizarTipoLocalidadeRequest("FANTASMA", "Tipo Fantasma");
 
         when(tipoLocalidadeRepository.findById(id)).thenReturn(Optional.empty());
 

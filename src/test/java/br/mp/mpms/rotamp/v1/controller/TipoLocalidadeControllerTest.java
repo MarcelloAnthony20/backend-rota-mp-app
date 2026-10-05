@@ -270,7 +270,7 @@ class TipoLocalidadeControllerTest {
     @Test
     @DisplayName("deve retornar 200 OK quando alterar tipo de localidade com perfil gestor")
     void deve_retornar200OK_quando_alterarTipoLocalidadeComPerfilGestor() throws Exception {
-        AtualizarTipoLocalidadeRequest request = new AtualizarTipoLocalidadeRequest("PROJUS_ALT", "Promotoria Alterada", true);
+        AtualizarTipoLocalidadeRequest request = new AtualizarTipoLocalidadeRequest("PROJUS_ALT", "Promotoria Alterada");
         TipoLocalidadeResponse response = new TipoLocalidadeResponse(ID_PADRAO, "PROJUS_ALT", "Promotoria Alterada", true);
 
         when(tipoLocalidadeService.alterar(eq(ID_PADRAO), any(AtualizarTipoLocalidadeRequest.class))).thenReturn(response);
@@ -288,7 +288,7 @@ class TipoLocalidadeControllerTest {
     @Test
     @DisplayName("deve retornar 422 Unprocessable Entity quando alterar tipo de localidade sem codigo")
     void deve_retornar422UnprocessableEntity_quando_alterarTipoLocalidadeSemCodigo() throws Exception {
-        AtualizarTipoLocalidadeRequest request = new AtualizarTipoLocalidadeRequest("", "Promotoria Alterada", true);
+        AtualizarTipoLocalidadeRequest request = new AtualizarTipoLocalidadeRequest("", "Promotoria Alterada");
 
         mockMvc.perform(put("/api/v1/tipos-localidade/{id}", ID_PADRAO)
                         .with(jwt().authorities(new SimpleGrantedAuthority("ROLE_GESTOR")))
@@ -304,7 +304,7 @@ class TipoLocalidadeControllerTest {
     @DisplayName("deve retornar 422 Unprocessable Entity quando alterar tipo com descricao acima de 100 caracteres")
     void deve_retornar422UnprocessableEntity_quando_alterarTipoLocalidadeComDescricaoAcimaDe100Caracteres() throws Exception {
         String descricaoLonga = "D".repeat(101);
-        AtualizarTipoLocalidadeRequest request = new AtualizarTipoLocalidadeRequest("PROJUS", descricaoLonga, true);
+        AtualizarTipoLocalidadeRequest request = new AtualizarTipoLocalidadeRequest("PROJUS", descricaoLonga);
 
         mockMvc.perform(put("/api/v1/tipos-localidade/{id}", ID_PADRAO)
                         .with(jwt().authorities(new SimpleGrantedAuthority("ROLE_GESTOR")))
@@ -318,7 +318,7 @@ class TipoLocalidadeControllerTest {
     @Test
     @DisplayName("deve retornar 409 Conflict quando alterar com codigo duplicado")
     void deve_retornar409Conflict_quando_alterarComCodigoDuplicado() throws Exception {
-        AtualizarTipoLocalidadeRequest request = new AtualizarTipoLocalidadeRequest("SEDEADM", "Promotoria de Justiça", true);
+        AtualizarTipoLocalidadeRequest request = new AtualizarTipoLocalidadeRequest("SEDEADM", "Promotoria de Justiça");
 
         when(tipoLocalidadeService.alterar(eq(ID_PADRAO), any(AtualizarTipoLocalidadeRequest.class)))
                 .thenThrow(new ConflictException("Codigo de tipo de localidade ja em uso por outro registro: SEDEADM"));
@@ -337,7 +337,7 @@ class TipoLocalidadeControllerTest {
     @DisplayName("deve retornar 404 NotFound quando alterar tipo inexistente")
     void deve_retornar404NotFound_quando_alterarTipoLocalidadeInexistente() throws Exception {
         UUID idInexistente = UUID.fromString("b1099999-9999-9999-9999-999999999999");
-        AtualizarTipoLocalidadeRequest request = new AtualizarTipoLocalidadeRequest("FANTASMA", "Tipo Fantasma", true);
+        AtualizarTipoLocalidadeRequest request = new AtualizarTipoLocalidadeRequest("FANTASMA", "Tipo Fantasma");
 
         when(tipoLocalidadeService.alterar(eq(idInexistente), any(AtualizarTipoLocalidadeRequest.class)))
                 .thenThrow(new ResourceNotFoundException("Tipo de localidade nao encontrado"));
@@ -355,7 +355,7 @@ class TipoLocalidadeControllerTest {
     @Disabled("Temporariamente desabilitado enquanto a validacao de token Keycloak e @PreAuthorize estiverem desativadas para testes locais")
     @DisplayName("deve retornar 403 Forbidden quando alterar tipo sem perfil gestor")
     void deve_retornar403Forbidden_quando_alterarTipoLocalidadeSemPerfilGestor() throws Exception {
-        AtualizarTipoLocalidadeRequest request = new AtualizarTipoLocalidadeRequest("PROJUS", "Tentativa", true);
+        AtualizarTipoLocalidadeRequest request = new AtualizarTipoLocalidadeRequest("PROJUS", "Tentativa");
 
         mockMvc.perform(put("/api/v1/tipos-localidade/{id}", ID_PADRAO)
                         .with(jwt().authorities(new SimpleGrantedAuthority("ROLE_USER")))

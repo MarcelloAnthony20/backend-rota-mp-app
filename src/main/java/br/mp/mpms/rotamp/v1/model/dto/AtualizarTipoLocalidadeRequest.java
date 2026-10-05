@@ -24,13 +24,6 @@ public record AtualizarTipoLocalidadeRequest(
         )
         @NotBlank(message = "A descricao do tipo de localidade e obrigatoria")
         @Size(max = 100, message = "A descricao do tipo de localidade deve ter no maximo 100 caracteres")
-        String tipoLocalidade,
-
-        @Schema(
-                description = "Indica se o tipo de localidade está ativo",
-                example = "true",
-                defaultValue = "true"
-        )
-        Boolean ativo
+        String tipoLocalidade
 ) {
 }

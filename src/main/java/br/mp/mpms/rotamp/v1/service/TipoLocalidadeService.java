@@ -47,9 +47,6 @@ public class TipoLocalidadeService {
 
         tipo.setCodigo(request.codigo());
         tipo.setTipoLocalidade(request.tipoLocalidade());
-        if (request.ativo() != null) {
-            tipo.setAtivo(request.ativo());
-        }
 
         TipoLocalidade salvo = tipoLocalidadeRepository.save(tipo);
         return toResponse(salvo);
