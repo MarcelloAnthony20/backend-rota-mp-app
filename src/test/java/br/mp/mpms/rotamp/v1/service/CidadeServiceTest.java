@@ -207,7 +207,7 @@ class CidadeServiceTest {
                 .ativo(true)
                 .build();
 
-        AtualizarCidadeRequest request = new AtualizarCidadeRequest("Campo Grande Alterada", "5002704", true);
+        AtualizarCidadeRequest request = new AtualizarCidadeRequest("Campo Grande Alterada", "5002704");
 
         when(cidadeRepository.findById(id)).thenReturn(Optional.of(cidadeExistente));
         when(cidadeRepository.existsByCodigoAndIdNot("5002704", id)).thenReturn(false);
@@ -231,7 +231,7 @@ class CidadeServiceTest {
                 .ativo(true)
                 .build();
 
-        AtualizarCidadeRequest request = new AtualizarCidadeRequest("Corumba", "5002704", true);
+        AtualizarCidadeRequest request = new AtualizarCidadeRequest("Corumba", "5002704");
 
         when(cidadeRepository.findById(id)).thenReturn(Optional.of(cidade));
         when(cidadeRepository.existsByCodigoAndIdNot("5002704", id)).thenReturn(true);
@@ -247,7 +247,7 @@ class CidadeServiceTest {
     @DisplayName("deve lancar ResourceNotFoundException quando alterar cidade inexistente")
     void deve_lancarResourceNotFoundException_quando_alterarCidadeInexistente() {
         UUID id = UUID.fromString("c1d99999-9999-9999-9999-999999999999");
-        AtualizarCidadeRequest request = new AtualizarCidadeRequest("Fantasma", "5009999", true);
+        AtualizarCidadeRequest request = new AtualizarCidadeRequest("Fantasma", "5009999");
 
         when(cidadeRepository.findById(id)).thenReturn(Optional.empty());
 

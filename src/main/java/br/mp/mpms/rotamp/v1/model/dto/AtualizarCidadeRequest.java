@@ -24,12 +24,6 @@ public record AtualizarCidadeRequest(
         )
         @NotBlank(message = "O codigo da cidade e obrigatorio")
         @Size(max = 7, message = "O codigo da cidade deve ter no maximo 7 caracteres")
-        String codigo,
-
-        @Schema(
-                description = "Status de ativação da cidade no sistema",
-                example = "true"
-        )
-        Boolean ativo
+        String codigo
 ) {
 }

@@ -256,7 +256,7 @@ class CidadeControllerTest {
     @DisplayName("deve retornar 200 OK quando alterar cidade com perfil gestor")
     void deve_retornar200OK_quando_alterarCidadeComPerfilGestor() throws Exception {
         UUID id = UUID.fromString("c1d00001-0000-0000-0000-000000000001");
-        AtualizarCidadeRequest request = new AtualizarCidadeRequest("Campo Grande Alterada", "5002704", true);
+        AtualizarCidadeRequest request = new AtualizarCidadeRequest("Campo Grande Alterada", "5002704");
         CidadeResponse response = new CidadeResponse(id, "Campo Grande Alterada", "5002704", true);
 
         when(cidadeService.alterar(eq(id), any(AtualizarCidadeRequest.class))).thenReturn(response);
@@ -274,7 +274,7 @@ class CidadeControllerTest {
     @DisplayName("deve retornar 409 Conflict quando alterar com codigo duplicado")
     void deve_retornar409Conflict_quando_alterarComCodigoDuplicado() throws Exception {
         UUID id = UUID.fromString("c1d00007-0000-0000-0000-000000000007");
-        AtualizarCidadeRequest request = new AtualizarCidadeRequest("Corumba", "5002704", true);
+        AtualizarCidadeRequest request = new AtualizarCidadeRequest("Corumba", "5002704");
 
         when(cidadeService.alterar(eq(id), any(AtualizarCidadeRequest.class)))
                 .thenThrow(new ConflictException("Codigo de cidade ja em uso por outra cidade: 5002704"));
@@ -292,7 +292,7 @@ class CidadeControllerTest {
     @DisplayName("deve retornar 404 NotFound quando alterar cidade inexistente")
     void deve_retornar404NotFound_quando_alterarCidadeInexistente() throws Exception {
         UUID id = UUID.fromString("c1d99999-9999-9999-9999-999999999999");
-        AtualizarCidadeRequest request = new AtualizarCidadeRequest("Fantasma", "5009999", true);
+        AtualizarCidadeRequest request = new AtualizarCidadeRequest("Fantasma", "5009999");
 
         when(cidadeService.alterar(eq(id), any(AtualizarCidadeRequest.class)))
                 .thenThrow(new ResourceNotFoundException("Cidade nao encontrada"));
@@ -310,7 +310,7 @@ class CidadeControllerTest {
     @DisplayName("deve retornar 403 Forbidden quando alterar cidade sem perfil gestor")
     void deve_retornar403Forbidden_quando_alterarCidadeSemPerfilGestor() throws Exception {
         UUID id = UUID.fromString("c1d00001-0000-0000-0000-000000000001");
-        AtualizarCidadeRequest request = new AtualizarCidadeRequest("Tentativa Indevida", "5002704", true);
+        AtualizarCidadeRequest request = new AtualizarCidadeRequest("Tentativa Indevida", "5002704");
 
         mockMvc.perform(put("/api/v1/cidades/{id}", id)
                         .with(jwt().authorities(new SimpleGrantedAuthority("ROLE_USER")))

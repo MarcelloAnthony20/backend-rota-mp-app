@@ -47,9 +47,6 @@ public class CidadeService {
 
         cidade.setNome(request.nome());
         cidade.setCodigo(request.codigo());
-        if (request.ativo() != null) {
-            cidade.setAtivo(request.ativo());
-        }
 
         Cidade salva = cidadeRepository.save(cidade);
         return toResponse(salva);
