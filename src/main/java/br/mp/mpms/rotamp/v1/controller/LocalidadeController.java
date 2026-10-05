@@ -132,8 +132,10 @@ public class LocalidadeController {
     // TODO: Reativar @PreAuthorize("hasRole('GESTOR')") quando o Keycloak estiver integrado
     // @PreAuthorize("hasRole('GESTOR')")
     @Operation(
-            summary = "Alterar dados de uma localidade",
-            description = "Atualiza os dados cadastrais e de endereço de uma localidade existente."
+            summary = "Alterar dados cadastrais de uma localidade",
+            description = "Atualiza os dados cadastrais e de endereço de uma localidade existente identificada pelo UUID. "
+                    + "Para inativação lógica, utilize DELETE /{id}; para reativação, utilize PATCH /{id}/ativar. "
+                    + "Exige perfil com permissão GESTOR (`ROLE_GESTOR`)."
     )
     @ApiResponses({
             @ApiResponse(
@@ -143,7 +145,17 @@ public class LocalidadeController {
             ),
             @ApiResponse(
                     responseCode = "400",
-                    description = "Requisição inválida",
+                    description = "Requisição inválida ou violação de regra de negócio",
+                    content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Não autenticado - Token JWT ausente ou inválido",
+                    content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Acesso negado - Operação restrita ao perfil GESTOR",
                     content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))
             ),
             @ApiResponse(
@@ -174,7 +186,8 @@ public class LocalidadeController {
     // @PreAuthorize("hasRole('GESTOR')")
     @Operation(
             summary = "Inativar localidade (soft delete)",
-            description = "Inativa logicamente uma localidade com retorno HTTP 204 No Content sem corpo."
+            description = "Executa a inativação lógica de uma localidade no catálogo operacional a partir do seu UUID. "
+                    + "Retorno HTTP 204 No Content sem corpo. Exige perfil com permissão GESTOR (`ROLE_GESTOR`)."
     )
     @ApiResponses({
             @ApiResponse(
@@ -183,8 +196,18 @@ public class LocalidadeController {
                     content = @Content
             ),
             @ApiResponse(
+                    responseCode = "401",
+                    description = "Não autenticado - Token JWT ausente ou inválido",
+                    content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Acesso negado - Operação restrita ao perfil GESTOR",
+                    content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))
+            ),
+            @ApiResponse(
                     responseCode = "404",
-                    description = "Localidade não encontrada",
+                    description = "Localidade não encontrada para o ID informado",
                     content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))
             )
     })
@@ -200,7 +223,8 @@ public class LocalidadeController {
     // @PreAuthorize("hasRole('GESTOR')")
     @Operation(
             summary = "Ativar localidade",
-            description = "Reativa uma localidade inativa, desde que a cidade e o tipo vinculados estejam ativos."
+            description = "Reativa uma localidade inativa a partir do seu UUID, desde que a cidade e o tipo vinculados estejam ativos. "
+                    + "Exige perfil com permissão GESTOR (`ROLE_GESTOR`)."
     )
     @ApiResponses({
             @ApiResponse(
@@ -209,8 +233,18 @@ public class LocalidadeController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = LocalidadeResponse.class))
             ),
             @ApiResponse(
+                    responseCode = "401",
+                    description = "Não autenticado - Token JWT ausente ou inválido",
+                    content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Acesso negado - Operação restrita ao perfil GESTOR",
+                    content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))
+            ),
+            @ApiResponse(
                     responseCode = "404",
-                    description = "Localidade não encontrada",
+                    description = "Localidade não encontrada para o ID informado",
                     content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))
             ),
             @ApiResponse(

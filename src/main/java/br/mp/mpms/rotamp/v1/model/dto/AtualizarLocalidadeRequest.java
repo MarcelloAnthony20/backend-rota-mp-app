@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Size;
 
 import java.util.UUID;
 
-@Schema(description = "Requisição para alteração dos dados de uma localidade")
+@Schema(description = "Requisição para alteração dos dados cadastrais e de endereço de uma localidade. O status de ativação é gerido exclusivamente via DELETE /{id} (inativação) e PATCH /{id}/ativar (reativação).")
 public record AtualizarLocalidadeRequest(
         @Schema(
                 description = "Nome da localidade",
