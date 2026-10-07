@@ -43,7 +43,8 @@ import java.util.UUID;
 @RequestMapping("/api/v1/perfis")
 @RequiredArgsConstructor
 @Tag(name = "Perfis e Permissões", description = "Endpoints para gerenciamento de perfis institucionais e permissoes (HU-02)")
-@PreAuthorize("hasRole('ADMINISTRADOR')")
+// TODO: Reativar @PreAuthorize("hasRole('ADMINISTRADOR')") quando o Keycloak estiver integrado
+// @PreAuthorize("hasRole('ADMINISTRADOR')")
 public class PerfilController {
 
     private final PerfilService perfilService;
