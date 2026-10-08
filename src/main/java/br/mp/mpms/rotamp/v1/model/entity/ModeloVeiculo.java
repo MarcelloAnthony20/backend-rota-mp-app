@@ -2,9 +2,12 @@ package br.mp.mpms.rotamp.v1.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,8 +30,9 @@ public class ModeloVeiculo {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false, length = 100)
-    private String marca;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "fk_marca", nullable = false)
+    private Marca marca;
 
     @Column(nullable = false, length = 100)
     private String modelo;
@@ -36,10 +40,15 @@ public class ModeloVeiculo {
     @Column(name = "num_passageiro", nullable = false)
     private Integer numPassageiro;
 
-    @Column(length = 500)
-    private String logo;
-
     @Builder.Default
     @Column(nullable = false)
     private boolean ativo = true;
+
+    public String getNomeMarca() {
+        return marca != null ? marca.getNome() : null;
+    }
+
+    public String getLogo() {
+        return marca != null ? marca.getLogo() : null;
+    }
 }
