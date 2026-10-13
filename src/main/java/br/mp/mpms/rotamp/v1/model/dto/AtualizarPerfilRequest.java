@@ -11,7 +11,7 @@ public record AtualizarPerfilRequest(
         @Size(max = 255, message = "O nome do perfil deve ter no maximo 255 caracteres")
         String nome,
 
-        @Schema(description = "Descricao detalhada das responsabilidades", example = "Gestao de frotas e despacho operacional", requiredMode = Schema.RequiredMode.REQUIRED)
+        @Schema(description = "Descricao detalhada das responsabilidades", example = "Gestao de frotas e realizacao de viagens", requiredMode = Schema.RequiredMode.REQUIRED)
         @NotBlank(message = "A descricao do perfil e obrigatoria")
         @Size(max = 255, message = "A descricao do perfil deve ter no maximo 255 caracteres")
         String descricao
