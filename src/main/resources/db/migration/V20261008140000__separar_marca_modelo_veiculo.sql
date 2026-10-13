@@ -37,13 +37,15 @@ FROM marca m
 WHERE LOWER(TRIM(mv.marca)) = LOWER(m.nome);
 
 -- 5. Tornar fk_marca NOT NULL e adicionar Constraint de Chave Estrangeira
-ALTER TABLE modelo_veiculo ALTER COLUMN fk_marca SET NOT NULL;
+-- ALTER TABLE modelo_veiculo ALTER COLUMN fk_marca SET NOT NULL; -- Adiar até que todos os dados estejam consistentes
 ALTER TABLE modelo_veiculo ADD CONSTRAINT fk_modelo_veiculo_marca
-    FOREIGN KEY (fk_marca) REFERENCES marca (id) ON UPDATE CASCADE ON DELETE RESTRICT;
+    FOREIGN KEY (fk_marca) REFERENCES marca (id) ON DELETE RESTRICT; -- Removido ON UPDATE CASCADE (UUID não atualiza)
 
 -- 6. Remover colunas desnormalizadas 'marca' e 'logo' da tabela modelo_veiculo
-ALTER TABLE modelo_veiculo DROP COLUMN marca;
-ALTER TABLE modelo_veiculo DROP COLUMN logo;
+-- ATENÇÃO: Desabilitado temporariamente para evitar falhas destrutivas sem rollback na auditoria.
+-- Em uma próxima migration contract (após validar expansão), esses DROPs podem ser executados.
+-- ALTER TABLE modelo_veiculo DROP COLUMN marca;
+-- ALTER TABLE modelo_veiculo DROP COLUMN logo;
 
 -- 7. Índice para otimização de consultas por marca
 CREATE INDEX idx_modelo_veiculo_fk_marca ON modelo_veiculo (fk_marca);
