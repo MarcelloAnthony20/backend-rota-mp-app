@@ -32,8 +32,8 @@ public class MotoristaDataInitializer implements CommandLineRunner {
     }
 
     private void carregarMotoristas() {
-        UUID locCampoGrande = UUID.fromString("d1000001-0000-0000-0000-000000000001");
-        UUID locDourados = UUID.fromString("d1000002-0000-0000-0000-000000000002");
+        UUID locCidadania = UUID.fromString("d1000001-0000-0000-0000-000000000001");
+        UUID locReservado = UUID.fromString("d1000048-0000-0000-0000-000000000048");
 
         UUID usuarioMotorista1 = UUID.fromString("00000001-0000-0000-0000-000000000001");
         UUID usuarioMotorista2 = UUID.fromString("00000001-0000-0000-0000-000000000002");
@@ -42,7 +42,7 @@ public class MotoristaDataInitializer implements CommandLineRunner {
                 new MotoristaSeed(
                         UUID.fromString("00000005-0000-0000-0000-000000000001"),
                         "Carlos Silva",
-                        locCampoGrande,
+                        locCidadania,
                         "MOT-001",
                         "https://storage.mpms.mp.br/motoristas/carlos-silva.png",
                         "(67) 99123-4567",
@@ -53,7 +53,7 @@ public class MotoristaDataInitializer implements CommandLineRunner {
                 new MotoristaSeed(
                         UUID.fromString("00000005-0000-0000-0000-000000000002"),
                         "Joao Pereira",
-                        locDourados,
+                        locReservado,
                         "MOT-002",
                         "https://storage.mpms.mp.br/motoristas/joao-pereira.png",
                         "(67) 99234-5678",
