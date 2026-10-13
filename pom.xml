@@ -16,7 +16,7 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>rota-mp-app</name>
-    <description>Microsserviço de Gestão de Frotas e Despacho Logístico - Rota MP (MPMS)</description>
+    <description>Microsserviço de Gestão de Frotas e Viagens - Rota MP (MPMS)</description>
 
     <properties>
         <java.version>17</java.version>
