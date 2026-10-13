@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.lang.NonNull;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,7 +20,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
@@ -50,9 +49,9 @@ public class VisaoPerfilFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(
-            @NonNull HttpServletRequest request,
-            @NonNull HttpServletResponse response,
-            @NonNull FilterChain filterChain
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain
     ) throws ServletException, IOException {
 
         String visaoSolicitada = request.getHeader(HEADER_VISAO_PERFIL);
@@ -70,7 +69,7 @@ public class VisaoPerfilFilter extends OncePerRequestFilter {
         }
 
         boolean isAdmin = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
+                .map(auth -> auth.getAuthority())
                 .anyMatch(a -> a.equalsIgnoreCase(ROLE_ADMINISTRADOR) || a.equalsIgnoreCase("ADMINISTRADOR"));
 
         if (!isAdmin) {

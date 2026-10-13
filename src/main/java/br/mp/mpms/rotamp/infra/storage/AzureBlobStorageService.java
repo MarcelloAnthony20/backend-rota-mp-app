@@ -6,7 +6,6 @@ import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
 import com.azure.storage.blob.models.BlobHttpHeaders;
-import com.azure.storage.blob.models.PublicAccessType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -58,7 +57,7 @@ public class AzureBlobStorageService implements StorageService {
             return url;
         } catch (IOException ex) {
             log.error("Falha ao ler dados binarios do arquivo de foto para o veiculo {}", veiculoId, ex);
-            throw new BusinessException("Falha ao processar arquivo de imagem para armazenamento", HttpStatus.UNPROCESSABLE_ENTITY);
+            throw new BusinessException("Falha ao processar arquivo de imagem para armazenamento", HttpStatus.valueOf(422));
         } catch (Exception ex) {
             log.error("Falha na integracao com Azure Blob Storage / Azurite ao enviar arquivo", ex);
             throw new BusinessException("Falha de comunicacao com o servico de armazenamento de arquivos (Azure/Azurite)", HttpStatus.SERVICE_UNAVAILABLE);
@@ -86,6 +85,7 @@ public class AzureBlobStorageService implements StorageService {
             }
         } catch (Exception ex) {
             log.warn("Nao foi possivel remover a foto fisica do storage para a URL {}: {}", url, ex.getMessage());
+            throw new BusinessException("Falha ao remover arquivo físico do storage", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -112,7 +112,7 @@ public class AzureBlobStorageService implements StorageService {
             return url;
         } catch (IOException ex) {
             log.error("Falha ao ler dados binarios do arquivo de logotipo da marca {}", marca, ex);
-            throw new BusinessException("Falha ao processar arquivo de imagem para armazenamento", HttpStatus.UNPROCESSABLE_ENTITY);
+            throw new BusinessException("Falha ao processar arquivo de imagem para armazenamento", HttpStatus.valueOf(422));
         } catch (Exception ex) {
             log.error("Falha na integracao com Azure Blob Storage / Azurite ao enviar logotipo da marca {}", marca, ex);
             throw new BusinessException("Falha de comunicacao com o servico de armazenamento de arquivos (Azure/Azurite)", HttpStatus.SERVICE_UNAVAILABLE);
@@ -126,16 +126,16 @@ public class AzureBlobStorageService implements StorageService {
 
     private void validarArquivo(MultipartFile arquivo) {
         if (arquivo == null || arquivo.isEmpty()) {
-            throw new BusinessException("O arquivo de imagem e obrigatorio e nao pode estar vazio", HttpStatus.UNPROCESSABLE_ENTITY);
+            throw new BusinessException("O arquivo de imagem e obrigatorio e nao pode estar vazio", HttpStatus.valueOf(422));
         }
 
         if (arquivo.getSize() > TAMANHO_MAXIMO_BYTES) {
-            throw new BusinessException("O tamanho do arquivo excede o limite maximo permitido de 10 MB", HttpStatus.UNPROCESSABLE_ENTITY);
+            throw new BusinessException("O tamanho do arquivo excede o limite maximo permitido de 10 MB", HttpStatus.valueOf(422));
         }
 
         String contentType = arquivo.getContentType();
         if (contentType == null || !FORMATOS_PERMITIDOS.contains(contentType.toLowerCase())) {
-            throw new BusinessException("Formato de imagem invalido. Sao permitidos apenas JPEG, PNG e WEBP", HttpStatus.UNPROCESSABLE_ENTITY);
+            throw new BusinessException("Formato de imagem invalido. Sao permitidos apenas JPEG, PNG e WEBP", HttpStatus.valueOf(422));
         }
     }
 
@@ -159,9 +159,9 @@ public class AzureBlobStorageService implements StorageService {
             if (!containerClient.exists()) {
                 containerClient.create();
                 try {
-                    containerClient.setAccessPolicy(PublicAccessType.BLOB, null);
+                    containerClient.setAccessPolicy(null, null); // Alterado para null (Private) para segurança
                 } catch (Exception e) {
-                    log.debug("Aviso ao definir politica de acesso publico no container: {}", e.getMessage());
+                    log.debug("Aviso ao definir politica de acesso no container: {}", e.getMessage());
                 }
             }
         } catch (Exception ex) {

@@ -29,7 +29,7 @@ class KeycloakJwtGrantedAuthoritiesConverterTest {
         Collection<GrantedAuthority> authorities = converter.convert(jwt);
 
         assertThat(authorities)
-                .extracting(GrantedAuthority::getAuthority)
+                .extracting(a -> a.getAuthority())
                 .containsExactlyInAnyOrder("ROLE_ADMINISTRADOR", "ROLE_USER");
     }
 
@@ -48,7 +48,7 @@ class KeycloakJwtGrantedAuthoritiesConverterTest {
         Collection<GrantedAuthority> authorities = converter.convert(jwt);
 
         assertThat(authorities)
-                .extracting(GrantedAuthority::getAuthority)
+                .extracting(a -> a.getAuthority())
                 .containsExactlyInAnyOrder("ROLE_GESTOR", "ROLE_MOTORISTA");
     }
 

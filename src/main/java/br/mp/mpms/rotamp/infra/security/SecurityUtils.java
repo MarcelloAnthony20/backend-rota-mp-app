@@ -1,7 +1,6 @@
 package br.mp.mpms.rotamp.infra.security;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -33,8 +32,7 @@ public class SecurityUtils {
             return false;
         }
         return auth.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .anyMatch(VisaoPerfilFilter.ROLE_VISAO_SIMULADA::equalsIgnoreCase);
+                .anyMatch(a -> a != null && VisaoPerfilFilter.ROLE_VISAO_SIMULADA.equalsIgnoreCase(a.getAuthority()));
     }
 }
 

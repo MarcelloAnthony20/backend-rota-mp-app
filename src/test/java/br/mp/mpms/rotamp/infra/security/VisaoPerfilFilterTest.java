@@ -4,8 +4,6 @@ import br.mp.mpms.rotamp.v1.model.entity.Perfil;
 import br.mp.mpms.rotamp.v1.repository.PerfilRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

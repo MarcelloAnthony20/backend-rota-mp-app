@@ -47,7 +47,7 @@ public class GlobalExceptionHandler {
         }
 
         ProblemDetail problem = ProblemDetail.forStatusAndDetail(
-                HttpStatus.UNPROCESSABLE_ENTITY, "Erro de validacao nos campos enviados");
+                HttpStatus.valueOf(422), "Erro de validacao nos campos enviados");
         problem.setTitle("Validacao falhou");
         problem.setType(URI.create("about:blank"));
         problem.setProperty("timestamp", Instant.now());
@@ -71,7 +71,7 @@ public class GlobalExceptionHandler {
         ProblemDetail problem = ProblemDetail.forStatusAndDetail(
                 status, ex.getMessage());
         problem.setTitle(status == HttpStatus.CONFLICT ? "Conflito de dados"
-                : status == HttpStatus.UNPROCESSABLE_ENTITY ? "Entidade improcessavel"
+                : status == HttpStatus.valueOf(422) ? "Entidade improcessavel"
                 : "Erro de negocio");
         problem.setType(URI.create("about:blank"));
         problem.setProperty("timestamp", Instant.now());
