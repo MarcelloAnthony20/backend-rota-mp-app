@@ -10,14 +10,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "marca")
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,5 +30,10 @@ public class Marca {
 
     @Column(length = 500)
     private String logo;
+
+    public void atualizarDados(String nome, String logo) {
+        this.nome = nome;
+        this.logo = logo;
+    }
 }
 

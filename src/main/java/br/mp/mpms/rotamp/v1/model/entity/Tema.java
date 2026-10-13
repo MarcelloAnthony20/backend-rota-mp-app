@@ -10,14 +10,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "tema")
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,4 +27,8 @@ public class Tema {
 
     @Column(nullable = false)
     private boolean tema;
+
+    public void atualizarTema(boolean tema) {
+        this.tema = tema;
+    }
 }

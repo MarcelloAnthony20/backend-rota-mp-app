@@ -10,14 +10,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "tipo")
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -36,4 +34,17 @@ public class Tipo {
     @Builder.Default
     @Column(nullable = false)
     private boolean ativo = true;
+
+    public void atualizarDados(String nome, String descricao) {
+        this.nome = nome;
+        this.descricao = descricao;
+    }
+
+    public void ativar() {
+        this.ativo = true;
+    }
+
+    public void inativar() {
+        this.ativo = false;
+    }
 }

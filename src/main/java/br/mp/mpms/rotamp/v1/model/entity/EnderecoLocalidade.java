@@ -15,14 +15,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "endereco_localidade")
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -63,4 +61,18 @@ public class EnderecoLocalidade {
         foreignKey = @ForeignKey(name = "fk_endereco_localidade_localidade")
     )
     private Localidade fkLocalidade;
+
+    public void atualizarDados(String logradouro, String numero, String cep, String bairro, String complemento, Cidade cidade) {
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.cep = cep;
+        this.bairro = bairro;
+        this.complemento = complemento;
+        this.fkCidade = cidade;
+    }
+
+    void vincularLocalidadeECidade(Localidade localidade, Cidade cidade) {
+        this.fkLocalidade = localidade;
+        this.fkCidade = cidade;
+    }
 }

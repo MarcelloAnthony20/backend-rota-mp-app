@@ -10,14 +10,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "tela")
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,4 +30,9 @@ public class Tela {
 
     @Column(nullable = false)
     private String rota;
+
+    public void atualizarDados(String nome, String rota) {
+        this.nome = nome;
+        this.rota = rota;
+    }
 }

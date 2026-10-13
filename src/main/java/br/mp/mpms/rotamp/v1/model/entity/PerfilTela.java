@@ -1,6 +1,5 @@
 package br.mp.mpms.rotamp.v1.model.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
@@ -15,8 +14,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.util.UUID;
 
 @Entity
@@ -28,7 +25,6 @@ import java.util.UUID;
     )
 )
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

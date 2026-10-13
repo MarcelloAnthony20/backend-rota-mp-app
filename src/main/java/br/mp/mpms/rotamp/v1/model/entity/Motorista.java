@@ -18,14 +18,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "motorista")
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -76,5 +74,23 @@ public class Motorista {
         if (displayNome == null && fkUsuario != null) {
             displayNome = fkUsuario.getNome();
         }
+    }
+
+    public void atualizarDados(Localidade localidade, String matricula, String contatoPessoal, String contatoFuncional, String displayNome) {
+        this.fkLocalidade = localidade;
+        this.matricula = matricula;
+        this.contatoPessoal = contatoPessoal;
+        this.contatoFuncional = contatoFuncional;
+        if (displayNome != null && !displayNome.isBlank()) {
+            this.displayNome = displayNome;
+        }
+    }
+
+    public void atualizarFoto(String urlFoto) {
+        this.foto = urlFoto;
+    }
+
+    public void alterarStatus(StatusMotorista novoStatus) {
+        this.status = novoStatus;
     }
 }

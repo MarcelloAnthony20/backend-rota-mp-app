@@ -14,14 +14,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "foto_veiculo")
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -41,4 +39,8 @@ public class FotoVeiculo {
         foreignKey = @ForeignKey(name = "fk_foto_veiculo_veiculo")
     )
     private Veiculo fkVeiculo;
+
+    public void atualizarFoto(String fotoUrl) {
+        this.foto = fotoUrl;
+    }
 }

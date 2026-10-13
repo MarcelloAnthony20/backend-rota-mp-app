@@ -16,7 +16,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -24,7 +23,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "viagem")
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -67,4 +65,17 @@ public class Viagem {
 
     @Column(name = "data_conclusao")
     private LocalDateTime dataConclusao;
+
+    public void atualizarStatus(StatusViagem status) {
+        this.status = status;
+    }
+
+    public void concluir(LocalDateTime dataConclusao) {
+        this.status = StatusViagem.CONCLUIDA;
+        this.dataConclusao = dataConclusao;
+    }
+
+    public void cancelar() {
+        this.status = StatusViagem.CANCELADA;
+    }
 }

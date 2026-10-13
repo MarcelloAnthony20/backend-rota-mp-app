@@ -17,7 +17,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.UUID;
 
@@ -29,7 +28,6 @@ import java.util.UUID;
     }
 )
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -72,8 +70,22 @@ public class Localidade {
     public void atribuirEndereco(EnderecoLocalidade endereco) {
         this.endereco = endereco;
         if (endereco != null) {
-            endereco.setFkLocalidade(this);
-            endereco.setFkCidade(this.fkCidade);
+            endereco.vincularLocalidadeECidade(this, this.fkCidade);
         }
+    }
+
+    public void atualizarDados(TipoLocalidade tipoLocalidade, Cidade cidade, String nome, boolean localSigiloso) {
+        this.fkTipoLocalidade = tipoLocalidade;
+        this.fkCidade = cidade;
+        this.nome = nome;
+        this.localSigiloso = localSigiloso;
+    }
+
+    public void ativar() {
+        this.ativo = true;
+    }
+
+    public void inativar() {
+        this.ativo = false;
     }
 }

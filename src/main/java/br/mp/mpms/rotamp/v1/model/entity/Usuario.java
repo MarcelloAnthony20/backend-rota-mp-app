@@ -14,7 +14,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -24,7 +23,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "usuario")
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -70,4 +68,28 @@ public class Usuario {
     @UpdateTimestamp
     @Column(name = "data_atualizacao")
     private LocalDateTime dataAtualizacao;
+
+    public void atualizarDados(String nome, String email, Tema tema, Perfil perfil, String mailNickname) {
+        this.nome = nome;
+        this.email = email;
+        this.fkTema = tema;
+        this.fkPerfil = perfil;
+        this.mailNickname = mailNickname;
+    }
+
+    public void ativar() {
+        this.ativo = true;
+    }
+
+    public void inativar() {
+        this.ativo = false;
+    }
+
+    public void alterarTema(Tema tema) {
+        this.fkTema = tema;
+    }
+
+    public void vincularPerfil(Perfil perfil) {
+        this.fkPerfil = perfil;
+    }
 }

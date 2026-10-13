@@ -16,7 +16,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -25,7 +24,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "solicitacao_atendimento")
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -89,4 +87,11 @@ public class SolicitacaoAtendimento {
 
     @Column(name = "data_pedido", nullable = false)
     private LocalDateTime dataPedido;
+
+    public void atualizarStatus(StatusSolicitacao novoStatus, LocalDateTime dataAnalise) {
+        this.status = novoStatus;
+        if (dataAnalise != null) {
+            this.dataAnalise = dataAnalise;
+        }
+    }
 }
