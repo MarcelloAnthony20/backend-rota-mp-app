@@ -104,9 +104,7 @@ public class ModeloVeiculoService {
         Marca marcaAntiga = modeloExistente.getMarca();
         Marca marcaNova = obterOuCriarMarca(nomeMarcaNova, request.logo(), null);
 
-        modeloExistente.setMarca(marcaNova);
-        modeloExistente.setModelo(nomeModeloNovo);
-        modeloExistente.setNumPassageiro(request.numPassageiro());
+        modeloExistente.atualizarDados(marcaNova, nomeModeloNovo, request.numPassageiro());
 
         ModeloVeiculo salvo = modeloVeiculoRepository.save(modeloExistente);
 
@@ -121,7 +119,7 @@ public class ModeloVeiculoService {
     public void inativar(UUID id) {
         ModeloVeiculo modelo = modeloVeiculoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Modelo de veiculo nao encontrado"));
-        modelo.setAtivo(false);
+        modelo.inativar();
         modeloVeiculoRepository.save(modelo);
     }
 
@@ -129,7 +127,7 @@ public class ModeloVeiculoService {
     public ModeloVeiculoResponse ativar(UUID id) {
         ModeloVeiculo modelo = modeloVeiculoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Modelo de veiculo nao encontrado"));
-        modelo.setAtivo(true);
+        modelo.ativar();
         return toResponse(modeloVeiculoRepository.save(modelo));
     }
 
@@ -142,7 +140,7 @@ public class ModeloVeiculoService {
         String logoAntiga = marca.getLogo();
 
         String urlNova = storageService.armazenarLogo(marca.getNome(), arquivo);
-        marca.setLogo(urlNova);
+        marca.atualizarDados(marca.getNome(), urlNova);
         marcaRepository.save(marca);
 
         if (StringUtils.hasText(logoAntiga)) {
@@ -160,7 +158,7 @@ public class ModeloVeiculoService {
         Marca marca = modelo.getMarca();
         String logoAntiga = marca.getLogo();
 
-        marca.setLogo(urlLogo);
+        marca.atualizarDados(marca.getNome(), urlLogo);
         marcaRepository.save(marca);
 
         if (StringUtils.hasText(logoAntiga) && !logoAntiga.equalsIgnoreCase(urlLogo)) {
@@ -177,13 +175,13 @@ public class ModeloVeiculoService {
             if (arquivoLogo != null && !arquivoLogo.isEmpty()) {
                 String logoAntiga = existente.getLogo();
                 String novaUrl = storageService.armazenarLogo(existente.getNome(), arquivoLogo);
-                existente.setLogo(novaUrl);
+                existente.atualizarDados(existente.getNome(), novaUrl);
                 marcaRepository.save(existente);
                 if (StringUtils.hasText(logoAntiga)) {
                     storageService.removerLogo(logoAntiga);
                 }
             } else if (StringUtils.hasText(urlLogo)) {
-                existente.setLogo(urlLogo);
+                existente.atualizarDados(existente.getNome(), urlLogo);
                 marcaRepository.save(existente);
             }
             return existente;

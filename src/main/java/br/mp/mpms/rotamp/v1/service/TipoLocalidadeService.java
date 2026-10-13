@@ -45,8 +45,7 @@ public class TipoLocalidadeService {
             throw new ConflictException("Codigo de tipo de localidade ja em uso por outro registro: " + request.codigo());
         }
 
-        tipo.setCodigo(request.codigo());
-        tipo.setTipoLocalidade(request.tipoLocalidade());
+        tipo.atualizarDados(request.codigo(), request.tipoLocalidade());
 
         TipoLocalidade salvo = tipoLocalidadeRepository.save(tipo);
         return toResponse(salvo);
@@ -55,14 +54,14 @@ public class TipoLocalidadeService {
     @Transactional
     public void inativar(UUID id) {
         TipoLocalidade tipo = buscarEntidadePorId(id);
-        tipo.setAtivo(false);
+        tipo.inativar();
         tipoLocalidadeRepository.save(tipo);
     }
 
     @Transactional
     public TipoLocalidadeResponse ativar(UUID id) {
         TipoLocalidade tipo = buscarEntidadePorId(id);
-        tipo.setAtivo(true);
+        tipo.ativar();
         TipoLocalidade salvo = tipoLocalidadeRepository.save(tipo);
         return toResponse(salvo);
     }

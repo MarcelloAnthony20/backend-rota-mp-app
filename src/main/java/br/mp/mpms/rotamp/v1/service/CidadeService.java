@@ -45,8 +45,7 @@ public class CidadeService {
             throw new ConflictException("Codigo de cidade ja em uso por outra cidade: " + request.codigo());
         }
 
-        cidade.setNome(request.nome());
-        cidade.setCodigo(request.codigo());
+        cidade.atualizarDados(request.nome(), request.codigo());
 
         Cidade salva = cidadeRepository.save(cidade);
         return toResponse(salva);
@@ -55,14 +54,14 @@ public class CidadeService {
     @Transactional
     public void inativar(UUID id) {
         Cidade cidade = buscarEntidadePorId(id);
-        cidade.setAtivo(false);
+        cidade.inativar();
         cidadeRepository.save(cidade);
     }
 
     @Transactional
     public CidadeResponse ativar(UUID id) {
         Cidade cidade = buscarEntidadePorId(id);
-        cidade.setAtivo(true);
+        cidade.ativar();
         Cidade salva = cidadeRepository.save(cidade);
         return toResponse(salva);
     }

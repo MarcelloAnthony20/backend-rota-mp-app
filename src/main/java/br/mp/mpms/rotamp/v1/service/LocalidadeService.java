@@ -40,13 +40,13 @@ public class LocalidadeService {
         Cidade cidade = cidadeRepository.findById(request.cidadeId())
                 .orElseThrow(() -> new ResourceNotFoundException("Cidade nao encontrada"));
         if (!cidade.isAtivo()) {
-            throw new BusinessException("A cidade selecionada deve estar ativa", HttpStatus.UNPROCESSABLE_ENTITY);
+            throw new BusinessException("A cidade selecionada deve estar ativa", HttpStatus.valueOf(422));
         }
 
         TipoLocalidade tipo = tipoLocalidadeRepository.findById(request.tipoLocalidadeId())
                 .orElseThrow(() -> new ResourceNotFoundException("Tipo de localidade nao encontrado"));
         if (!tipo.isAtivo()) {
-            throw new BusinessException("O tipo de localidade selecionado deve estar ativo", HttpStatus.UNPROCESSABLE_ENTITY);
+            throw new BusinessException("O tipo de localidade selecionado deve estar ativo", HttpStatus.valueOf(422));
         }
 
         if (localidadeRepository.existsByFkCidadeIdAndFkTipoLocalidadeIdAndNomeIgnoreCase(
@@ -62,7 +62,7 @@ public class LocalidadeService {
                     || request.numero() == null || request.numero().isBlank()) {
                 throw new BusinessException(
                         "Endereco completo e obrigatorio para localidades nao sigilosas",
-                        HttpStatus.UNPROCESSABLE_ENTITY);
+                        HttpStatus.valueOf(422));
             }
         }
 
@@ -75,7 +75,7 @@ public class LocalidadeService {
                 if (logradouro == null || logradouro.isBlank() || bairro == null || bairro.isBlank()) {
                     throw new BusinessException(
                             "Logradouro e bairro sao obrigatorios para o endereco",
-                            HttpStatus.UNPROCESSABLE_ENTITY);
+                            HttpStatus.valueOf(422));
                 }
             }
 
@@ -113,13 +113,13 @@ public class LocalidadeService {
         Cidade cidade = cidadeRepository.findById(request.cidadeId())
                 .orElseThrow(() -> new ResourceNotFoundException("Cidade nao encontrada"));
         if (!cidade.isAtivo()) {
-            throw new BusinessException("A cidade vinculada deve estar ativa", HttpStatus.UNPROCESSABLE_ENTITY);
+            throw new BusinessException("A cidade vinculada deve estar ativa", HttpStatus.valueOf(422));
         }
 
         TipoLocalidade tipo = tipoLocalidadeRepository.findById(request.tipoLocalidadeId())
                 .orElseThrow(() -> new ResourceNotFoundException("Tipo de localidade nao encontrado"));
         if (!tipo.isAtivo()) {
-            throw new BusinessException("O tipo de localidade informado deve estar ativo", HttpStatus.UNPROCESSABLE_ENTITY);
+            throw new BusinessException("O tipo de localidade informado deve estar ativo", HttpStatus.valueOf(422));
         }
 
         if (localidadeRepository.existsByFkCidadeIdAndFkTipoLocalidadeIdAndNomeIgnoreCaseAndIdNot(
@@ -133,7 +133,7 @@ public class LocalidadeService {
                     || request.numero() == null || request.numero().isBlank()) {
                 throw new BusinessException(
                         "Endereco completo e obrigatorio para localidades nao sigilosas",
-                        HttpStatus.UNPROCESSABLE_ENTITY);
+                        HttpStatus.valueOf(422));
             }
         }
 
@@ -145,7 +145,7 @@ public class LocalidadeService {
             if (!sigiloso && (logradouro == null || logradouro.isBlank() || bairro == null || bairro.isBlank())) {
                 throw new BusinessException(
                         "Logradouro e bairro sao obrigatorios para o endereco",
-                        HttpStatus.UNPROCESSABLE_ENTITY);
+                        HttpStatus.valueOf(422));
             }
 
             EnderecoLocalidade endereco = localidade.getEndereco();
@@ -153,18 +153,17 @@ public class LocalidadeService {
                 endereco = EnderecoLocalidade.builder().build();
                 localidade.atribuirEndereco(endereco);
             }
-            endereco.setCep(request.cep().replaceAll("\\D", ""));
-            endereco.setLogradouro(logradouro);
-            endereco.setNumero(request.numero());
-            endereco.setBairro(bairro);
-            endereco.setComplemento(request.complemento());
-            endereco.setFkCidade(cidade);
+            endereco.atualizarDados(
+                logradouro,
+                request.numero(),
+                request.cep().replaceAll("\\D", ""),
+                bairro,
+                request.complemento(),
+                cidade
+            );
         }
 
-        localidade.setNome(request.nome());
-        localidade.setFkCidade(cidade);
-        localidade.setFkTipoLocalidade(tipo);
-        localidade.setLocalSigiloso(sigiloso);
+        localidade.atualizarDados(tipo, cidade, request.nome(), sigiloso);
         Localidade salva = localidadeRepository.save(localidade);
         return toResponse(salva);
     }
@@ -173,7 +172,7 @@ public class LocalidadeService {
     public void inativar(UUID id) {
         Localidade localidade = localidadeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Localidade nao encontrada"));
-        localidade.setAtivo(false);
+        localidade.inativar();
         localidadeRepository.save(localidade);
     }
 
@@ -185,15 +184,15 @@ public class LocalidadeService {
         if (!localidade.getFkCidade().isAtivo()) {
             throw new BusinessException(
                     "Nao e possivel ativar a localidade: a cidade vinculada esta inativa",
-                    HttpStatus.UNPROCESSABLE_ENTITY);
+                    HttpStatus.valueOf(422));
         }
         if (!localidade.getFkTipoLocalidade().isAtivo()) {
             throw new BusinessException(
                     "Nao e possivel ativar a localidade: o tipo de localidade vinculado esta inativo",
-                    HttpStatus.UNPROCESSABLE_ENTITY);
+                    HttpStatus.valueOf(422));
         }
 
-        localidade.setAtivo(true);
+        localidade.ativar();
         Localidade salva = localidadeRepository.save(localidade);
         return toResponse(salva);
     }
@@ -208,10 +207,10 @@ public class LocalidadeService {
         if (!tipo.isAtivo()) {
             throw new BusinessException(
                     "O tipo de localidade informado deve estar ativo",
-                    HttpStatus.UNPROCESSABLE_ENTITY);
+                    HttpStatus.valueOf(422));
         }
 
-        localidade.setFkTipoLocalidade(tipo);
+        localidade.atualizarDados(tipo, localidade.getFkCidade(), localidade.getNome(), localidade.isLocalSigiloso());
         Localidade salva = localidadeRepository.save(localidade);
         return toResponse(salva);
     }
@@ -225,10 +224,10 @@ public class LocalidadeService {
         if (!novoSigilo && localidade.getEndereco() == null) {
             throw new BusinessException(
                     "Nao e possivel remover o sigilo: a localidade nao possui endereco cadastrado",
-                    HttpStatus.UNPROCESSABLE_ENTITY);
+                    HttpStatus.valueOf(422));
         }
 
-        localidade.setLocalSigiloso(novoSigilo);
+        localidade.atualizarDados(localidade.getFkTipoLocalidade(), localidade.getFkCidade(), localidade.getNome(), novoSigilo);
         Localidade salva = localidadeRepository.save(localidade);
         return toResponse(salva);
     }

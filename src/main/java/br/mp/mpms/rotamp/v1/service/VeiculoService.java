@@ -67,22 +67,27 @@ public class VeiculoService {
 
     @Transactional(readOnly = true)
     public Page<VeiculoResponse> listar(Pageable pageable) {
-        return listar(pageable, null, null, null, null);
+        return listar(pageable, new br.mp.mpms.rotamp.v1.model.dto.VeiculoFiltroRequest(null, null, null, null));
     }
 
     @Transactional(readOnly = true)
     public Page<VeiculoResponse> listar(Pageable pageable, Boolean ativo, UUID localidadeId, UUID modeloId, String placa) {
-        if (placa != null && !placa.isBlank()) {
-            return veiculoRepository.findByPlacaContainingIgnoreCase(placa.trim(), pageable).map(this::toResponse);
+        return listar(pageable, new br.mp.mpms.rotamp.v1.model.dto.VeiculoFiltroRequest(ativo, localidadeId, modeloId, placa));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<VeiculoResponse> listar(Pageable pageable, br.mp.mpms.rotamp.v1.model.dto.VeiculoFiltroRequest filtro) {
+        if (filtro.placa() != null && !filtro.placa().isBlank()) {
+            return veiculoRepository.findByPlacaContainingIgnoreCase(filtro.placa().trim(), pageable).map(this::toResponse);
         }
-        if (localidadeId != null) {
-            return veiculoRepository.findByFkLocalidadeId(localidadeId, pageable).map(this::toResponse);
+        if (filtro.localidadeId() != null) {
+            return veiculoRepository.findByFkLocalidadeId(filtro.localidadeId(), pageable).map(this::toResponse);
         }
-        if (modeloId != null) {
-            return veiculoRepository.findByFkModeloId(modeloId, pageable).map(this::toResponse);
+        if (filtro.modeloId() != null) {
+            return veiculoRepository.findByFkModeloId(filtro.modeloId(), pageable).map(this::toResponse);
         }
-        if (ativo != null) {
-            return veiculoRepository.findByAtivo(ativo, pageable).map(this::toResponse);
+        if (filtro.ativo() != null) {
+            return veiculoRepository.findByAtivo(filtro.ativo(), pageable).map(this::toResponse);
         }
         return veiculoRepository.findAll(pageable).map(this::toResponse);
     }
@@ -99,10 +104,7 @@ public class VeiculoService {
         ModeloVeiculo modelo = buscarModeloAtivo(request.modeloId());
         Localidade localidade = buscarLocalidadeAtiva(request.localidadeId());
 
-        veiculo.setPlaca(placaNormalizada);
-        veiculo.setAno(request.ano());
-        veiculo.setFkModelo(modelo);
-        veiculo.setFkLocalidade(localidade);
+        veiculo.atualizarDados(placaNormalizada, request.ano(), modelo, localidade);
 
         Veiculo salvo = veiculoRepository.save(veiculo);
         return toResponse(salvo);
@@ -111,29 +113,14 @@ public class VeiculoService {
     @Transactional
     public void inativar(UUID id) {
         Veiculo veiculo = buscarEntidadePorId(id);
-        veiculo.setAtivo(false);
+        veiculo.inativar();
         veiculoRepository.save(veiculo);
     }
 
     @Transactional
     public VeiculoResponse ativar(UUID id) {
         Veiculo veiculo = buscarEntidadePorId(id);
-
-        if (!veiculo.getFkModelo().isAtivo()) {
-            throw new BusinessException(
-                    "Nao e possivel ativar o veiculo pois o modelo vinculado esta inativo",
-                    HttpStatus.UNPROCESSABLE_ENTITY
-            );
-        }
-
-        if (!veiculo.getFkLocalidade().isAtivo()) {
-            throw new BusinessException(
-                    "Nao e possivel ativar o veiculo pois a localidade vinculada esta inativa",
-                    HttpStatus.UNPROCESSABLE_ENTITY
-            );
-        }
-
-        veiculo.setAtivo(true);
+        veiculo.ativar();
         Veiculo salvo = veiculoRepository.save(veiculo);
         return toResponse(salvo);
     }
@@ -143,7 +130,7 @@ public class VeiculoService {
         Veiculo veiculo = buscarEntidadePorId(id);
         Localidade localidade = buscarLocalidadeAtiva(localidadeId);
 
-        veiculo.setFkLocalidade(localidade);
+        veiculo.vincularLocalidade(localidade);
         Veiculo salvo = veiculoRepository.save(veiculo);
         return toResponse(salvo);
     }
@@ -159,7 +146,7 @@ public class VeiculoService {
         if (!modelo.isAtivo()) {
             throw new BusinessException(
                     "Nao e possivel vincular um modelo de veiculo inativo",
-                    HttpStatus.UNPROCESSABLE_ENTITY
+                    HttpStatus.valueOf(422)
             );
         }
         return modelo;
@@ -171,7 +158,7 @@ public class VeiculoService {
         if (!localidade.isAtivo()) {
             throw new BusinessException(
                     "Nao e possivel vincular um veiculo a uma localidade inativa",
-                    HttpStatus.UNPROCESSABLE_ENTITY
+                    HttpStatus.valueOf(422)
             );
         }
         return localidade;

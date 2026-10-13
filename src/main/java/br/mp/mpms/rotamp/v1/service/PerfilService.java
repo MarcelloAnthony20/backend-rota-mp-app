@@ -64,8 +64,7 @@ public class PerfilService {
             throw new ConflictException("Ja existe outro perfil cadastrado com este nome");
         }
 
-        perfil.setNome(request.nome().trim());
-        perfil.setDescricao(request.descricao().trim());
+        perfil.atualizarDados(request.nome().trim(), request.descricao().trim());
 
         Perfil salvo = perfilRepository.save(perfil);
         return toResponseComTelas(salvo);
@@ -79,7 +78,12 @@ public class PerfilService {
             throw new ConflictException("Nao e possivel inativar o perfil pois existem usuarios ativos vinculados a ele");
         }
 
-        perfil.setAtivo(ativo);
+        if (Boolean.TRUE.equals(ativo)) {
+            perfil.ativar();
+        } else {
+            perfil.inativar();
+        }
+
         Perfil salvo = perfilRepository.save(perfil);
         return toResponseComTelas(salvo);
     }
@@ -135,7 +139,7 @@ public class PerfilService {
             throw new ConflictException("O usuario ja possui este perfil institucional ativo");
         }
 
-        usuario.setFkPerfil(perfil);
+        usuario.vincularPerfil(perfil);
         Usuario salvo = usuarioRepository.save(usuario);
         return toUsuarioResponse(salvo);
     }
@@ -146,7 +150,7 @@ public class PerfilService {
         validarPerfilAtivoParaVinculo(perfil);
 
         Usuario usuario = buscarUsuarioPorId(usuarioId);
-        usuario.setFkPerfil(perfil);
+        usuario.vincularPerfil(perfil);
         Usuario salvo = usuarioRepository.save(usuario);
         return toUsuarioResponse(salvo);
     }
@@ -177,7 +181,7 @@ public class PerfilService {
     private void validarPerfilAtivoParaVinculo(Perfil perfil) {
         if (!perfil.isAtivo()) {
             throw new BusinessException("Nao e possivel vincular um perfil inativo a um usuario",
-                    HttpStatus.UNPROCESSABLE_ENTITY);
+                    HttpStatus.valueOf(422));
         }
     }
 

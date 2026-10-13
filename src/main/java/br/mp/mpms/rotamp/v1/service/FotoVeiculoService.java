@@ -88,7 +88,7 @@ public class FotoVeiculoService {
         String fotoAntiga = foto.getFoto();
         String novaUrl = storageService.armazenarFoto(veiculoId, novoArquivo);
 
-        foto.setFoto(novaUrl);
+        foto.atualizarFoto(novaUrl);
         FotoVeiculo salva = fotoVeiculoRepository.save(foto);
 
         storageService.removerFoto(fotoAntiga);
@@ -101,7 +101,7 @@ public class FotoVeiculoService {
         FotoVeiculo foto = fotoVeiculoRepository.findByIdAndFkVeiculoId(fotoId, veiculoId)
                 .orElseThrow(() -> new ResourceNotFoundException("Foto de veiculo nao encontrada para o veiculo informado"));
 
-        foto.setFoto(request.foto().trim());
+        foto.atualizarFoto(request.foto().trim());
         FotoVeiculo salva = fotoVeiculoRepository.save(foto);
         return toResponse(salva);
     }
@@ -135,7 +135,7 @@ public class FotoVeiculoService {
         String fotoAntiga = foto.getFoto();
         String novaUrl = storageService.armazenarFoto(foto.getFkVeiculo().getId(), novoArquivo);
 
-        foto.setFoto(novaUrl);
+        foto.atualizarFoto(novaUrl);
         FotoVeiculo salva = fotoVeiculoRepository.save(foto);
 
         storageService.removerFoto(fotoAntiga);
@@ -147,7 +147,7 @@ public class FotoVeiculoService {
         FotoVeiculo foto = fotoVeiculoRepository.findById(fotoId)
                 .orElseThrow(() -> new ResourceNotFoundException("Foto de veiculo nao encontrada"));
 
-        foto.setFoto(request.foto().trim());
+        foto.atualizarFoto(request.foto().trim());
         FotoVeiculo salva = fotoVeiculoRepository.save(foto);
         return toResponse(salva);
     }
