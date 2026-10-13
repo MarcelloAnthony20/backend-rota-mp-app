@@ -1,6 +1,6 @@
 # Backend — Rota MP (MPMS)
 
-Microsserviço de Gestão de Frotas e Despacho Logístico do Ministério Público do Estado de Mato Grosso do Sul (MPMS).
+Microsserviço de Gestão de Frotas e Viagens do Ministério Público do Estado de Mato Grosso do Sul (MPMS).
 
 ## Stack
 
