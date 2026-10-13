@@ -12,7 +12,7 @@
 
 | Campo | Descrição |
 |---------|---------|
-| **Objetivo** | Validar que o sistema impede terminantemente a seleção ou vinculação de uma cidade com status inativo (Seed Cidade B: `c1d00002-0000-0000-0000-000000000002`, inativada no CT-CID-022) em novos cadastros de localidades e despachos operacionais, retornando HTTP 400 Bad Request ou 422 Unprocessable Entity, comprovando o fechamento do pipeline de Cidades. |
+| **Objetivo** | Validar que o sistema impede terminantemente a seleção ou vinculação de uma cidade com status inativo (Seed Cidade B: `c1d00002-0000-0000-0000-000000000002`, inativada no CT-CID-022) em novos cadastros de localidades e viagens operacionais, retornando HTTP 400 Bad Request ou 422 Unprocessable Entity, comprovando o fechamento do pipeline de Cidades. |
 
 ## Condições Pré-Teste
 

@@ -50,7 +50,7 @@
 | 1 | Operação de inativação/deleção concluída com sucesso retornando status HTTP `204 No Content`. |
 | 2 | Resposta sem corpo de dados (Empty Body), em estrita conformidade com a especificação HTTP 204. |
 | 3 | Estado da Seed Cidade B no banco de dados é alterado para inativo (`ativo = false`) por meio de exclusão lógica (soft delete). |
-| 4 | Registro preservado para integridade histórica com localidades e despachos já existentes. |
+| 4 | Registro preservado para integridade histórica com localidades e viagens já existentes. |
 
 ## Resultado Obtido
 
