@@ -96,7 +96,7 @@ class TipoLocalidadeControllerTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isUnprocessableEntity())
+                .andExpect(status().is(422))
                 .andExpect(jsonPath("$.title").value("Validacao falhou"))
                 .andExpect(jsonPath("$.errors.codigo").exists());
     }
@@ -111,7 +111,7 @@ class TipoLocalidadeControllerTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isUnprocessableEntity())
+                .andExpect(status().is(422))
                 .andExpect(jsonPath("$.title").value("Validacao falhou"))
                 .andExpect(jsonPath("$.errors.tipoLocalidade").exists());
     }
@@ -127,7 +127,7 @@ class TipoLocalidadeControllerTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isUnprocessableEntity())
+                .andExpect(status().is(422))
                 .andExpect(jsonPath("$.errors.codigo").exists());
     }
 
@@ -142,7 +142,7 @@ class TipoLocalidadeControllerTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isUnprocessableEntity())
+                .andExpect(status().is(422))
                 .andExpect(jsonPath("$.errors.tipoLocalidade").exists());
     }
 
@@ -295,7 +295,7 @@ class TipoLocalidadeControllerTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isUnprocessableEntity())
+                .andExpect(status().is(422))
                 .andExpect(jsonPath("$.title").value("Validacao falhou"))
                 .andExpect(jsonPath("$.errors.codigo").exists());
     }
@@ -311,7 +311,7 @@ class TipoLocalidadeControllerTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isUnprocessableEntity())
+                .andExpect(status().is(422))
                 .andExpect(jsonPath("$.errors.tipoLocalidade").exists());
     }
 

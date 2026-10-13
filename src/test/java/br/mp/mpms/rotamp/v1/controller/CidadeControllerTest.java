@@ -93,7 +93,7 @@ class CidadeControllerTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isUnprocessableEntity())
+                .andExpect(status().is(422))
                 .andExpect(jsonPath("$.title").value("Validacao falhou"))
                 .andExpect(jsonPath("$.errors.nome").exists());
     }
@@ -108,7 +108,7 @@ class CidadeControllerTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isUnprocessableEntity())
+                .andExpect(status().is(422))
                 .andExpect(jsonPath("$.title").value("Validacao falhou"))
                 .andExpect(jsonPath("$.errors.codigo").exists());
     }
@@ -124,7 +124,7 @@ class CidadeControllerTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isUnprocessableEntity())
+                .andExpect(status().is(422))
                 .andExpect(jsonPath("$.errors.nome").exists());
     }
 

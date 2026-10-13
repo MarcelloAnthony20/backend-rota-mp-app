@@ -92,7 +92,7 @@ class VeiculoControllerTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isUnprocessableEntity())
+                .andExpect(status().is(422))
                 .andExpect(jsonPath("$.errors.placa").exists());
     }
 
@@ -163,7 +163,7 @@ class VeiculoControllerTest {
     @DisplayName("deve retornar 200 OK quando listar veiculos da frota")
     void deve_retornar200OK_quando_listarVeiculosDaFrota() throws Exception {
         VeiculoResponse v1 = new VeiculoResponse(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), "ABC1234", 2023, true);
-        when(veiculoService.listar(any(Pageable.class), any(), any(), any(), any()))
+        when(veiculoService.listar(any(Pageable.class), any(br.mp.mpms.rotamp.v1.model.dto.VeiculoFiltroRequest.class)))
                 .thenReturn(new PageImpl<>(List.of(v1)));
 
         mockMvc.perform(get("/api/v1/veiculos")

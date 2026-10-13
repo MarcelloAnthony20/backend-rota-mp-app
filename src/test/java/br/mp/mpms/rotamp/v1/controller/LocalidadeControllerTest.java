@@ -109,7 +109,7 @@ class LocalidadeControllerTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isUnprocessableEntity())
+                .andExpect(status().is(422))
                 .andExpect(jsonPath("$.title").value("Validacao falhou"))
                 .andExpect(jsonPath("$.errors.nome").exists());
     }
@@ -126,7 +126,7 @@ class LocalidadeControllerTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isUnprocessableEntity())
+                .andExpect(status().is(422))
                 .andExpect(jsonPath("$.errors.numero").exists());
     }
 
@@ -142,7 +142,7 @@ class LocalidadeControllerTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isUnprocessableEntity())
+                .andExpect(status().is(422))
                 .andExpect(jsonPath("$.errors.cep").exists());
     }
 
@@ -173,14 +173,14 @@ class LocalidadeControllerTest {
         );
 
         when(localidadeService.cadastrar(any(CriarLocalidadeRequest.class)))
-                .thenThrow(new BusinessException("A cidade selecionada deve estar ativa", HttpStatus.UNPROCESSABLE_ENTITY));
+                .thenThrow(new BusinessException("A cidade selecionada deve estar ativa", HttpStatus.valueOf(422)));
 
         mockMvc.perform(post("/api/v1/localidades")
                         .with(jwt().authorities(new SimpleGrantedAuthority("ROLE_GESTOR")))
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isUnprocessableEntity())
+                .andExpect(status().is(422))
                 .andExpect(jsonPath("$.detail").value("A cidade selecionada deve estar ativa"));
     }
 
