@@ -34,13 +34,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping({"/api/v1/veiculos/foto", "/api/v1/veiculos/fotos"})
+@RequestMapping("/api/v1/veiculos/foto")
 @RequiredArgsConstructor
 @Tag(name = "Fotos de Veículos", description = "Endpoints para upload, armazenamento no Azure/Azurite e gerenciamento de fotos da frota")
+
 public class FotoVeiculoController {
 
     private final FotoVeiculoService fotoVeiculoService;
@@ -166,14 +166,14 @@ public class FotoVeiculoController {
                     content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = ProblemDetail.class))
             )
     })
-    public ResponseEntity<List<FotoVeiculoResponse>> listar(
+    public ResponseEntity<?> listar( // Changed to ResponseEntity<?> to accommodate both List and Page
             @Parameter(description = "Identificador único (UUID) do veículo (opcional)")
             @RequestParam(value = "veiculoId", required = false) UUID veiculoId,
             @ParameterObject @PageableDefault(size = 20) Pageable pageable) {
         if (veiculoId != null) {
             return ResponseEntity.ok(fotoVeiculoService.listarPorVeiculo(veiculoId));
         }
-        return ResponseEntity.ok(fotoVeiculoService.listar(pageable).getContent());
+        return ResponseEntity.ok(fotoVeiculoService.listar(pageable)); // Retorna a página completa com metadados
     }
 
     @GetMapping("/{fotoId}")

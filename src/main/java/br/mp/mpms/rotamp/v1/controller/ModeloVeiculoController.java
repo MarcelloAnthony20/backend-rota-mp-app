@@ -37,9 +37,10 @@ import java.net.URI;
 import java.util.UUID;
 
 @RestController
-@RequestMapping({"/api/v1/veiculos/modelo", "/api/v1/veiculos/modelos", "/api/v1/modelos-veiculo"})
+@RequestMapping("/api/v1/veiculos/modelo")
 @RequiredArgsConstructor
 @Tag(name = "Modelos de Veículos", description = "Endpoints para gerenciamento do catálogo de modelos de veículos da frota do MPMS")
+
 public class ModeloVeiculoController {
 
     private final ModeloVeiculoService modeloVeiculoService;
