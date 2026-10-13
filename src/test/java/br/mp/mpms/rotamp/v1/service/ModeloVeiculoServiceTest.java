@@ -13,7 +13,6 @@ import br.mp.mpms.rotamp.v1.repository.ModeloVeiculoRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -30,7 +29,6 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -63,12 +61,12 @@ class ModeloVeiculoServiceTest {
         when(marcaRepository.findByNomeIgnoreCase("Toyota")).thenReturn(Optional.empty());
         when(marcaRepository.save(any(Marca.class))).thenAnswer(inv -> {
             Marca m = inv.getArgument(0);
-            m.setId(marcaId);
+            org.springframework.test.util.ReflectionTestUtils.setField(m, "id", marcaId);
             return m;
         });
         when(modeloVeiculoRepository.save(any(ModeloVeiculo.class))).thenAnswer(inv -> {
             ModeloVeiculo m = inv.getArgument(0);
-            m.setId(id);
+            org.springframework.test.util.ReflectionTestUtils.setField(m, "id", id);
             return m;
         });
 
@@ -96,7 +94,7 @@ class ModeloVeiculoServiceTest {
         when(marcaRepository.findByNomeIgnoreCase("Toyota")).thenReturn(Optional.of(marcaExistente));
         when(modeloVeiculoRepository.save(any(ModeloVeiculo.class))).thenAnswer(inv -> {
             ModeloVeiculo m = inv.getArgument(0);
-            m.setId(id);
+            org.springframework.test.util.ReflectionTestUtils.setField(m, "id", id);
             return m;
         });
 
@@ -121,7 +119,7 @@ class ModeloVeiculoServiceTest {
         when(marcaRepository.save(any(Marca.class))).thenAnswer(inv -> inv.getArgument(0));
         when(modeloVeiculoRepository.save(any(ModeloVeiculo.class))).thenAnswer(inv -> {
             ModeloVeiculo m = inv.getArgument(0);
-            m.setId(UUID.randomUUID());
+            org.springframework.test.util.ReflectionTestUtils.setField(m, "id", UUID.randomUUID());
             return m;
         });
 
@@ -197,7 +195,7 @@ class ModeloVeiculoServiceTest {
         Page<ModeloVeiculoResponse> result = modeloVeiculoService.listar(pageable);
 
         assertThat(result.getTotalElements()).isEqualTo(2);
-        assertThat(result.getContent()).extracting(ModeloVeiculoResponse::modelo).containsExactly("Corolla", "Civic");
+        assertThat(result.getContent()).extracting(m -> m.modelo()).containsExactly("Corolla", "Civic");
     }
 
     // --- ALTERAÇÃO ---

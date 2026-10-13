@@ -2,7 +2,6 @@ package br.mp.mpms.rotamp.v1.service;
 
 import br.mp.mpms.rotamp.infra.exception.ResourceNotFoundException;
 import br.mp.mpms.rotamp.infra.storage.StorageService;
-import br.mp.mpms.rotamp.v1.model.dto.AtualizarFotoVeiculoRequest;
 import br.mp.mpms.rotamp.v1.model.dto.CriarFotoVeiculoRequest;
 import br.mp.mpms.rotamp.v1.model.dto.FotoVeiculoResponse;
 import br.mp.mpms.rotamp.v1.model.entity.FotoVeiculo;
@@ -56,7 +55,7 @@ class FotoVeiculoServiceTest {
         when(storageService.armazenarFoto(veiculoId, arquivo)).thenReturn(urlGerada);
         when(fotoVeiculoRepository.save(any(FotoVeiculo.class))).thenAnswer(inv -> {
             FotoVeiculo f = inv.getArgument(0);
-            f.setId(fotoId);
+            org.springframework.test.util.ReflectionTestUtils.setField(f, "id", fotoId);
             return f;
         });
 
@@ -79,7 +78,7 @@ class FotoVeiculoServiceTest {
         when(veiculoRepository.findById(veiculoId)).thenReturn(Optional.of(veiculo));
         when(fotoVeiculoRepository.save(any(FotoVeiculo.class))).thenAnswer(inv -> {
             FotoVeiculo f = inv.getArgument(0);
-            f.setId(fotoId);
+            org.springframework.test.util.ReflectionTestUtils.setField(f, "id", fotoId);
             return f;
         });
 

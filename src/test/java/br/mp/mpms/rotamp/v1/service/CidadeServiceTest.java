@@ -50,7 +50,7 @@ class CidadeServiceTest {
         when(cidadeRepository.existsByCodigo("5002704")).thenReturn(false);
         when(cidadeRepository.save(any(Cidade.class))).thenAnswer(invocation -> {
             Cidade c = invocation.getArgument(0);
-            c.setId(idGerado);
+            org.springframework.test.util.ReflectionTestUtils.setField(c, "id", idGerado);
             return c;
         });
 
@@ -89,7 +89,7 @@ class CidadeServiceTest {
         when(cidadeRepository.existsByCodigo("5003207")).thenReturn(false);
         when(cidadeRepository.save(any(Cidade.class))).thenAnswer(invocation -> {
             Cidade c = invocation.getArgument(0);
-            c.setId(idGerado);
+            org.springframework.test.util.ReflectionTestUtils.setField(c, "id", idGerado);
             return c;
         });
 
@@ -188,9 +188,9 @@ class CidadeServiceTest {
         Page<CidadeResponse> result = cidadeService.listar(pageable);
 
         assertThat(result.getTotalElements()).isEqualTo(2);
-        assertThat(result.getContent()).extracting(CidadeResponse::nome)
+        assertThat(result.getContent()).extracting(c -> c.nome())
                 .containsExactly("Campo Grande Alterada", "Dourados");
-        assertThat(result.getContent()).extracting(CidadeResponse::ativo)
+        assertThat(result.getContent()).extracting(c -> c.ativo())
                 .containsExactly(true, false);
     }
 

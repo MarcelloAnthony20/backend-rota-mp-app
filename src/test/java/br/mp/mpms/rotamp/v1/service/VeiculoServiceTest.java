@@ -72,7 +72,7 @@ class VeiculoServiceTest {
         when(localidadeRepository.findById(localidadeId)).thenReturn(Optional.of(localidade));
         when(veiculoRepository.save(any(Veiculo.class))).thenAnswer(inv -> {
             Veiculo v = inv.getArgument(0);
-            v.setId(veiculoId);
+            org.springframework.test.util.ReflectionTestUtils.setField(v, "id", veiculoId);
             return v;
         });
 
@@ -214,7 +214,7 @@ class VeiculoServiceTest {
         Page<VeiculoResponse> result = veiculoService.listar(pageable);
 
         assertThat(result.getTotalElements()).isEqualTo(2);
-        assertThat(result.getContent()).extracting(VeiculoResponse::placa).containsExactly("ABC1234", "XYZ5678");
+        assertThat(result.getContent()).extracting(v -> v.placa()).containsExactly("ABC1234", "XYZ5678");
     }
 
     // --- ALTERAÇÃO (HU-04.3) ---

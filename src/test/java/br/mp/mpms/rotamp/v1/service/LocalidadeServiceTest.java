@@ -118,9 +118,9 @@ class LocalidadeServiceTest {
         UUID locId = UUID.randomUUID();
         when(localidadeRepository.save(any(Localidade.class))).thenAnswer(inv -> {
             Localidade l = inv.getArgument(0);
-            l.setId(locId);
+            org.springframework.test.util.ReflectionTestUtils.setField(l, "id", locId);
             if (l.getEndereco() != null) {
-                l.getEndereco().setId(UUID.randomUUID());
+                org.springframework.test.util.ReflectionTestUtils.setField(l.getEndereco(), "id", UUID.randomUUID());
             }
             return l;
         });
@@ -161,7 +161,7 @@ class LocalidadeServiceTest {
         UUID locId = UUID.randomUUID();
         when(localidadeRepository.save(any(Localidade.class))).thenAnswer(inv -> {
             Localidade l = inv.getArgument(0);
-            l.setId(locId);
+            org.springframework.test.util.ReflectionTestUtils.setField(l, "id", locId);
             return l;
         });
 
@@ -188,7 +188,7 @@ class LocalidadeServiceTest {
     @Test
     @DisplayName("deve bloquear cadastro quando cidade for inativa (422)")
     void deve_bloquearCadastro_quandoCidadeInativa() {
-        cidadeAtiva.setAtivo(false);
+        cidadeAtiva.inativar();
         CriarLocalidadeRequest request = new CriarLocalidadeRequest(
                 "Promotoria", cidadeId, tipoId, "79002-000", "Rua da Paz", "140", "Centro", null, false, true);
 
@@ -196,7 +196,7 @@ class LocalidadeServiceTest {
 
         assertThatThrownBy(() -> localidadeService.cadastrar(request))
                 .isInstanceOf(BusinessException.class)
-                .satisfies(ex -> assertThat(((BusinessException) ex).getStatus()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY));
+                .satisfies(ex -> assertThat(((BusinessException) ex).getStatus()).isEqualTo(HttpStatus.valueOf(422)));
     }
 
     @Test
@@ -216,7 +216,7 @@ class LocalidadeServiceTest {
     @Test
     @DisplayName("deve bloquear cadastro quando tipo de localidade for inativo (422)")
     void deve_bloquearCadastro_quandoTipoInativo() {
-        tipoAtivo.setAtivo(false);
+        tipoAtivo.inativar();
         CriarLocalidadeRequest request = new CriarLocalidadeRequest(
                 "Promotoria", cidadeId, tipoId, "79002-000", "Rua da Paz", "140", "Centro", null, false, true);
 
@@ -225,7 +225,7 @@ class LocalidadeServiceTest {
 
         assertThatThrownBy(() -> localidadeService.cadastrar(request))
                 .isInstanceOf(BusinessException.class)
-                .satisfies(ex -> assertThat(((BusinessException) ex).getStatus()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY));
+                .satisfies(ex -> assertThat(((BusinessException) ex).getStatus()).isEqualTo(HttpStatus.valueOf(422)));
     }
 
     @Test
@@ -257,7 +257,7 @@ class LocalidadeServiceTest {
 
         assertThatThrownBy(() -> localidadeService.cadastrar(request))
                 .isInstanceOf(BusinessException.class)
-                .satisfies(ex -> assertThat(((BusinessException) ex).getStatus()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY));
+                .satisfies(ex -> assertThat(((BusinessException) ex).getStatus()).isEqualTo(HttpStatus.valueOf(422)));
     }
 
     // --- SIGILO RN-2 ---
@@ -445,7 +445,7 @@ class LocalidadeServiceTest {
     void deve_bloquearAlteracao_quandoCidadeInativa() {
         UUID locId = UUID.randomUUID();
         Localidade existente = Localidade.builder().id(locId).build();
-        cidadeAtiva.setAtivo(false);
+        cidadeAtiva.inativar();
 
         AtualizarLocalidadeRequest request = new AtualizarLocalidadeRequest(
                 "Nome Novo", cidadeId, tipoId, "79002-000", "Rua da Paz", "140", "Centro", null, false);
@@ -455,7 +455,7 @@ class LocalidadeServiceTest {
 
         assertThatThrownBy(() -> localidadeService.alterar(locId, request))
                 .isInstanceOf(BusinessException.class)
-                .satisfies(ex -> assertThat(((BusinessException) ex).getStatus()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY));
+                .satisfies(ex -> assertThat(((BusinessException) ex).getStatus()).isEqualTo(HttpStatus.valueOf(422)));
     }
 
     @Test
@@ -463,7 +463,7 @@ class LocalidadeServiceTest {
     void deve_bloquearAlteracao_quandoTipoInativo() {
         UUID locId = UUID.randomUUID();
         Localidade existente = Localidade.builder().id(locId).build();
-        tipoAtivo.setAtivo(false);
+        tipoAtivo.inativar();
 
         AtualizarLocalidadeRequest request = new AtualizarLocalidadeRequest(
                 "Nome Novo", cidadeId, tipoId, "79002-000", "Rua da Paz", "140", "Centro", null, false);
@@ -474,7 +474,7 @@ class LocalidadeServiceTest {
 
         assertThatThrownBy(() -> localidadeService.alterar(locId, request))
                 .isInstanceOf(BusinessException.class)
-                .satisfies(ex -> assertThat(((BusinessException) ex).getStatus()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY));
+                .satisfies(ex -> assertThat(((BusinessException) ex).getStatus()).isEqualTo(HttpStatus.valueOf(422)));
     }
 
     @Test
@@ -537,7 +537,7 @@ class LocalidadeServiceTest {
     @DisplayName("deve bloquear reativacao quando cidade vinculada estiver inativa (422)")
     void deve_bloquearReativacao_quandoCidadeInativa() {
         UUID locId = UUID.randomUUID();
-        cidadeAtiva.setAtivo(false);
+        cidadeAtiva.inativar();
         Localidade loc = Localidade.builder()
                 .id(locId)
                 .fkCidade(cidadeAtiva)
@@ -549,14 +549,14 @@ class LocalidadeServiceTest {
 
         assertThatThrownBy(() -> localidadeService.ativar(locId))
                 .isInstanceOf(BusinessException.class)
-                .satisfies(ex -> assertThat(((BusinessException) ex).getStatus()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY));
+                .satisfies(ex -> assertThat(((BusinessException) ex).getStatus()).isEqualTo(HttpStatus.valueOf(422)));
     }
 
     @Test
     @DisplayName("deve bloquear reativacao quando tipo vinculado estiver inativo (422)")
     void deve_bloquearReativacao_quandoTipoInativo() {
         UUID locId = UUID.randomUUID();
-        tipoAtivo.setAtivo(false);
+        tipoAtivo.inativar();
         Localidade loc = Localidade.builder()
                 .id(locId)
                 .fkCidade(cidadeAtiva)
@@ -568,7 +568,7 @@ class LocalidadeServiceTest {
 
         assertThatThrownBy(() -> localidadeService.ativar(locId))
                 .isInstanceOf(BusinessException.class)
-                .satisfies(ex -> assertThat(((BusinessException) ex).getStatus()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY));
+                .satisfies(ex -> assertThat(((BusinessException) ex).getStatus()).isEqualTo(HttpStatus.valueOf(422)));
     }
 
     // --- CLASSIFICAÇÃO & CONFIGURAÇÃO DE SIGILO ---
@@ -604,7 +604,7 @@ class LocalidadeServiceTest {
 
         assertThatThrownBy(() -> localidadeService.classificar(locId, new ClassificarLocalidadeRequest(novoTipoId)))
                 .isInstanceOf(BusinessException.class)
-                .satisfies(ex -> assertThat(((BusinessException) ex).getStatus()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY));
+                .satisfies(ex -> assertThat(((BusinessException) ex).getStatus()).isEqualTo(HttpStatus.valueOf(422)));
     }
 
     @Test

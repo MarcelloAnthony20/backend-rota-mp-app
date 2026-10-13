@@ -50,7 +50,7 @@ class TipoLocalidadeServiceTest {
         when(tipoLocalidadeRepository.existsByCodigo("PROJUS")).thenReturn(false);
         when(tipoLocalidadeRepository.save(any(TipoLocalidade.class))).thenAnswer(invocation -> {
             TipoLocalidade t = invocation.getArgument(0);
-            t.setId(idGerado);
+            org.springframework.test.util.ReflectionTestUtils.setField(t, "id", idGerado);
             return t;
         });
 
@@ -89,7 +89,7 @@ class TipoLocalidadeServiceTest {
         when(tipoLocalidadeRepository.existsByCodigo("POSTO_INATIVO")).thenReturn(false);
         when(tipoLocalidadeRepository.save(any(TipoLocalidade.class))).thenAnswer(invocation -> {
             TipoLocalidade t = invocation.getArgument(0);
-            t.setId(idGerado);
+            org.springframework.test.util.ReflectionTestUtils.setField(t, "id", idGerado);
             return t;
         });
 
@@ -155,9 +155,9 @@ class TipoLocalidadeServiceTest {
         Page<TipoLocalidadeResponse> result = tipoLocalidadeService.listar(pageable);
 
         assertThat(result.getTotalElements()).isEqualTo(2);
-        assertThat(result.getContent()).extracting(TipoLocalidadeResponse::codigo)
+        assertThat(result.getContent()).extracting(t -> t.codigo())
                 .containsExactly("PROJUS", "SEDEADM");
-        assertThat(result.getContent()).extracting(TipoLocalidadeResponse::ativo)
+        assertThat(result.getContent()).extracting(t -> t.ativo())
                 .containsExactly(true, false);
     }
 
