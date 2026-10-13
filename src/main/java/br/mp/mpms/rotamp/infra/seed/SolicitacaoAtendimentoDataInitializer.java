@@ -61,11 +61,8 @@ public class SolicitacaoAtendimentoDataInitializer implements CommandLineRunner 
         UUID usuarioMembro = UUID.fromString("00000001-0000-0000-0000-000000000003");
         UUID usuarioSolicitante = UUID.fromString("00000001-0000-0000-0000-000000000004");
 
-        UUID locCampoGrandeCidadania = UUID.fromString("d1000001-0000-0000-0000-000000000001");
-        UUID locDourados = UUID.fromString("d1000002-0000-0000-0000-000000000002");
-        UUID locCampoGrandePromotorias = UUID.fromString("d1000003-0000-0000-0000-000000000003");
-        UUID locCampoGrandePGJ = UUID.fromString("d1000004-0000-0000-0000-000000000004");
-        UUID locTresLagoas = UUID.fromString("d1000005-0000-0000-0000-000000000005");
+        UUID locCidadania = UUID.fromString("d1000001-0000-0000-0000-000000000001");
+        UUID locReservado = UUID.fromString("d1000048-0000-0000-0000-000000000048");
 
         LocalDateTime agora = LocalDateTime.now();
 
@@ -74,12 +71,12 @@ public class SolicitacaoAtendimentoDataInitializer implements CommandLineRunner 
                         UUID.fromString("00000007-0000-0000-0000-000000000001"),
                         tipoAudiencia,
                         usuarioMembro,
-                        locCampoGrandeCidadania,
-                        locDourados,
+                        locCidadania,
+                        locReservado,
                         "ACEITO",
                         "ALTA",
                         2,
-                        "Participação em audiência de júri na Comarca de Dourados",
+                        "Audiência e oitiva reservada de testemunhas",
                         agora.minusDays(2).withHour(8).withMinute(0),
                         agora.minusDays(5),
                         agora.minusDays(3)
@@ -88,12 +85,12 @@ public class SolicitacaoAtendimentoDataInitializer implements CommandLineRunner 
                         UUID.fromString("00000007-0000-0000-0000-000000000002"),
                         tipoDiligencia,
                         usuarioMembro,
-                        locDourados,
-                        locCampoGrandePGJ,
+                        locReservado,
+                        locCidadania,
                         "ACEITO",
                         "ALTA",
                         1,
-                        "Inspeção técnica e entrega de relatórios na PGJ",
+                        "Inspeção técnica e entrega de relatórios",
                         agora.withHour(7).withMinute(0),
                         agora.minusDays(2),
                         agora.minusDays(1)
@@ -102,12 +99,12 @@ public class SolicitacaoAtendimentoDataInitializer implements CommandLineRunner 
                         UUID.fromString("00000007-0000-0000-0000-000000000003"),
                         tipoReuniao,
                         usuarioSolicitante,
-                        locCampoGrandePromotorias,
-                        locTresLagoas,
+                        locCidadania,
+                        locReservado,
                         "ACEITO",
                         "REGULAR",
                         3,
-                        "Alinhamento com comissão regional de Três Lagoas",
+                        "Alinhamento setorial reservado",
                         agora.plusDays(1).withHour(8).withMinute(0),
                         agora.minusDays(1),
                         agora
@@ -116,12 +113,12 @@ public class SolicitacaoAtendimentoDataInitializer implements CommandLineRunner 
                         UUID.fromString("00000007-0000-0000-0000-000000000004"),
                         tipoDiligencia,
                         usuarioSolicitante,
-                        locCampoGrandeCidadania,
-                        locDourados,
+                        locReservado,
+                        locCidadania,
                         "PENDENTE",
                         "REGULAR",
                         2,
-                        "Apoio a vistorias preliminares ambientais",
+                        "Apoio operacional e vistoria preliminar",
                         agora.plusDays(3).withHour(9).withMinute(0),
                         agora,
                         null
