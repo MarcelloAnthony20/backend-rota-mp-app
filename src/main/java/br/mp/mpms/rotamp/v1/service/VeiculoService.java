@@ -71,11 +71,6 @@ public class VeiculoService {
     }
 
     @Transactional(readOnly = true)
-    public Page<VeiculoResponse> listar(Pageable pageable, Boolean ativo, UUID localidadeId, UUID modeloId, String placa) {
-        return listar(pageable, new br.mp.mpms.rotamp.v1.model.dto.VeiculoFiltroRequest(ativo, localidadeId, modeloId, placa));
-    }
-
-    @Transactional(readOnly = true)
     public Page<VeiculoResponse> listar(Pageable pageable, br.mp.mpms.rotamp.v1.model.dto.VeiculoFiltroRequest filtro) {
         if (filtro.placa() != null && !filtro.placa().isBlank()) {
             return veiculoRepository.findByPlacaContainingIgnoreCase(filtro.placa().trim(), pageable).map(this::toResponse);

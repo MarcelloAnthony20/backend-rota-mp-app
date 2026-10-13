@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -172,16 +171,9 @@ public class VeiculoController {
             )
     })
     public ResponseEntity<Page<VeiculoResponse>> listar(
-            @Parameter(description = "Filtro opcional por situação ativa/inativa")
-            @RequestParam(required = false) Boolean ativo,
-            @Parameter(description = "Filtro opcional por localidade de origem (UUID)")
-            @RequestParam(required = false) UUID localidadeId,
-            @Parameter(description = "Filtro opcional por modelo de veículo (UUID)")
-            @RequestParam(required = false) UUID modeloId,
-            @Parameter(description = "Termo para busca textual aproximada por placa (case-insensitive)", example = "RPA")
-            @RequestParam(required = false) String placa,
+            @ParameterObject br.mp.mpms.rotamp.v1.model.dto.VeiculoFiltroRequest filtro,
             @ParameterObject @PageableDefault(size = 20) Pageable pageable) {
-        return ResponseEntity.ok(veiculoService.listar(pageable, ativo, localidadeId, modeloId, placa));
+        return ResponseEntity.ok(veiculoService.listar(pageable, filtro));
     }
 
     @PutMapping("/{id}")
