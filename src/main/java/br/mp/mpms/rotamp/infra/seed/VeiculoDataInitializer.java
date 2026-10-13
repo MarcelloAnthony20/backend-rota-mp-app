@@ -23,8 +23,8 @@ public class VeiculoDataInitializer implements CommandLineRunner {
             """;
 
     private static final String INSERT_MODELO_SQL = """
-            INSERT INTO modelo_veiculo (id, fk_marca, marca, modelo, num_passageiro, ativo)
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO modelo_veiculo (id, fk_marca, modelo, num_passageiro, ativo)
+            VALUES (?, ?, ?, ?, ?)
             ON CONFLICT (id) DO NOTHING
             """;
 
@@ -62,13 +62,13 @@ public class VeiculoDataInitializer implements CommandLineRunner {
         UUID marcaRenault = UUID.fromString("00000002-0000-0000-0000-000000000003");
 
         List<ModeloSeed> seeds = List.of(
-                new ModeloSeed(UUID.fromString("00000003-0000-0000-0000-000000000001"), marcaToyota, "Toyota", "Corolla Sedan", 5, true),
-                new ModeloSeed(UUID.fromString("00000003-0000-0000-0000-000000000002"), marcaToyota, "Toyota", "Hilux 4x4", 5, true),
-                new ModeloSeed(UUID.fromString("00000003-0000-0000-0000-000000000003"), marcaChevrolet, "Chevrolet", "Spin Minivan", 7, true),
-                new ModeloSeed(UUID.fromString("00000003-0000-0000-0000-000000000004"), marcaRenault, "Renault", "Duster SUV", 5, true)
+                new ModeloSeed(UUID.fromString("00000003-0000-0000-0000-000000000001"), marcaToyota, "Corolla Sedan", 5, true),
+                new ModeloSeed(UUID.fromString("00000003-0000-0000-0000-000000000002"), marcaToyota, "Hilux 4x4", 5, true),
+                new ModeloSeed(UUID.fromString("00000003-0000-0000-0000-000000000003"), marcaChevrolet, "Spin Minivan", 7, true),
+                new ModeloSeed(UUID.fromString("00000003-0000-0000-0000-000000000004"), marcaRenault, "Duster SUV", 5, true)
         );
         for (ModeloSeed s : seeds) {
-            jdbcTemplate.update(INSERT_MODELO_SQL, s.id(), s.fkMarca(), s.marca(), s.modelo(), s.numPassageiro(), s.ativo());
+            jdbcTemplate.update(INSERT_MODELO_SQL, s.id(), s.fkMarca(), s.modelo(), s.numPassageiro(), s.ativo());
         }
     }
 
@@ -77,14 +77,13 @@ public class VeiculoDataInitializer implements CommandLineRunner {
         UUID modeloHilux = UUID.fromString("00000003-0000-0000-0000-000000000002");
         UUID modeloSpin = UUID.fromString("00000003-0000-0000-0000-000000000003");
 
-        UUID locCampoGrande = UUID.fromString("d1000001-0000-0000-0000-000000000001");
-        UUID locDourados = UUID.fromString("d1000002-0000-0000-0000-000000000002");
-        UUID locTresLagoas = UUID.fromString("d1000005-0000-0000-0000-000000000005");
+        UUID locCidadania = UUID.fromString("d1000001-0000-0000-0000-000000000001");
+        UUID locReservado = UUID.fromString("d1000048-0000-0000-0000-000000000048");
 
         List<VeiculoSeed> seeds = List.of(
-                new VeiculoSeed(UUID.fromString("00000004-0000-0000-0000-000000000001"), modeloCorolla, locCampoGrande, "RPA1A23", 2024, true),
-                new VeiculoSeed(UUID.fromString("00000004-0000-0000-0000-000000000002"), modeloHilux, locDourados, "RPB2B34", 2023, true),
-                new VeiculoSeed(UUID.fromString("00000004-0000-0000-0000-000000000003"), modeloSpin, locTresLagoas, "RPC3C45", 2024, true)
+                new VeiculoSeed(UUID.fromString("00000004-0000-0000-0000-000000000001"), modeloCorolla, locCidadania, "RPA1A23", 2024, true),
+                new VeiculoSeed(UUID.fromString("00000004-0000-0000-0000-000000000002"), modeloHilux, locCidadania, "RPB2B34", 2023, true),
+                new VeiculoSeed(UUID.fromString("00000004-0000-0000-0000-000000000003"), modeloSpin, locReservado, "RPC3C45", 2024, true)
         );
         for (VeiculoSeed s : seeds) {
             jdbcTemplate.update(INSERT_VEICULO_SQL, s.id(), s.fkModelo(), s.fkLocalidade(), s.placa(), s.ano(), s.ativo());
@@ -92,7 +91,7 @@ public class VeiculoDataInitializer implements CommandLineRunner {
     }
 
     private record MarcaSeed(UUID id, String nome, String logo) {}
-    private record ModeloSeed(UUID id, UUID fkMarca, String marca, String modelo, int numPassageiro, boolean ativo) {}
+    private record ModeloSeed(UUID id, UUID fkMarca, String modelo, int numPassageiro, boolean ativo) {}
     private record VeiculoSeed(UUID id, UUID fkModelo, UUID fkLocalidade, String placa, int ano, boolean ativo) {}
 }
 

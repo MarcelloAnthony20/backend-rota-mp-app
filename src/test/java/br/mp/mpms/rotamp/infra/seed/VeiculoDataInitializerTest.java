@@ -27,11 +27,13 @@ class VeiculoDataInitializerTest {
     @DisplayName("deve executar inserts de seeds para marcas, modelos e veiculos")
     void deve_executar_inserts_quando_inicializar() {
         lenient().when(jdbcTemplate.update(anyString(), any(), any(), any())).thenReturn(1);
+        lenient().when(jdbcTemplate.update(anyString(), any(), any(), any(), any(), any())).thenReturn(1);
         lenient().when(jdbcTemplate.update(anyString(), any(), any(), any(), any(), any(), any())).thenReturn(1);
 
         initializer.run();
 
         verify(jdbcTemplate, atLeastOnce()).update(anyString(), any(), any(), any());
+        verify(jdbcTemplate, atLeastOnce()).update(anyString(), any(), any(), any(), any(), any());
         verify(jdbcTemplate, atLeastOnce()).update(anyString(), any(), any(), any(), any(), any(), any());
     }
 }
