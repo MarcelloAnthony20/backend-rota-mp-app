@@ -19,13 +19,13 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Rota MP API - Sistema de Gestão de Frotas e Despacho Logístico")
+                        .title("Rota MP API - Sistema de Gestão de Frotas e Viagens")
                         .description("""
                                 API para gestão de frotas e viagens do MPMS. Autenticação via Keycloak (Bearer JWT).
 
                                 ### Perfis de Usuário:
                                 - **ADMINISTRADOR**: Gerencia acessos, permissões e usuários.
-                                - **GESTOR**: Gerencia a frota e despacha as viagens.
+                                - **GESTOR**: Gerencia a frota e as viagens.
                                 - **MEMBRO**: Procuradores e Promotores (solicitações com Alta Prioridade).
                                 - **CLIENTE**: Servidores e assessores (solicitações com Prioridade Regular).
                                 - **MOTORISTA**: Condutores oficiais (executa viagens e atualiza status).
@@ -59,8 +59,8 @@ public class OpenApiConfig {
                                 .name("Solicitações de Atendimento")
                                 .description("Solicitação, acompanhamento e cancelamento de viagens."),
                         new Tag()
-                                .name("Despacho Logístico")
-                                .description("Triagem, aprovação e despacho de viagens."),
+                                .name("Viagens")
+                                .description("Gestão, acompanhamento e execução de viagens realizadas."),
                         new Tag()
                                 .name("Usuários")
                                 .description("Gestão de usuários institucionais e auditoria de acessos."),
